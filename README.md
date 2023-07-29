@@ -1,2 +1,2 @@
-# minishill
-this repo is made to start coding the execution part of the minishill
+# minishell
+this repo is made to start coding the execution part of the minishell
