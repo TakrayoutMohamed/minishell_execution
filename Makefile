@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
+#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/07/31 15:20:16 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/07/31 18:30:40 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ CFLAGS=
 # CFLAGS=-Wall -Werror -Wextra
 RM=rm -f
 
-READLINE_INC = -I $(shell brew --prefix readline)/include 
-READLINE_LIB = -lreadline -L $(shell brew --prefix readline)/lib
+READLINE_INC = -I/goinfre/$(USER)/homebrew/opt/readline/include
+READLINE_LIB = -lreadline -L/goinfre/$(USER)/homebrew/opt/readline/lib
 
 PATHEXEC= ./execution/
 PATHPARS= ./parsing/
@@ -33,7 +33,7 @@ MAIN_OBJ=$(MAIN_SRC:.c=.o)
 all:$(NAME)
 
 $(NAME) : $(OBJ) $(MAIN_OBJ) $(LIBMINI)
-		$(CC) $(READLINE_LIB) -o $@  $(LIBMINI) $(MAIN_OBJ)
+		$(CC) -o $@  $(LIBMINI) $(MAIN_OBJ) $(OBJ) $(READLINE_LIB)
 		@echo "the executable $@ has been created"
 
 $(LIBMINI): $(OBJ)
@@ -41,7 +41,7 @@ $(LIBMINI): $(OBJ)
 		@echo "the libmini.a archieve has been created"
 
 %.o: %.c ./libminishell.h ./libtree.h
-		$(CC) $(READLINE_INC) $(CFLAGS) -o $@ -c $<
+		$(CC) $(CFLAGS) -o $@ -c $< $(READLINE_INC)
 		@echo "object $@ has been created from $<"
 
 clean:
