@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
+#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/07/31 18:30:40 by takra            ###   ########.fr        #
+#    Updated: 2023/08/01 12:57:56 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,11 @@ CFLAGS=
 # CFLAGS=-Wall -Werror -Wextra
 RM=rm -f
 
-READLINE_INC = -I/goinfre/$(USER)/homebrew/opt/readline/include
-READLINE_LIB = -lreadline -L/goinfre/$(USER)/homebrew/opt/readline/lib
+# READLINE_INC = -I/goinfre/$(USER)/homebrew/opt/readline/include		 //linux
+# READLINE_LIB = -lreadline -L/goinfre/$(USER)/homebrew/opt/readline/lib //linux
+
+READLINE_INC = -I $(shell brew --prefix readline)/include 				#MAC
+READLINE_LIB = -lreadline -L $(shell brew --prefix readline)/lib		#MAC
 
 PATHEXEC= ./execution/
 PATHPARS= ./parsing/
