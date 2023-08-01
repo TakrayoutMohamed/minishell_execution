@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/07/31 18:10:01 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/01 21:42:13 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "./libtree.h" // this header is for tree struct
 #include "./parsing/libparse.h" //this header is for the parsing
 
-int	prompt(int argc, char *argv, char *env);
+int		prompt(int argc, char **argv, char **env);
+void	execution(t_tree *command, char **env);
 
 #endif
