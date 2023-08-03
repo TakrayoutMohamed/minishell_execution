@@ -9,17 +9,18 @@ int	prompt(int argc, char **argv, char **env)
 	while (i++ < 5)
 	{
 		command = readline("ⵜⴰⵎⴰⵣⵖⴰ> ");
-		if (is_builtin(command))
-			builtins(command);
+		tree = parse_data(command);
+		if (tree == NULL)
+			return (printf("the tree is empty"), exit(-1), 0);
 		else
 		{
-			tree = parse_data(command);
-			execution(tree, env);
+			execute_tree(tree, env);
 		}
 		add_history(command);
 		free(command);
+		
 	}
-	rl_clear_history();
+	// rl_clear_history();
 	// command = readline("done> ");
 	return (0);
 }

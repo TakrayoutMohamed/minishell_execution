@@ -6,7 +6,7 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/01 12:57:56 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/03 18:22:27 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,11 @@ READLINE_LIB = -lreadline -L $(shell brew --prefix readline)/lib		#MAC
 
 PATHEXEC= ./execution/
 PATHPARS= ./parsing/
+PATHTREE= ./tree/
 
-SRC= $(PATHEXEC)prompt.c \
-	 $(PATHPARS)parse_data.c
+SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c\
+	 $(PATHTREE)new_node.c $(PATHTREE)add_left.c $(PATHTREE)add_right.c  $(PATHTREE)print_tree.c \
+	 $(PATHPARS)parse_data.c 
 MAIN_SRC=minishell.c
 
 OBJ=$(SRC:.c=.o)
