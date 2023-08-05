@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/05 20:17:13 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/06 00:10:54 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@
 #endif
 
 t_list  *convert_env_to_list(char **env);
-int		prompt(int argc, char **argv, char **env);
-void	execution(t_tree *command, char **env);
-void	execute_tree(t_tree *tree, char **env);
+int		prompt(int argc, char **argv, t_list *env);
+void	execution(t_tree *command, t_list *env);
+void	execute_tree(t_tree *tree, t_list *env);
 int		is_builtins(t_tree *tree);
 bool	is_echo(char *command);
 bool	is_cd(char *command);
@@ -52,8 +52,8 @@ bool	is_export(char *command);
 bool	is_unset(char *command);
 bool	is_env(char *command);
 bool	is_exit(char *command);
-void	builtins(t_tree *command);
-int		echo(t_tree *tree);
+void	builtins(t_tree *command, t_list *env);
+int		echo(t_tree *tree, t_list *env);
 
 
 #endif

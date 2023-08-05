@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/15 21:44:20 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/05 23:57:13 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/05 23:08:03 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/05 23:08:06 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+static int	ft_isupper(int c)
 {
-	char	*str;
-	int		i;
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	if (!s)
-	{
-		return (NULL);
-	}
-	str = (char *) malloc(sizeof(char) * ft_strlen(s) + 1);
-	if (!str)
-		return (NULL);
-	while (*s)
-	{
-		str[i] = *s;
-		s++;
-		i++;
-	}
-	str[i] = 0;
-	return (str);
+static int	ft_islower(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	return (0);
+}
+
+int	ft_isalpha(int c)
+{
+	if (ft_isupper(c) || ft_islower(c))
+		return (1);
+	return (0);
 }

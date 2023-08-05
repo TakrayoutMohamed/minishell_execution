@@ -1,6 +1,6 @@
 #include "./../../libminishell.h"
 
-void	builtins(t_tree *tree)
+void	builtins(t_tree *tree ,t_list *env)
 {
 	if (tree == NULL)
 	{
@@ -9,6 +9,6 @@ void	builtins(t_tree *tree)
 	}
 	if (is_echo(tree->command))
 	{
-		echo(tree);
+		echo(tree, env);
 	}
 }

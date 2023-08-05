@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 01:43:45 by mohtakra          #+#    #+#             */
-/*   Updated: 2022/11/01 01:22:18 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/05 22:19:52 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,6 @@ static int	word_size(char const *str, char sep)
 		i++;
 	}
 	return (word_size);
-}
-
-/*free located memory for a matrix*/
-static void	ft_freematrix(char **matrix)
-{
-	char	**temp;
-
-	temp = matrix;
-	while (*matrix)
-	{
-		free(*matrix);
-		matrix++;
-	}
-	matrix = temp;
-	free(matrix);
 }
 
 char	**ft_split(char const *s, char c)

@@ -1,9 +1,9 @@
 #include "./../libminishell.h"
 
-void	execute_tree(t_tree *tree, char **env)
+void	execute_tree(t_tree *tree, t_list *env)
 {
 	if (is_builtins(tree))
-		builtins(tree);
+		builtins(tree ,env);
 	else
 	{
 		print_tree(tree);

@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:13:46 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/05 19:16:57 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/06 00:06:35 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdint.h>
 /*functions declaration.*/
 int		ft_isdigit(int c);
+int		ft_isalpha(int c);
+char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -25,6 +27,7 @@ int		ft_atoi(const char *str);
 char	*ft_strdup(const char *s);
 /*the part two functions declaration*/
 char	*ft_strjoin(char const *s1, char const *s2);
+void	ft_freematrix(char **matrix);
 char	**ft_split(char const *s, char c);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
