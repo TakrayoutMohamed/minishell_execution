@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/04 00:12:32 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/05 20:17:13 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#ifndef LIBLIST_H_
+#include "./libft/libft.h" //this header is for libft files
+#endif
 #ifndef LIBTREE_H_
 #include "./tree/libtree.h" // this header is for tree struct
 #endif
@@ -34,10 +37,10 @@
 #include "./parsing/libparse.h" //this header is for the parsing
 #endif
 #ifndef LIBERROR_H_
-#include "./error_handler/liberror.h" //this header is for the parsing
+#include "./error_handler/liberror.h" //this header is for error handling
 #endif
 
-
+t_list  *convert_env_to_list(char **env);
 int		prompt(int argc, char **argv, char **env);
 void	execution(t_tree *command, char **env);
 void	execute_tree(t_tree *tree, char **env);
