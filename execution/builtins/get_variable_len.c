@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   get_variable_len.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:39:11 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/07 10:23:53 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/06 19:52:16 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/06 19:52:19 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../libminishell.h"
+#include "./../../libminishell.h"
 
-int	prompt(int argc, char **argv, t_list *env)
+/*return the len of a variable*/
+int	get_variable_len(char *str)
 {
-	char	*command;
-	t_tree	*tree;
+	int	i;
 
-	int i = 0;
-	while (i < 5)
+	i = 0;
+	if (!str || !*str)
+		return (i);
+	while (str && *str)
 	{
-		command = readline("ⵜⴰⵎⴰⵣⵖⴰ> ");
-		tree = parse_data(command);
-		if (tree == NULL)
-			return (printf("the tree is empty"), exit(-1), 0);
+		if (ft_isalpha(*str) || *str == '_' || ft_isdigit(*str))
+		{
+			i++;
+			str++;
+		}
 		else
 		{
-			execute_tree(tree, env);
+			break ;
 		}
-		add_history(command);
-		free(command);
-		
 	}
-	rl_clear_history();
-	// command = readline("done> ");
-	return (0);
+	return (i);
 }

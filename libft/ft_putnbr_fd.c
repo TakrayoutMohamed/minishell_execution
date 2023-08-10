@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:37:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/09 16:42:53 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/07 11:04:24 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/07 11:04:41 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libminishell.h"
+#include "libft.h"
 
-void	print_lst(t_list *lst)
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_list	*tmp;
-
-	tmp = lst;
-	while (lst != NULL)
+	if (n == -2147483648)
 	{
-		printf("**%s = %s** \n",lst->key, lst->value);
-		lst = lst->next;
+		ft_putstr_fd("-2147483648", fd);
+		return ;
 	}
-	lst = tmp;
-}
-
-int main(int argc, char **argv, char **env)
-{
-    t_list  *lst;
-
-    lst = convert_env_to_list(env);
-    // print_lst(lst);
-    // exit(44);
-    prompt(argc, argv, lst);
-    return (status);
+	if (n >= 0 && n <= 9)
+	{
+		ft_putchar_fd(n + '0', fd);
+	}
+	else if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(n *= -1, fd);
+	}
+	else
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/06 00:10:54 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:42:49 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 #include "./error_handler/liberror.h" //this header is for error handling
 #endif
 
+int status;
+
 t_list  *convert_env_to_list(char **env);
 int		prompt(int argc, char **argv, t_list *env);
 void	execution(t_tree *command, t_list *env);
@@ -53,7 +55,13 @@ bool	is_unset(char *command);
 bool	is_env(char *command);
 bool	is_exit(char *command);
 void	builtins(t_tree *command, t_list *env);
+char	*get_variable_value(char *key, t_list *env);
+char	*get_variable_name(char *str);
+int		get_variable_len(char *str);
+void	expend_data(char *str, t_list *env);
 int		echo(t_tree *tree, t_list *env);
+void	env_(t_list *env);
+void	cd(t_tree *tree, t_list *env);
 
 
 #endif

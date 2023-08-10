@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   get_variable_name.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/07 16:51:26 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/06 19:50:41 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/06 19:55:17 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../libminishell.h"
 
-int	echo(t_tree *tree, t_list *env)
+/*return the name of a variable with allocation for its return*/
+char	*get_variable_name(char *str)
 {
-	if (tree == NULL)
-		return (printf("the tree passed to echo is not allocated\n"),-12);
-	// expend_data(tree->message, env);
-	if (tree->message != NULL)
+	int		var_len;
+	char	*variable;
+
+	if (!str || !*str)
+		return (ft_strdup(""));
+	var_len = get_variable_len(str);
+	if (var_len == 0)
 	{
-		ft_putstr_fd(tree->message, 1);
+		return (ft_strdup(""));
 	}
-	if (ft_strncmp(tree->option, "-n", ft_strlen(tree->option)) != 0)
-	{
-		printf("\n");
-	}
-	return (0);
+	variable = (char *)malloc(sizeof(char) * var_len + 1); //malloc here
+	if (variable == NULL)
+		return (NULL);
+	ft_strlcpy(variable, str, var_len);
+	return (variable);
 }

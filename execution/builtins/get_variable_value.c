@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   get_variable_value.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:37:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/09 16:42:53 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/06 19:49:23 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/07 18:02:33 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libminishell.h"
+#include "./../../libminishell.h"
 
-void	print_lst(t_list *lst)
+/*return the value of a key in env with no allocation here*/
+char	*get_variable_value(char *key, t_list *env)
 {
 	t_list	*tmp;
 
-	tmp = lst;
-	while (lst != NULL)
+	tmp = env;
+	if (key != NULL && tmp != NULL)
 	{
-		printf("**%s = %s** \n",lst->key, lst->value);
-		lst = lst->next;
+		while (tmp != NULL)
+		{
+			if (strcmp(key, tmp->key) == 0)//still need to implement strcmp()
+			{
+				return (tmp->value);
+			}
+			tmp = tmp->next;
+		}
 	}
-	lst = tmp;
-}
-
-int main(int argc, char **argv, char **env)
-{
-    t_list  *lst;
-
-    lst = convert_env_to_list(env);
-    // print_lst(lst);
-    // exit(44);
-    prompt(argc, argv, lst);
-    return (status);
+	return (NULL);
 }

@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:37:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/09 16:42:53 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/08 15:29:29 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/09 16:10:10 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libminishell.h"
+#include "./libpipex.h"
 
-void	print_lst(t_list *lst)
+int	main(int argc, char **argv, char **env)
 {
-	t_list	*tmp;
-
-	tmp = lst;
-	while (lst != NULL)
+	if (argc > 4)
 	{
-		printf("**%s = %s** \n",lst->key, lst->value);
-		lst = lst->next;
+		// ft_pipe(--argc, ++argv);
 	}
-	lst = tmp;
-}
-
-int main(int argc, char **argv, char **env)
-{
-    t_list  *lst;
-
-    lst = convert_env_to_list(env);
-    // print_lst(lst);
-    // exit(44);
-    prompt(argc, argv, lst);
-    return (status);
+	else
+	{
+		return (0);
+	}
+	
 }

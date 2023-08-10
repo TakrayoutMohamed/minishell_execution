@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   libpipex.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:39:11 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/07 10:23:53 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/08 19:12:46 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/10 13:29:37 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef LIBPIPEX_H_
+#define LIBPIPEX_H_
+
+#ifndef LIBMINISHELL_H_
 #include "./../libminishell.h"
+#endif
 
-int	prompt(int argc, char **argv, t_list *env)
-{
-	char	*command;
-	t_tree	*tree;
+void	ft_pipe(char *cmd1[], char *cmd2[]);
+void	read_from_fd(int fd_in, int fd_out);
 
-	int i = 0;
-	while (i < 5)
-	{
-		command = readline("ⵜⴰⵎⴰⵣⵖⴰ> ");
-		tree = parse_data(command);
-		if (tree == NULL)
-			return (printf("the tree is empty"), exit(-1), 0);
-		else
-		{
-			execute_tree(tree, env);
-		}
-		add_history(command);
-		free(command);
-		
-	}
-	rl_clear_history();
-	// command = readline("done> ");
-	return (0);
-}
+#endif

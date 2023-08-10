@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   read_from_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:37:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/09 16:42:53 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/08 18:13:58 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/10 15:50:16 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libminishell.h"
+#include "./libpipex.h"
 
-void	print_lst(t_list *lst)
+/*this function read from a fd_in's content and write it to fd_out*/
+void	read_from_fd(int fd_in, int fd_out)
 {
-	t_list	*tmp;
+	char	buff;
+	size_t	readedbuf;
 
-	tmp = lst;
-	while (lst != NULL)
+	while (1)
 	{
-		printf("**%s = %s** \n",lst->key, lst->value);
-		lst = lst->next;
+		readedbuf = read(fd_in, &buff, 1);
+		if (readedbuf == 0 || readedbuf == -1)
+		{
+			free(buff);
+			exit(errno);
+		}
+		if (readedbuf == 0)
+			break;
+		ft_putchar(buff, fd_out);
 	}
-	lst = tmp;
-}
-
-int main(int argc, char **argv, char **env)
-{
-    t_list  *lst;
-
-    lst = convert_env_to_list(env);
-    // print_lst(lst);
-    // exit(44);
-    prompt(argc, argv, lst);
-    return (status);
 }

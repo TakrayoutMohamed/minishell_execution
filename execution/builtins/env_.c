@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   env_.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 22:37:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/09 16:42:53 by mohtakra         ###   ########.fr       */
+/*   Created: 2023/08/06 17:05:09 by mohtakra          #+#    #+#             */
+/*   Updated: 2023/08/06 17:05:10 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libminishell.h"
+#include "./../../libminishell.h"
 
-void	print_lst(t_list *lst)
+void	env_(t_list *env)
 {
 	t_list	*tmp;
 
-	tmp = lst;
-	while (lst != NULL)
+	tmp = env;
+	if (env == NULL)
+		return ;
+	while (tmp->previous != NULL)
+		tmp = tmp->previous;
+	while (tmp)
 	{
-		printf("**%s = %s** \n",lst->key, lst->value);
-		lst = lst->next;
+		printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
 	}
-	lst = tmp;
-}
-
-int main(int argc, char **argv, char **env)
-{
-    t_list  *lst;
-
-    lst = convert_env_to_list(env);
-    // print_lst(lst);
-    // exit(44);
-    prompt(argc, argv, lst);
-    return (status);
 }
