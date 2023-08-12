@@ -44,7 +44,7 @@ t_list	*convert_env_to_list(char **env)
 			ft_freematrix(str);
 			// print_matrix(str);
 			// exit(20);
-			new = ft_lstnew(key, ft_strdup(getenv(key)));
+			new = ft_lstnew(key, ft_strdup(getenv(key)), NULL);
 			if (new == NULL)
 				return (NULL);
 			ft_lstadd_back(&lst, new);

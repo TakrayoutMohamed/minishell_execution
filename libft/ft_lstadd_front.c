@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 04:51:47 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/05 19:10:49 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:47:10 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (new)
+	if (*lst == NULL && new != NULL)
+	{
+		*lst = new;
+	}
+	else if (new)
 	{
 		new->next = *lst;
-		new->previous = NULL;
+		(*lst)->previous = new;
 		*lst = new;
+		(*lst)->next = NULL;
 	}
 }
