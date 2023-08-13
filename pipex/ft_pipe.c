@@ -60,12 +60,12 @@ void	close_pipe(int pipe_fd[2])
 	if (close(pipe_fd[0]) == -1)
 	{
 		print_error(errno);
-		exit(errno);
+		// exit(errno);
 	}
 	if (close(pipe_fd[1]) == -1)
 	{
 		print_error(errno);
-		exit(errno);
+		// exit(errno);
 	}
 }
 
@@ -87,35 +87,15 @@ void	ft_pipe_middle(t_list *lst)
 	}
 	else if (pid == 0) // this is child
 	{
-		if (lst->previous != NULL)
-		{
-			close_pipe(lst->previous->pipe);
-		}
-		dup2(lst->pipe[0], 0);
-		if (lst->next != NULL)
-		{
-			dup2(lst->next->pipe[1], 1);
-			close_pipe(lst->next->pipe);
-		}
+		dup2(lst->previous->pipe[0], 0);
+		dup2(lst->pipe[1], 1);
 		close_pipe(lst->pipe);
 		execve(cmd[0], cmd, NULL);
 	}
 	else //this is parent
 	{
-		if (lst->previous != NULL)
-		{
-			close_pipe(lst->previous->pipe);
-		}
 		close(lst->pipe[1]);
-		if (lst->next != NULL)
-		{
-			dup2(lst->pipe[0], 0);
-			dup2(lst->next->pipe[1], 1);
-			close_pipe(lst->pipe);
-			close_pipe(lst->next->pipe);
-		}
 		waitpid(pid, &status, WUNTRACED);
-
 	}
 }
 
@@ -137,8 +117,8 @@ void	ft_pipe_begain(t_list *lst)
 	}
 	else if (pid == 0) // this is child
 	{
+		dup2(lst->pipe[0], 0);
 		dup2(lst->pipe[1], 1);
-		dup2(lst->pipe[1], 0);
 		close_pipe(lst->pipe);
 		execve(cmd[0], cmd, NULL);
 	}
@@ -146,34 +126,6 @@ void	ft_pipe_begain(t_list *lst)
 	{
 		close(lst->pipe[1]);
 		waitpid(pid, &status, WUNTRACED);
-		if (lst->next != NULL)
-		{
-			dup2(lst->next->pipe[1], 1);
-			dup2(lst->pipe[0], 0);
-			close(lst->pipe[0]);
-			close(lst->next->pipe[1]);
-			for(;;)
-            {
-				int numRead;
-			    char buf[20];
-                numRead = read(0, buf, 20);
-                if (numRead == -1)
-                {
-                    printf("error in read from pfd[0]");
-                    exit(4);
-                }
-                if (numRead == 0)
-                {
-                    fprintf(stderr,"EOFs!\n");
-                    break ;
-                }
-                if (write (1, buf, numRead) != numRead)
-                {
-                    printf("child - partial/failed write \n");
-                    exit (5);
-                }
-            }
-		}
 	}
 }
 
@@ -198,20 +150,14 @@ void	ft_pipe_end(t_list *lst)
 	{
 		dup2(lst->previous->pipe[0], 0);
 		dup2(lst->pipe[1], 1);
-		close(lst->previous->pipe[0]);
-		close(lst->previous->pipe[1]);
-		close(lst->pipe[0]);
 		close(lst->pipe[1]);
-		// fprintf(stderr,"jjjjjjj\n");
+		close(lst->previous->pipe[0]);
 		execve(cmd[0], cmd, NULL);
 	}
 	else //this is parent
 	{
-		close(lst->previous->pipe[0]);
-		close(lst->previous->pipe[1]);
 		close(lst->pipe[1]);
 		waitpid(pid, &status, WUNTRACED);
-		ft_putstr_fd("here",2);
 		for(;;)
 		{
 			numRead = read(lst->pipe[0], buf, 20);
@@ -222,7 +168,6 @@ void	ft_pipe_end(t_list *lst)
 			}
 			if (numRead == 0)
 			{
-				// close(p_fd[0]);
 				fprintf(stderr,"EOFend!\n");
 				break ;
 			}
@@ -245,8 +190,8 @@ int	main(void)
 	// int		pipe_fd[2];
 	// pid_t	pid;
 	char *cmd1[] = {"/bin/ls", "-la",NULL};
-    char *cmd2[] = {"/bin/ls", NULL,NULL};
-    char *cmd3[] = {"/usr/bin/sort", "-r" , NULL};
+    char *cmd2[] = {"/usr/bin/grep", "libft",NULL};
+    char *cmd3[] = {"/usr/bin/grep", "libd", NULL};
     char *cmd4[] = {"/usr/bin/sort", NULL, NULL};
 	cmd->command = cmd1[0];
 	cmd->options = cmd1[1];
@@ -258,16 +203,24 @@ int	main(void)
 	cmd->options = cmd2[1];
 	cmd->message = NULL;
 	ft_lstadd_back(&cmds, ft_lstnew(NULL,NULL,cmd));
+	cmd = NULL;
+	cmd = malloc(sizeof(t_cmd));
+	cmd->command = cmd3[0];
+	cmd->options = cmd3[1];
+	cmd->message = NULL;
+	ft_lstadd_back(&cmds, ft_lstnew(NULL,NULL,cmd));
 	// ft_putstr_fd("here is the sigfault\n", 2);
 
 	tmp = cmds;
 	
 	ft_pipe_begain(cmds);
 	cmds = cmds->next;
+	ft_pipe_middle(cmds);
+	cmds = cmds->next;
 	ft_pipe_end(cmds);
 	// cmds = cmds->next;
-	print_lst(cmds->previous);
-	exit(45);
+	// print_lst(cmds->previous);
+	// exit(45);
 
 		// else
 		// {
