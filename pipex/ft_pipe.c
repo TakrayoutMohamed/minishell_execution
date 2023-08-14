@@ -126,6 +126,7 @@ void	ft_pipe_begain(t_list *lst)
 	{
 		close(lst->pipe[1]);
 		waitpid(pid, &status, WUNTRACED);
+		
 	}
 }
 
@@ -153,14 +154,62 @@ void	ft_pipe_end(t_list *lst)
 		close(lst->pipe[1]);
 		close(lst->previous->pipe[0]);
 		execve(cmd[0], cmd, NULL);
+		print_error(errno);
+		exit(errno);
 	}
 	else //this is parent
 	{
 		close(lst->pipe[1]);
 		waitpid(pid, &status, WUNTRACED);
+		dup2(lst->pipe[0], 0);
+		close(lst->pipe[0]);
 		for(;;)
 		{
-			numRead = read(lst->pipe[0], buf, 20);
+			numRead = read(0, buf, 20);
+			if (numRead == -1)
+			{
+				fprintf(stderr,"error in read from pfd[0] end");
+				exit(4);
+			}
+			if (numRead == 0)
+			{
+				fprintf(stderr,"EOFend!\n");
+				break ;
+			}
+			if (write (2, buf, numRead) != numRead)
+			{
+				printf("child - partial/failed write \n");
+				exit (5);
+			}
+		}
+		// ft_putstr_fd("here is the stoped process\n", 2);
+
+	}
+}
+
+void	redirection(t_list *lst)
+{
+	pid_t	pid;
+
+	int fd = open("Makefile", O_RDONLY, 0644);
+	
+	pid = fork();
+	if (pid == -1)
+	{
+		print_error(errno);
+		exit(errno);
+	}
+	else if (pid == 0) // this is child
+	{
+		dup2(fd, 0);
+		dup2(lst->pipe[1], 1);
+		// close_pipe(lst->pipe);
+		close(lst->pipe[1]);
+		close(fd);
+		for(;;)
+		{
+			char buf[20];
+			int numRead = read(0, buf, 20);
 			if (numRead == -1)
 			{
 				fprintf(stderr,"error in read from pfd[0] end");
@@ -177,7 +226,13 @@ void	ft_pipe_end(t_list *lst)
 				exit (5);
 			}
 		}
-
+		exit(0);
+	}
+	else //this is parent
+	{
+		close(lst->pipe[1]);
+		waitpid(pid, &status, WUNTRACED);
+		
 	}
 }
 
@@ -190,36 +245,49 @@ int	main(void)
 	// int		pipe_fd[2];
 	// pid_t	pid;
 	char *cmd1[] = {"/bin/ls", "-la",NULL};
-    char *cmd2[] = {"/usr/bin/grep", "libft",NULL};
-    char *cmd3[] = {"/usr/bin/grep", "libd", NULL};
-    char *cmd4[] = {"/usr/bin/sort", NULL, NULL};
+    char *cmd2[] = {"/bin/grep", "li",NULL};
+    char *cmd3[] = {"/bin/grep", "lib", NULL};
+    char *cmd4[] = {"/usr/bin/wc", NULL, NULL};
+
 	cmd->command = cmd1[0];
 	cmd->options = cmd1[1];
 	cmd->message = NULL;
 	cmds = ft_lstnew("NULL","NULL",cmd);
+
 	cmd = NULL;
 	cmd = malloc(sizeof(t_cmd));
 	cmd->command = cmd2[0];
 	cmd->options = cmd2[1];
 	cmd->message = NULL;
 	ft_lstadd_back(&cmds, ft_lstnew(NULL,NULL,cmd));
+	
 	cmd = NULL;
 	cmd = malloc(sizeof(t_cmd));
 	cmd->command = cmd3[0];
 	cmd->options = cmd3[1];
 	cmd->message = NULL;
 	ft_lstadd_back(&cmds, ft_lstnew(NULL,NULL,cmd));
+
+	cmd = NULL;
+	cmd = malloc(sizeof(t_cmd));
+	cmd->command = cmd4[0];
+	cmd->options = cmd4[1];
+	cmd->message = NULL;
+	ft_lstadd_back(&cmds, ft_lstnew(NULL,NULL,cmd));
 	// ft_putstr_fd("here is the sigfault\n", 2);
 
 	tmp = cmds;
 	
-	ft_pipe_begain(cmds);
+	// ft_pipe_begain(cmds);
 	cmds = cmds->next;
-	ft_pipe_middle(cmds);
+	// ft_pipe_middle(cmds);
+	cmds = cmds->next;
+	// ft_pipe_middle(cmds);
+	redirection(cmds);
 	cmds = cmds->next;
 	ft_pipe_end(cmds);
 	// cmds = cmds->next;
-	// print_lst(cmds->previous);
+	// print_lst(cmds);
 	// exit(45);
 
 		// else
