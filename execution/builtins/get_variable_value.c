@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 19:49:23 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/07 18:02:33 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/15 22:49:04 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_variable_value(char *key, t_list *env)
 	{
 		while (tmp != NULL)
 		{
-			if (strcmp(key, tmp->key) == 0)//still need to implement strcmp()
+			if (ft_strcmp(key, tmp->key) == 0)
 			{
 				return (tmp->value);
 			}

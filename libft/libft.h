@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:13:46 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/14 16:02:59 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/15 22:31:29 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdint.h>
 # include <string.h>
 # include <errno.h>
+# include <stdbool.h>
 /*functions declaration.*/
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
@@ -38,31 +39,26 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 /*Bonus part*/
 
-typedef struct	s_file
+typedef struct s_file
 {
+	bool	is_append;
+	bool	is_herdoc;
 	char	*file_in;
 	char	*file_out;
-} t_file;
-
-typedef struct s_cmd
-{
-	char	*command;
-	char	*options;
-	char	*message;
-} t_cmd;
+}	t_file;
 
 typedef struct s_list
 {
 	char			*key;
 	char			*value;
-	t_cmd			*cmd;
 	t_file			*file;
 	int				pipe[2];
+	struct s_list	*cmd;
 	struct s_list	*next;
 	struct s_list	*previous;
 }	t_list;
 
-t_list	*ft_lstnew(char *key, char *value, t_cmd *cmd1);
+t_list	*ft_lstnew(char *key, char *value, t_list *cmd1);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);

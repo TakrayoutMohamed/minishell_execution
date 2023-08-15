@@ -1,8 +1,9 @@
 #include "./../../libminishell.h"
 
-bool	update_env_value(char *key, char *new_value, t_list *env)
+bool	update_env_value(char *key, char *new_key, t_list *env)
 {
 	t_list	*tmp;
+	char	*variable_value;
 
 	tmp = env;
 	if (key == NULL || env == NULL)
@@ -11,13 +12,14 @@ bool	update_env_value(char *key, char *new_value, t_list *env)
 	}
 	while (tmp)
 	{
-		if (strcmp(key, tmp->key) == 0) // need to add implimentation of ft_strcmp()
+		if (ft_strcmp(key, tmp->key) == 0)
 		{
+			variable_value =  get_variable_value(new_key, env);
 			free(tmp->value);
-			tmp->value = (char *)malloc(ft_strlen(new_value) * sizeof(char) + 1);
+			tmp->value = (char *)malloc(ft_strlen(variable_value) + 1);
 			if (!tmp->value)
 				return (printf("error while allocating at update_env_value()"), exit(-2), 0);
-			ft_strlcpy(tmp->value, new_value, ft_strlen(new_value) + 1);
+			ft_strlcpy(tmp->value, variable_value, ft_strlen(variable_value) + 1);
 			return (true);
 		}
 		tmp = tmp->next;
@@ -25,22 +27,39 @@ bool	update_env_value(char *key, char *new_value, t_list *env)
 	return (false);
 }
 
+/*
+*the first variable takes the list that have all the command data
+*
+*the sicond is a list that have the envirement values and keys
+*
+*
+*/
 void	cd(t_list *lst, t_list *env)
 {
-	char	*directory;
-	char	*str;
+	char	*old_dir;
+	char	*current_dir;
 
 	if (lst == NULL)
 	{
 		printf("the lst passed to the cd()\n");
 		exit(-1);
 	}
-	if (ft_strncmp(lst->cmd->message, "~", ft_strlen("~")))
+	if (ft_lstsize(lst) == 1)
+	{
+		update_env_value("OLDPWD", "PWD", env);
+		update_env_value("PWD", "HOME", env);
+		if (chdir(get_variable_value("HOME", env)) != 0)
+		{
+			print_error(errno);
+			exit(errno);
+		}
+	}
+	if (ft_strcmp(lst->value, "~"))
 	{
 		directory = get_variable_value("HOME", env);
-		// directory = ft_strjoin(directory, ++(lst->message));
+		// directory = ft_strjoin(directory, ++(lst->value));
 	}
-	else if (!ft_strncmp(lst->cmd->options, "-", 1) && ft_strlen(lst->cmd->message) == 1)
+	else if (!ft_strncmp(lst->options, "-", 1) && ft_strlen(lst->value) == 1)
 	{
 		directory = get_variable_value("OLDPWD", env);
 	}
