@@ -6,7 +6,7 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/07 16:00:38 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/15 16:58:24 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ CC=cc
 CFLAGS=
 # CFLAGS=-Wall -Werror -Wextra
 RM=rm -f
+HEADERS=./libminishell.h
 
 # READLINE_INC = -I/goinfre/$(USER)/homebrew/opt/readline/include		 	#linux
 # READLINE_LIB = -lreadline -L/goinfre/$(USER)/homebrew/opt/readline/lib 	#linux
@@ -28,13 +29,12 @@ PATHEXEC= ./execution/
 PATHBUILT=$(PATHEXEC)builtins/
 PATHERR=./error_handler/
 PATHPARS= ./parsing/
-PATHTREE= ./tree/
+# PATHTREE= ./tree/
 
-SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_tree.c $(PATHEXEC)convert_env_to_list.c\
+SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c $(PATHEXEC)convert_env_to_list.c\
 	 $(PATHBUILT)is_builtins.c $(PATHBUILT)builtins.c $(PATHBUILT)cd.c $(PATHBUILT)echo.c $(PATHBUILT)env_.c\
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
 	 	$(PATHBUILT)expend_data.c\
-	 $(PATHTREE)new_node.c $(PATHTREE)add_left.c $(PATHTREE)add_right.c  $(PATHTREE)print_tree.c \
 	 $(PATHERR)print_error.c \
 	 $(PATHPARS)parse_data.c 
 MAIN_SRC=minishell.c
@@ -57,7 +57,7 @@ $(LIBMINI): $(OBJ) $(LIBFT)
 $(LIBFT):
 		make -C ./libft all
 
-%.o: %.c ./libminishell.h
+%.o: %.c $(HEADERS)
 		$(CC) $(CFLAGS) -o $@ -c $< $(READLINE_INC)
 		@echo "object $@ has been created from $<"
 

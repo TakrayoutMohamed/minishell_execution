@@ -1,17 +1,17 @@
 #include "./../../libminishell.h"
 
-void	builtins(t_tree *tree ,t_list *env)
+void	builtins(t_list *lst ,t_list *env)
 {
-	if (tree == NULL)
+	if (lst == NULL)
 	{
-		printf("the tree passed to builtins() is not allocated\n");
+		printf("the lst passed to builtins() is not allocated\n");
 		exit(-1);
 	}
-	if (is_echo(tree->command))
-		echo(tree, env);
-	// else if (is_env(tree->command))
-	env_(env);
-	// else if (is_cd(tree->command))
-	cd(tree, env);
+	if (is_echo(lst->cmd->command))
+		echo(lst, env);
+	else if (is_env(lst->cmd->command))
+		env_(env);
+	else if (is_cd(lst->cmd->command))
+		cd(lst, env);
 	env_(env);
 }

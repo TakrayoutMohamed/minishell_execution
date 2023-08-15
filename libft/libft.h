@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:13:46 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/12 11:21:51 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:02:59 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 /*Bonus part*/
 
+typedef struct	s_file
+{
+	char	*file_in;
+	char	*file_out;
+} t_file;
+
 typedef struct s_cmd
 {
 	char	*command;
@@ -50,6 +56,7 @@ typedef struct s_list
 	char			*key;
 	char			*value;
 	t_cmd			*cmd;
+	t_file			*file;
 	int				pipe[2];
 	struct s_list	*next;
 	struct s_list	*previous;

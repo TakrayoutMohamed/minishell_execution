@@ -1,6 +1,6 @@
 #include "../libminishell.h"
 
-void	execution(t_tree *command, t_list *env)
+void	execution(t_list *command, t_list *env)
 {
     return ;
 }

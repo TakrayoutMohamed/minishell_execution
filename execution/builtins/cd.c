@@ -25,22 +25,22 @@ bool	update_env_value(char *key, char *new_value, t_list *env)
 	return (false);
 }
 
-void	cd(t_tree *tree, t_list *env)
+void	cd(t_list *lst, t_list *env)
 {
 	char	*directory;
 	char	*str;
 
-	if (tree == NULL)
+	if (lst == NULL)
 	{
-		printf("the tree passed to the cd()\n");
+		printf("the lst passed to the cd()\n");
 		exit(-1);
 	}
-	if (ft_strncmp(tree->message, "~", ft_strlen("~")))
+	if (ft_strncmp(lst->cmd->message, "~", ft_strlen("~")))
 	{
 		directory = get_variable_value("HOME", env);
-		// directory = ft_strjoin(directory, ++(tree->message));
+		// directory = ft_strjoin(directory, ++(lst->message));
 	}
-	else if (!ft_strncmp(tree->option, "-", 1) && ft_strlen(tree->message) == 1)
+	else if (!ft_strncmp(lst->cmd->options, "-", 1) && ft_strlen(lst->cmd->message) == 1)
 	{
 		directory = get_variable_value("OLDPWD", env);
 	}

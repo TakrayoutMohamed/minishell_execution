@@ -3,6 +3,6 @@
 // #ifndef LIBMINISHELL_H_
 # include "../libminishell.h"
 // #endif
-	t_tree *parse_data(char *str);
+	t_list *parse_data(char *str);
 
 #endif

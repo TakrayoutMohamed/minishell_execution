@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:37:37 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/09 16:42:53 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:36:03 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	print_lst(t_list *lst)
 
 int main(int argc, char **argv, char **env)
 {
-    t_list  *lst;
+    t_list  *env_lst;
 
-    lst = convert_env_to_list(env);
+    env_lst = convert_env_to_list(env);
     // print_lst(lst);
     // exit(44);
-    prompt(argc, argv, lst);
+    prompt(argc, argv, env_lst);
     return (status);
 }

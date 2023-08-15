@@ -6,28 +6,63 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:13:58 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/10 15:50:16 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:06:02 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libpipex.h"
+#include "./../libminishell.h"
 
-/*this function read from a fd_in's content and write it to fd_out*/
-void	read_from_fd(int fd_in, int fd_out)
+/*this function read from a file descriptor in list struct */
+void	read_from_fd(t_list *lst)
 {
-	char	buff;
+	char	buff[20];
 	size_t	readedbuf;
+	pid_t	pid;
+	int		fd_in;
 
-	while (1)
+
+	pid = fork();
+	if (pid == -1)
 	{
-		readedbuf = read(fd_in, &buff, 1);
-		if (readedbuf == 0 || readedbuf == -1)
+		print_error(errno);
+		exit(errno);
+	}
+	else if (pid == 0) // this is child
+	{
+		fd_in = open(lst->file->file_in, O_RDONLY, 0644);
+		if (fd_in == -1)
 		{
-			free(buff);
+			print_error(errno);
 			exit(errno);
 		}
-		if (readedbuf == 0)
-			break;
-		ft_putchar(buff, fd_out);
+		dup2(fd_in, 0);
+		dup2(lst->pipe[1], 1);
+		close(fd_in);
+		close(lst->pipe[1]);
+		while (1)
+		{
+			readedbuf = read(0, buff, 20);
+			if (readedbuf == -1)
+			{
+				fprintf(stderr,"error in read from pfd[0] end");
+				exit(4);
+			}
+			if (readedbuf == 0)
+			{
+				fprintf(stderr,"EOFend!\n");
+				break ;
+			}
+			if (write(1, buff, readedbuf) != readedbuf)
+			{
+				printf("child - partial/failed write \n");
+				exit (5);
+			}
+		}
+		exit(0);
+	}
+	else //this is parent
+	{
+		close(lst->pipe[1]);
+		waitpid(pid, &status, WUNTRACED);
 	}
 }

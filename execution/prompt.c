@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:39:11 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/07 10:23:53 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:43:31 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 int	prompt(int argc, char **argv, t_list *env)
 {
 	char	*command;
-	t_tree	*tree;
+	t_list	*lst;
 
 	int i = 0;
 	while (i < 5)
 	{
 		command = readline("ⵜⴰⵎⴰⵣⵖⴰ> ");
-		tree = parse_data(command);
-		if (tree == NULL)
-			return (printf("the tree is empty"), exit(-1), 0);
+		lst = parse_data(command);
+		if (lst == NULL)
+			return (printf("the list is empty"), exit(-1), 0);
 		else
 		{
-			execute_tree(tree, env);
+			execute_list(lst, env);
 		}
 		add_history(command);
 		free(command);
 		
 	}
-	rl_clear_history();
+	// rl_clear_history();
 	// command = readline("done> ");
 	return (0);
 }
