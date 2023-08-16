@@ -17,4 +17,11 @@ void	builtins(t_list *lst ,t_list *env)
 		env_(env);
 
 	}
+	else if (is_export(lst->value))
+	{
+		printf("th lst->key = |%s|\n",lst->key);
+		printf("th lst->value = |%s|\n",lst->value);
+		// printf("th lst->cmd->value = |%s|\n",lst->cmd->value);
+		export(lst, env);
+	}
 }

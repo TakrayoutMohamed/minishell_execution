@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:13:46 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/16 01:29:56 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/16 15:34:56 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 /*functions declaration.*/
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
+int		ft_tolower(int c);
 char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -58,6 +59,7 @@ typedef struct s_list
 	struct s_list	*previous;
 }	t_list;
 
+void	del(char *str);
 t_list	*ft_lstnew(char *key, char *value);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);

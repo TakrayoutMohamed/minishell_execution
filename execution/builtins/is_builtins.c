@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:00 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/16 02:25:59 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/16 15:38:34 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,35 @@ bool	is_exit(char *command)
 	return (false);
 }
 
+void	ft_strtolower(char *str)
+{
+	if (!str)
+		return ;
+	while (str && *str)
+	{
+		*str = ft_tolower(*str);
+		str++;
+	}
+}
+
 int	is_builtins(t_list *lst)
 {
-	if (is_echo(lst->value))
-		return (1);
-	if (is_cd(lst->value))
-		return (1);
-	if (is_pwd(lst->value))
-		return (1);
-	if (is_export(lst->value))
-		return (1);
-	if (is_unset(lst->value))
-		return (1);
-	if (is_env(lst->value))
-		return (1);
-	if (is_exit(lst->value))
-		return (1);
-	return (0);
+	char *value_to_lower;
+
+	value_to_lower = ft_strdup(lst->value);
+	if (is_echo(value_to_lower))
+		return (free(value_to_lower), 1);
+	if (is_cd(value_to_lower))
+		return (free(value_to_lower), 1);
+	if (is_pwd(value_to_lower))
+		return (free(value_to_lower), 1);
+	if (is_export(value_to_lower))
+		return (free(value_to_lower), 1);
+	if (is_unset(value_to_lower))
+		return (free(value_to_lower), 1);
+	if (is_env(value_to_lower))
+		return (free(value_to_lower), 1);
+	if (is_exit(value_to_lower))
+		return (free(value_to_lower), 1);
+	return (free(value_to_lower), 0);
 }
