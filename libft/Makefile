@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
+#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/19 18:37:53 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/08 16:19:11 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/16 02:01:42 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(NAME): $(OBJB) $(OBJ)
 		@echo "the files has ben archived successfully"
 
 %.o: %.c libft.h
-		@$(CC) -I. -o $@ -c $< $(CFLAGS)
+		@$(CC) -o $@ -c $< $(CFLAGS)
 		@echo "the file $@ has been created from $<"
 
 

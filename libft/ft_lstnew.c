@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 03:24:16 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/15 22:06:47 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/16 02:55:32 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(char *key, char *value, t_list *cmd1)
+t_list	*ft_lstnew(char *key, char *value)
 {
 	t_list	*p;
 
@@ -24,8 +24,10 @@ t_list	*ft_lstnew(char *key, char *value, t_list *cmd1)
 		ft_putstr_fd(strerror(errno), 2);
 		exit(errno);
 	}
-	// ft_putstr_fd("here is the sigfault00000000\n", 2);
 	p->cmd = NULL;
+	// p->file->is_append = false;
+	// ft_putstr_fd("here is the sigfault0000000ddddd0\n", 2);
+	// p->file->is_herdoc = false;
 	p->key = key;
 	p->value = value;
 	p->next = NULL;

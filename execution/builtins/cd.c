@@ -15,6 +15,8 @@ bool	update_env_value(char *key, char *new_key, t_list *env)
 		if (ft_strcmp(key, tmp->key) == 0)
 		{
 			variable_value =  get_variable_value(new_key, env);
+			if (variable_value == NULL)
+				variable_value = new_key;
 			free(tmp->value);
 			tmp->value = (char *)malloc(ft_strlen(variable_value) + 1);
 			if (!tmp->value)
@@ -36,7 +38,8 @@ bool	update_env_value(char *key, char *new_key, t_list *env)
 */
 void	cd(t_list *lst, t_list *env)
 {
-	char	*old_dir;
+	char	*path;
+	char	*home;
 	char	*current_dir;
 
 	if (lst == NULL)
@@ -46,36 +49,45 @@ void	cd(t_list *lst, t_list *env)
 	}
 	if (ft_lstsize(lst) == 1)
 	{
-		update_env_value("OLDPWD", "PWD", env);
-		update_env_value("PWD", "HOME", env);
 		if (chdir(get_variable_value("HOME", env)) != 0)
 		{
 			print_error(errno);
 			exit(errno);
 		}
-	}
-	if (ft_strcmp(lst->value, "~"))
-	{
-		directory = get_variable_value("HOME", env);
-		// directory = ft_strjoin(directory, ++(lst->value));
-	}
-	else if (!ft_strncmp(lst->options, "-", 1) && ft_strlen(lst->value) == 1)
-	{
-		directory = get_variable_value("OLDPWD", env);
-	}
-
-	if (chdir(directory) != 0)
-	{
-		print_error(errno);
-		ft_putstr_fd(directory, 1);
+		else
+		{
+			update_env_value("OLDPWD", "PWD", env);
+			update_env_value("PWD", "HOME", env);
+		}
 	}
 	else
 	{
-		printf("\ndirectory = %s\n",directory);
-		update_env_value("OLDPWD", get_variable_value("PWD", env), env);
-		printf("\ndirectory = %s\n",directory);
-		update_env_value("PWD", directory, env);
-		// exit(7);
+		lst = lst->next;
+		if (ft_strncmp((lst->value), "~", 1) == 0)
+		{
+			home = get_variable_value("HOME", env);
+			path = ft_strjoin(home, ++(lst->value));
+			// free(home);
+		}
+		else
+		{
+			path = lst->value;
+		}
+
+			ft_putstr_fd("the path is:", 1);
+			ft_putstr_fd(path, 1);
+			ft_putstr_fd(":", 1);
+			// exit(33);
+		if (chdir(path) != 0)
+		{
+			print_error(errno);
+			// exit(33);
+		}
+		else
+		{
+			update_env_value("OLDPWD", "PWD", env);
+			update_env_value("PWD", path, env);
+		}
+		// chdir(directory);
 	}
-	// chdir(directory);
 }

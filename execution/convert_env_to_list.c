@@ -1,28 +1,28 @@
 #include "./../libminishell.h"
 
-void	print_matrix(char **matrix)
-{
-	int	i = 0;
-	int j;
+// void	print_matrix(char **matrix)
+// {
+// 	int	i = 0;
+// 	int j;
 
-	ft_putchar_fd('{', 1);
-	while (matrix[i])
-	{
-		j = 0;
-		ft_putchar_fd('[', 1);
-		while (matrix[i][j])
-		{
-			ft_putchar_fd(matrix[i][j], 1);
-			j++;
-		}
-		ft_putchar_fd(']', 1);
-		ft_putchar_fd(',', 1);
-		ft_putchar_fd('\n', 1);
-		i++;
-	}
-	ft_putchar_fd('}', 1);
-	ft_putchar_fd('\n', 1);
-}
+// 	ft_putchar_fd('{', 1);
+// 	while (matrix[i])
+// 	{
+// 		j = 0;
+// 		ft_putchar_fd('[', 1);
+// 		while (matrix[i][j])
+// 		{
+// 			ft_putchar_fd(matrix[i][j], 1);
+// 			j++;
+// 		}
+// 		ft_putchar_fd(']', 1);
+// 		ft_putchar_fd(',', 1);
+// 		ft_putchar_fd('\n', 1);
+// 		i++;
+// 	}
+// 	ft_putchar_fd('}', 1);
+// 	ft_putchar_fd('\n', 1);
+// }
 
 t_list	*convert_env_to_list(char **env)
 {
@@ -44,7 +44,7 @@ t_list	*convert_env_to_list(char **env)
 			ft_freematrix(str);
 			// print_matrix(str);
 			// exit(20);
-			new = ft_lstnew(key, ft_strdup(getenv(key)), NULL);
+			new = ft_lstnew(key, ft_strdup(getenv(key)));
 			if (new == NULL)
 				return (NULL);
 			ft_lstadd_back(&lst, new);

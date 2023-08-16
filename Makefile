@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
+#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/15 16:58:24 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/16 02:21:10 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,13 @@ CC=cc
 CFLAGS=
 # CFLAGS=-Wall -Werror -Wextra
 RM=rm -f
-HEADERS=./libminishell.h
+HEADERS=./libminishell.h ./libft/libft.h ./error_handler/liberror.h
 
-# READLINE_INC = -I/goinfre/$(USER)/homebrew/opt/readline/include		 	#linux
-# READLINE_LIB = -lreadline -L/goinfre/$(USER)/homebrew/opt/readline/lib 	#linux
+READLINE_INC = -I/goinfre/$(USER)/homebrew/opt/readline/include #linux
+READLINE_LIB = -lreadline -L/goinfre/$(USER)/homebrew/opt/readline/lib #linux
 
-READLINE_INC = -I /goinfre/$(USER)/.brew/opt/readline/include		 	#MAC
-READLINE_LIB = -lreadline -L /goinfre/$(USER)/.brew/opt/readline/lib    #MAC
+# READLINE_INC = -I/goinfre/$(USER)/.brew/opt/readline/include		 	#MAC
+# READLINE_LIB = -lreadline -L/goinfre/$(USER)/.brew/opt/readline/lib    #MAC
 
 PATHEXEC= ./execution/
 PATHBUILT=$(PATHEXEC)builtins/
@@ -32,7 +32,7 @@ PATHPARS= ./parsing/
 # PATHTREE= ./tree/
 
 SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c $(PATHEXEC)convert_env_to_list.c\
-	 $(PATHBUILT)is_builtins.c $(PATHBUILT)builtins.c $(PATHBUILT)cd.c $(PATHBUILT)echo.c $(PATHBUILT)env_.c\
+	 $(PATHBUILT)is_builtins.c $(PATHBUILT)builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c\
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
 	 	$(PATHBUILT)expend_data.c\
 	 $(PATHERR)print_error.c \
@@ -47,18 +47,18 @@ MAIN_OBJ=$(MAIN_SRC:.c=.o)
 all:$(NAME)
 
 $(NAME) : $(OBJ) $(MAIN_OBJ) $(LIBMINI)
-		$(CC) -o $@  $(LIBMINI) $(LIBFT) $(MAIN_OBJ) $(OBJ) $(READLINE_LIB)
+		$(CC)  -o $@ $(MAIN_OBJ) $(OBJ) $(LIBMINI) $(LIBFT) $(READLINE_LIB)
 		@echo "the executable $@ has been created"
 
-$(LIBMINI): $(OBJ) $(LIBFT)
-		ar rc  $@ $(OBJ) $(LIBFT)
+$(LIBMINI):$(LIBFT) $(OBJ) 
+		ar rc  $@ $(OBJ) 
 		@echo "the libmini.a archieve has been created"
 
 $(LIBFT):
 		make -C ./libft all
 
 %.o: %.c $(HEADERS)
-		$(CC) $(CFLAGS) -o $@ -c $< $(READLINE_INC)
+		$(CC) $(CFLAGS) $(READLINE_INC) -o $@ -c $< 
 		@echo "object $@ has been created from $<"
 
 

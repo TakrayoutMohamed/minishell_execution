@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/15 16:57:15 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/16 02:24:29 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#ifndef LIBLIST_H_
+#ifndef LIBFT_H
 #include "./libft/libft.h" //this header is for libft files
 #endif
 #ifndef LIBPARSE_H_
@@ -56,7 +56,7 @@ char	*get_variable_value(char *key, t_list *env);
 char	*get_variable_name(char *str);
 int		get_variable_len(char *str);
 void	expend_data(char *str, t_list *env);
-int		echo(t_list *lst, t_list *env);
+// int		echo(t_list *lst, t_list *env);
 void	env_(t_list *env);
 void	cd(t_list *lst, t_list *env);
 

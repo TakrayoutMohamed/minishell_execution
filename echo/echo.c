@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/15 21:48:57 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/16 01:32:29 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ void	echo_no_line(char **matrix)
 
 int	main(int argc, char **argv)
 {
-	int	i;
-
-	i = 1;
 	if (argc == 1)
 		ft_putstr_fd("\n", 1);
 	else if (argc == 2 && ft_strcmp(argv[1], "-n") != 0)
