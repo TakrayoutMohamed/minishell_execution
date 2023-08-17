@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 19:50:41 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/06 19:55:17 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:00:10 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ char	*get_variable_name(char *str)
 	variable = (char *)malloc(sizeof(char) * var_len + 1); //malloc here
 	if (variable == NULL)
 		return (NULL);
-	ft_strlcpy(variable, str, var_len);
+	ft_strlcpy(variable, str, var_len + 1);
 	return (variable);
 }

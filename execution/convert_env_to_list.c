@@ -10,11 +10,7 @@
 // 	{
 // 		j = 0;
 // 		ft_putchar_fd('[', 1);
-// 		while (matrix[i][j])
-// 		{
-// 			ft_putchar_fd(matrix[i][j], 1);
-// 			j++;
-// 		}
+// 		ft_putstr_fd(matrix[i], 1);
 // 		ft_putchar_fd(']', 1);
 // 		ft_putchar_fd(',', 1);
 // 		ft_putchar_fd('\n', 1);
@@ -32,6 +28,8 @@ t_list	*convert_env_to_list(char **env)
 	t_list	*lst;
 
 	lst = NULL;
+	// print_matrix(env);
+	// exit(99);
 	if (env && *env)
 	{
 		while (*env)

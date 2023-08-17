@@ -49,7 +49,7 @@ void	export_with_parameter(t_list *env, char *str)
 	char	*value;
 	int		i;
 
-	i = -1;
+	i = 0;
 	if (!is_valid_identifier(str))
 	{
 		ft_putstr_fd("export: `",1);
@@ -58,16 +58,22 @@ void	export_with_parameter(t_list *env, char *str)
 		return ;
 	}
 	key = get_variable_name(str);
-	while (++i < ft_strlen(key) && *str)
+	while (i < ft_strlen(key) && *str)
+	{
+		i++;
 		str++;
-	if (*str && *str == '=')
-		str++;
+	}
+	// if (*str && *str == '=')
+	// 	str++;
 	if (*str != '\0')
-		value = ft_strdup(str);
+		value = ft_strdup(++str);
 	else
 		value = NULL;
+
+	// printf("key = |%s|, value = |%s| isexist = |%d|\n",key, value, is_variable_exists(key, env));
+	// exit(88);
 	if (is_variable_exists(key, env))
-		update_env_value(key, str, env);
+		update_env_value(key, value, env);
 	else
 		ft_lstadd_back(&env, ft_lstnew(key, value));
 }
@@ -117,14 +123,14 @@ void	print_export(t_list *env)
 	tmp = env;
 	if (env == NULL)
 		return ;
-	// while (tmp->previous != NULL)
-	// 	tmp = tmp->previous;
+	while (tmp->previous != NULL)
+		tmp = tmp->previous;
 	while (tmp)
 	{
-		// printf("%s=%s\n", tmp->key, tmp->value);
+		// printf("|%s|=|%s|\n", tmp->key, tmp->value);
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(tmp->key, 1);
-		if (&(tmp->value))
+		if (tmp->value != NULL)
 		{
 			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(tmp->value, 1);
@@ -162,8 +168,8 @@ void	export_no_parameter(t_list *env)
 	}
 	print_export(sorted_list);
 	ft_lstclear(&sorted_list, del);
-
-
+	sorted_list = NULL;
+	tmp = NULL;
 }
 
 void	export(t_list *lst, t_list *env)
@@ -185,4 +191,5 @@ void	export(t_list *lst, t_list *env)
 	{
 		export_no_parameter(env);
 	}
+	export_no_parameter(env);// when i finished testing i need to remove this line
 }

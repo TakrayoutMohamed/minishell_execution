@@ -26,6 +26,11 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 		home = get_variable_value("HOME", env);
 		path = ft_strjoin(home, ++(lst->value));
 	}
+	else if (ft_strcmp((lst->value), "-") == 0)
+	{
+		home = get_variable_value("OLDPWD", env);
+		path = ft_strjoin(home, ++(lst->value));
+	}
 	else
 		path = lst->value;
 	if (chdir(path) != 0)
