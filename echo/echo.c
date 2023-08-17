@@ -6,17 +6,33 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/16 01:32:29 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/17 18:54:50 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libecho.h"
 
+bool	is_match_echo_options(char *str)
+{
+	if (!str || !*str)
+		return (false);
+	if (str[0] != '-')
+		return (false);
+	str++;
+	while (*str)
+	{
+		if (*str != 'n')
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
 void	echo_new_line(char **matrix)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (matrix[i])
 	{
 		if (ft_strlen(matrix[i]) != 0)
@@ -32,7 +48,7 @@ void	echo_no_line(char **matrix)
 {
 	int	i;
 
-	i = 2;
+	i = 0;
 	while (matrix[i])
 	{
 		if (ft_strlen(matrix[i]) != 0)
@@ -45,15 +61,25 @@ void	echo_no_line(char **matrix)
 
 int	main(int argc, char **argv)
 {
+	char	**matrix;
+
+	matrix = argv;
 	if (argc == 1)
 		ft_putstr_fd("\n", 1);
-	else if (argc == 2 && ft_strcmp(argv[1], "-n") != 0)
+	else if (argc == 2 && !is_match_echo_options(argv[1]))
 		ft_putendl_fd(argv[1], 1);
 	else
 	{
-		if (ft_strcmp(argv[1], "-n") == 0)
-			echo_no_line(argv);
-		if (ft_strcmp(argv[1], "-n") != 0)
-			echo_new_line(argv);
+		matrix++;
+		while (*matrix)
+		{
+			if (!is_match_echo_options(*matrix))
+				break;
+			matrix++;
+		}
+		if (is_match_echo_options(argv[1]))
+			echo_no_line(matrix);
+		else
+			echo_new_line(matrix);
 	}
 }
