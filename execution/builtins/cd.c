@@ -23,12 +23,12 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 
 	if (ft_strncmp((lst->value), "~", 1) == 0)
 	{
-		home = get_variable_value("HOME", env);
+		home = ft_strdup(get_variable_value("HOME", env));
 		path = ft_strjoin(home, ++(lst->value));
 	}
 	else if (ft_strcmp((lst->value), "-") == 0)
 	{
-		home = get_variable_value("OLDPWD", env);
+		home = ft_strdup(get_variable_value("OLDPWD", env));
 		path = ft_strjoin(home, ++(lst->value));
 	}
 	else
@@ -40,16 +40,17 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	}
 	else
 	{
-		if (!is_variable_exists("OLDPWD", env))
-		{
-			ft_lstadd_back(&env, ft_lstnew(ft_strdup("OLDPWD"), NULL));
-		}
-		if (!is_variable_exists("PWD", env))
-		{
-			ft_lstadd_back(&env, ft_lstnew(ft_strdup("PWD"), getcwd(NULL, 0)));
-		}
-		update_env_value("OLDPWD", "PWD", env);
-		update_env_value("PWD", path, env);
+		// if (!is_variable_exists("OLDPWD", env))
+		// {
+		// 	ft_lstadd_back(&env, ft_lstnew(ft_strdup("OLDPWD"), NULL));
+		// }
+		// if (!is_variable_exists("PWD", env))
+		// {
+		// 	ft_lstadd_back(&env, ft_lstnew(ft_strdup("PWD"), getcwd(NULL, 0)));
+		// }
+		// update_env_value("OLDPWD", "PWD", env);
+		// update_env_value("PWD", path, env);
+		free(home);
 		free(path);
 	}
 }
@@ -70,7 +71,7 @@ void	cd(t_list *lst, t_list *env)
 	}
 	if (ft_lstsize(lst) == 1)
 	{
-		cd_no_parametre(env);
+		// cd_no_parametre(env);
 	}
 	else
 	{

@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **env)
 	ft_lstlast(cmd)->next = NULL;
 	lst->cmd = cmd;
     export(cmd, env_lst);
-    export(ft_lstnew(NULL, ft_strdup("export")), env_lst);
+    // export(ft_lstnew(NULL, ft_strdup("export")), env_lst);
     // env_(env_lst);
 	ft_lstclear(&env_lst, del);
 	ft_lstclear(&cmd, del);
