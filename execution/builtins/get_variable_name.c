@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_variable_name.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 19:50:41 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/17 22:00:10 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/18 03:05:06 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*get_variable_name(char *str)
 	char	*variable;
 
 	if (!str || !*str)
-		return (ft_strdup(""));
+		return (NULL);
 	var_len = get_variable_len(str);
 	if (var_len == 0)
 	{
-		return (ft_strdup(""));
+		return (NULL);
 	}
 	variable = (char *)malloc(sizeof(char) * var_len + 1); //malloc here
 	if (variable == NULL)

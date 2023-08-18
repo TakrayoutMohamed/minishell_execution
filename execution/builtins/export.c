@@ -24,25 +24,6 @@ bool	is_valid_identifier(char *str)
 	return (true);
 }
 
-bool	is_variable_exists(char *key, t_list *env)
-{
-	t_list	*tmp;
-
-	tmp = env;
-	if (key != NULL && tmp != NULL)
-	{
-		while (tmp != NULL)
-		{
-			if (ft_strcmp(key, tmp->key) == 0)
-			{
-				return (true);
-			}
-			tmp = tmp->next;
-		}
-	}
-	return (false);
-}
-
 void	export_with_parameter(t_list *env, char *str)
 {
 	char	*key;
@@ -66,53 +47,43 @@ void	export_with_parameter(t_list *env, char *str)
 	// if (*str && *str == '=')
 	// 	str++;
 	if (*str != '\0')
-		value = ft_strdup(++str);
+	{
+		str++;
+		value = ft_strdup(str);
+	}
 	else
 		value = NULL;
 
 	// printf("key = |%s|, value = |%s| isexist = |%d|\n",key, value, is_variable_exists(key, env));
 	// exit(88);
+
 	if (is_variable_exists(key, env))
 		update_env_value(key, value, env);
 	else
+	{
+
+		// if (strcmp(key, "BBB") == 0)
+			// printf("llllll key = |%s|, value = |%s| isexist = |%d|\n",key, value, is_variable_exists(key, env));
 		ft_lstadd_back(&env, ft_lstnew(key, value));
+			// if (strcmp(key, "BBB") == 0)
+		// printf("llllll key = |%s|, value = |%s| isexist = |%d|\n",key, value, is_variable_exists(key, env));
+
+	}
 }
 
-void	ft_lstswap(t_list **lsta, t_list **lstb)
+void	ft_lstswap(t_list *lsta, t_list *lstb)
 {
-	t_list	*tmpa;
-	t_list	*tmpb;
+	char	*tmpkey;
+	char	*tmpvalue;
 
-	tmpa = *lsta;
-	tmpb = *lstb;
-	if (tmpa->previous != NULL && tmpb->next != NULL)
+	if (lsta != NULL && lstb != NULL)
 	{
-		tmpa->previous->next = tmpb;
-		tmpb->previous = tmpa->previous;
-		tmpb->next->previous = tmpa;
-		tmpa->next = tmpb->next;
-	}
-	else if (tmpb->next == NULL && tmpa->previous != NULL)
-	{
-		tmpa->previous->next = tmpb;
-		tmpb->previous = tmpa->previous;
-		tmpb->next = tmpa;
-		tmpa->previous = tmpb;
-
-	}
-	else if (tmpb->next != NULL && tmpa->previous == NULL)
-	{
-		tmpa->next = tmpb->next;
-		tmpb->next->previous = tmpa;
-		tmpb->next = tmpa;
-		tmpa->previous = tmpb;
-	}
-	else
-	{
-		tmpa->next = NULL;
-		tmpa->previous = tmpb;
-		tmpb->next = tmpa;
-		tmpb->previous = NULL;
+		tmpkey = lsta->key;
+		tmpvalue = lsta->value;
+		lsta->key = lstb->key;
+		lsta->value = lstb->value;
+		lstb->key = tmpkey;
+		lstb->value = tmpvalue;
 	}
 }
 
@@ -127,7 +98,6 @@ void	print_export(t_list *env)
 		tmp = tmp->previous;
 	while (tmp)
 	{
-		// printf("|%s|=|%s|\n", tmp->key, tmp->value);
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(tmp->key, 1);
 		if (tmp->value != NULL)
@@ -159,12 +129,13 @@ void	export_no_parameter(t_list *env)
 	tmp = sorted_list;
 	while (tmp && tmp->next)
 	{
-		// if (ft_strcmp(tmp->key, tmp->next->key) > 0)
-		// {
-		// 	ft_lstswap(&tmp, &(tmp->next));
-		// 	tmp = sorted_list;
-		// }
-		tmp = tmp->next;
+		if (ft_strcmp(tmp->key, tmp->next->key) > 0)
+		{
+			ft_lstswap(tmp, tmp->next);
+			tmp = sorted_list;
+		}
+		else
+			tmp = tmp->next;
 	}
 	print_export(sorted_list);
 	ft_lstclear(&sorted_list, del);
@@ -191,5 +162,5 @@ void	export(t_list *lst, t_list *env)
 	{
 		export_no_parameter(env);
 	}
-	export_no_parameter(env);// when i finished testing i need to remove this line
+	// export_no_parameter(env);// when i finished testing i need to remove this line
 }

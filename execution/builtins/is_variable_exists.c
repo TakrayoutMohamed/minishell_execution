@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   is_variable_exists.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 02:29:32 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/18 03:50:52 by takra            ###   ########.fr       */
+/*   Created: 2023/08/18 04:09:38 by takra             #+#    #+#             */
+/*   Updated: 2023/08/18 04:09:40 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "./../../libminishell.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(char *))
+/*check if a variable exists in envirement and return true else return false*/
+bool	is_variable_exists(char *key, t_list *env)
 {
-	if (lst && del)
+	t_list	*tmp;
+
+	tmp = env;
+	if (key != NULL && tmp != NULL)
 	{
-		del(lst->value);
-		del(lst->key);
-		free(lst);
+		while (tmp != NULL)
+		{
+			if (ft_strcmp(key, tmp->key) == 0)
+			{
+				return (true);
+			}
+			tmp = tmp->next;
+		}
 	}
+	return (false);
 }

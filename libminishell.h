@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/16 15:44:57 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/18 04:11:15 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ bool	is_unset(char *command);
 bool	is_env(char *command);
 bool	is_exit(char *command);
 void	builtins(t_list *command, t_list *env);
+bool	is_variable_exists(char *key, t_list *env);
 char	*get_variable_value(char *key, t_list *env);
 char	*get_variable_name(char *str);
 int		get_variable_len(char *str);

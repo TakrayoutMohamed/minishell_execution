@@ -22,27 +22,19 @@
 
 t_list	*convert_env_to_list(char **env)
 {
-	char	**str;
+	char	*value;
 	char	*key;
 	t_list	*new;
 	t_list	*lst;
 
 	lst = NULL;
-	// print_matrix(env);
-	// exit(99);
 	if (env && *env)
 	{
 		while (*env)
 		{
-			str = ft_split(*env, '=');
-			if (str == NULL)
-				return (NULL);
-			key = ft_strdup(*str);
-			// print_matrix(str);
-			ft_freematrix(str);
-			// print_matrix(str);
-			// exit(20);
-			new = ft_lstnew(key, ft_strdup(getenv(key)));
+			key = get_variable_name(*env);
+			value = getenv(key);
+			new = ft_lstnew(key, ft_strdup(value));
 			if (new == NULL)
 				return (NULL);
 			ft_lstadd_back(&lst, new);

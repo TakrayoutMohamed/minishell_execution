@@ -17,5 +17,6 @@ int main(int argc, char **argv, char **env)
 	// ft_lstadd_back(&lst, cmd);
 	// lst->cmd = cmd;
     env_(env_lst);
+	ft_lstclear(&env_lst,del);
     return (0);
 }

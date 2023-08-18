@@ -13,12 +13,17 @@ int main(int argc, char **argv, char **env)
 	tmp = ft_lstnew("NULL", "NULL");
 	ft_lstadd_back(&lst, tmp);
 	ft_lstadd_back(&cmd, ft_lstnew(NULL, "export"));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, "\tKCCCCCC="));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, "GHHHHHHHHHHHHHH1"));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, "GGG=THATISIT1"));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, "ZZZ=alvaresNegredo"));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, "GHHHHHHHHHHHHHH1"));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, "AAA=THATISIT1"));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, "BBB=THATISIT1"));
+	ft_lstlast(cmd)->next = NULL;
 	lst->cmd = cmd;
     export(cmd, env_lst);
-    // env_(env_lst);
+    env_(env_lst);
+	// ft_lstclear(&env_lst, del);
+	// ft_lstclear(&cmd, del);
+	// ft_lstclear(&lst, del);
 
     return (0);
 }

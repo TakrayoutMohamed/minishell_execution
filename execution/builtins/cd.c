@@ -40,6 +40,14 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	}
 	else
 	{
+		if (!is_variable_exists("OLDPWD", env))
+		{
+			ft_lstadd_back(&env, ft_lstnew(ft_strdup("OLDPWD"), NULL));
+		}
+		if (!is_variable_exists("PWD", env))
+		{
+			ft_lstadd_back(&env, ft_lstnew(ft_strdup("PWD"), getcwd(NULL, 0)));
+		}
 		update_env_value("OLDPWD", "PWD", env);
 		update_env_value("PWD", path, env);
 		free(path);
