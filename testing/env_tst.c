@@ -1,10 +1,16 @@
 #include "./../libminishell.h"
 
+void foo(void)
+{
+	system("leaks env");
+}
+
 int main(int argc, char **argv, char **env)
 {
     t_list	*lst;
 	t_list	*tmp;
 	t_list	*cmd;
+	atexit(foo);
 	lst = NULL;
 	cmd = NULL;
     t_list  *env_lst;

@@ -76,6 +76,5 @@ void	cd(t_list *lst, t_list *env)
 	{
 		lst = lst->next;
 		cd_with_paramitre(lst, env);
-		// chdir(directory);
 	}
 }

@@ -11,7 +11,7 @@ bool	is_valid_identifier(char *str)
 	}
 	if (!ft_isalpha(*str) && *str != '_')
 		return (false);
-	while (*str && *str != '=')
+	while (*str && *str != '=' && *str != '+')
 	{
 		if (ft_isalpha(*str) || *str == '_' || ft_isdigit(*str))
 		{
@@ -21,6 +21,8 @@ bool	is_valid_identifier(char *str)
 		else
 			return (false);
 	}
+	if (*str == '+' && ft_strncmp(str, "+=", 2) != 0)
+		return (false);
 	return (true);
 }
 
@@ -44,30 +46,26 @@ void	export_with_parameter(t_list *env, char *str)
 		i++;
 		str++;
 	}
-	// if (*str && *str == '=')
-	// 	str++;
 	if (*str != '\0')
 	{
-		str++;
-		value = ft_strdup(str);
+		if (ft_strncmp(str, "+=", 2) == 0)
+		{
+			str = str + 2;
+			value = ft_strjoin(get_variable_value(key, env), str); //this create a leaks
+		}
+		else
+		{
+			str++;
+			value = ft_strdup(str);
+		}
 	}
 	else
 		value = NULL;
-
-	// printf("key = |%s|, value = |%s| isexist = |%d|\n",key, value, is_variable_exists(key, env));
-	// exit(88);
-
 	if (is_variable_exists(key, env))
 		update_env_value(key, value, env);
 	else
 	{
-
-		// if (strcmp(key, "BBB") == 0)
-			// printf("llllll key = |%s|, value = |%s| isexist = |%d|\n",key, value, is_variable_exists(key, env));
 		ft_lstadd_back(&env, ft_lstnew(key, value));
-			// if (strcmp(key, "BBB") == 0)
-		// printf("llllll key = |%s|, value = |%s| isexist = |%d|\n",key, value, is_variable_exists(key, env));
-
 	}
 }
 

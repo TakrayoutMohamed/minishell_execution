@@ -16,12 +16,13 @@ bool	update_env_value(char *key, char *new_key, t_list *env)
 		{
 			variable_value =  get_variable_value(new_key, env);
 			if (variable_value == NULL)
-				variable_value = new_key;
+				variable_value = ft_strdup(new_key);
 			free(tmp->value);
-			tmp->value = (char *)malloc(ft_strlen(variable_value) + 1);
-			if (!tmp->value)
-				return (printf("error while allocating at update_env_value()"), exit(-2), 0);
-			ft_strlcpy(tmp->value, variable_value, ft_strlen(variable_value) + 1);
+			// tmp->value = (char *)malloc(ft_strlen(variable_value) + 1);
+			// if (!tmp->value)
+			// 	return (printf("error while allocating at update_env_value()"), exit(-2), 0);
+			// ft_strlcpy(tmp->value, variable_value, ft_strlen(variable_value) + 1);
+			tmp->value = variable_value;
 			return (true);
 		}
 		tmp = tmp->next;
