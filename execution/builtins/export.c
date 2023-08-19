@@ -30,6 +30,7 @@ void	export_with_parameter(t_list *env, char *str)
 {
 	char	*key;
 	char	*value;
+	char	*variable_value;
 	int		i;
 
 	i = 0;
@@ -51,7 +52,9 @@ void	export_with_parameter(t_list *env, char *str)
 		if (ft_strncmp(str, "+=", 2) == 0)
 		{
 			str = str + 2;
-			value = ft_strjoin(get_variable_value(key, env), str); //this create a leaks
+			variable_value = ft_strdup(get_variable_value(key, env));
+			value = ft_strjoin(variable_value, str);
+			free(variable_value);
 		}
 		else
 		{
@@ -62,11 +65,17 @@ void	export_with_parameter(t_list *env, char *str)
 	else
 		value = NULL;
 	if (is_variable_exists(key, env))
+	{
+		free(get_variable_value(key, env));
 		update_env_value(key, value, env);
+	}
 	else
 	{
-		ft_lstadd_back(&env, ft_lstnew(key, value));
+		ft_lstadd_back(&env, ft_lstnew(ft_strdup(key), ft_strdup(value)));
 	}
+	free(value);
+	free(key);
+
 }
 
 void	ft_lstswap(t_list *lsta, t_list *lstb)
