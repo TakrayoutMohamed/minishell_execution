@@ -1,6 +1,11 @@
 #include "./../../libminishell.h"
 
-void	pwd(t_list *env)
+void	pwd(void)
 {
-	ft_putstr_fd(get_variable_value("PWD", env), 1);
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	ft_putstr_fd(pwd, 1);
+	ft_putstr_fd("\n", 1);
+	free(pwd);
 }
