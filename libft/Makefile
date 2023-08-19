@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
+#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/19 18:37:53 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/16 15:34:44 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/19 04:47:59 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME=libft.a
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
 RM=rm -f
-SRC =  ft_atoi.c ft_isdigit.c ft_isalpha.c ft_tolower.c\
+SRC = ft_itoa.c ft_atoi.c ft_isdigit.c ft_isalpha.c ft_tolower.c\
 	ft_strdup.c ft_strjoin.c\
 	ft_strchr.c ft_strlen.c ft_strcmp.c ft_strncmp.c ft_strlcpy.c\
 	ft_freematrix.c ft_split.c \

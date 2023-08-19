@@ -15,14 +15,15 @@ void	unset(t_list *env, char *variable_name)
 			to_delete = tmp;
 			if (tmp->previous != NULL && tmp->next != NULL)
 			{
-				tmp->previous->next = tmp->next;
-				tmp->next->previous = tmp->previous;
+				(tmp->previous)->next = tmp->next;
+				(tmp->next)->previous = tmp->previous;
 			}
 			else if (tmp->next == NULL && tmp->previous != NULL)
 				tmp->previous->next = NULL;
 			else if (tmp->previous == NULL && tmp->next != NULL)
 				tmp->next->previous = NULL;
 			ft_lstdelone(to_delete, del);
+			return ;
 		}
 		tmp = tmp->next;
 	}

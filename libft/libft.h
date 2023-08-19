@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:13:46 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/18 03:09:58 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/19 04:48:10 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_atoi(const char *str);
 char	*ft_strdup(const char *s);
 /*the part two functions declaration*/
+char	*ft_itoa(int nbr);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_freematrix(char **matrix);
 char	**ft_split(char const *s, char c);
