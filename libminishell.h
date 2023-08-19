@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/18 04:11:15 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/19 15:35:16 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	cd(t_list *lst, t_list *env);
 void	export(t_list *lst, t_list *env);
 void    pwd(t_list *env);
 void	unset(t_list *env, char *variable_name);
+void	update_shlvl(t_list *env);
 
 
 #endif

@@ -8,24 +8,24 @@ void	update_shlvl(t_list *env)
 	tmp = env;
 	if (!env)
 		return ;
-	while (tmp)
+	if (is_variable_exists("SHLVL", env))
 	{
-		if (ft_strcmp(tmp->key, "SHLVL") == 0)
+		if (ft_atoi(get_variable_value("SHLVL", env)) >= 999 \
+		|| ft_atoi(get_variable_value("SHLVL", env)) < 0)
 		{
-			if (ft_atoi(get_variable_value("SHLVL", env)) >= 999)
-			{
-				free(get_variable_value("SHLVL", env));
-				update_env_value("SHLVL", "1", env);
-			}
-			else
-			{
-				itoa = ft_itoa(ft_atoi(get_variable_value("SHLVL", env)) + 1);
-				free(get_variable_value("SHLVL", env));
-				update_env_value("SHLVL", itoa, env);
-				free(itoa);
-			}
-			return ;
+			free(get_variable_value("SHLVL", env));
+			update_env_value("SHLVL", "1", env);
 		}
-		tmp = tmp->next;
+		else
+		{
+			itoa = ft_itoa(ft_atoi(get_variable_value("SHLVL", env)) + 1);
+			free(get_variable_value("SHLVL", env));
+			update_env_value("SHLVL", itoa, env);
+			free(itoa);
+		}
+	}
+	else
+	{
+		ft_lstadd_back(&env, ft_lstnew(ft_strdup("SHLVL"), ft_strdup("1")));
 	}
 }

@@ -3,10 +3,17 @@
 /*redirect to the home directory and update oldpwd and pwd*/
 void	cd_no_parametre(t_list	*env)
 {
-	if (chdir(get_variable_value("HOME", env)) != 0)
+	char	*path;
+	path = NULL;
+	if (get_variable_value("HOME", env) == NULL)
+		path = ft_strdup("/../.../../");
+	else
+		path = ft_strdup(get_variable_value("HOME", env));
+	if (chdir(path) != 0)
 	{
 		print_error(errno);
-		exit(errno);
+		free(path);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -19,6 +26,7 @@ void	cd_no_parametre(t_list	*env)
 		update_env_value("OLDPWD", "PWD", env);
 		update_env_value("PWD", "HOME", env);
 	}
+	free(path);
 }
 
 /*redirect to some path with value and update the oldpwd and pwd*/
@@ -30,6 +38,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 
 	value = lst->value;
 	home = NULL;
+	path = NULL;
 	if (ft_strncmp(value, "~", 1) == 0)
 	{
 		value++;
@@ -47,7 +56,9 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	if (chdir(path) != 0)
 	{
 		print_error(errno);
-		exit(errno);
+		free(home);
+		free(path);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -67,9 +78,10 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 		update_env_value("OLDPWD", "PWD", env);
 		free(get_variable_value("PWD", env));
 		update_env_value("PWD", path, env);
-		free(home);
-		free(path);
 	}
+	free(home);
+	free(path);
+	exit(EXIT_SUCCESS);
 }
 
 /*
@@ -93,9 +105,14 @@ void	cd(t_list *lst, t_list *env)
 	{
 		cd_no_parametre(env);
 	}
-	else
+	else if (ft_lstsize(lst) == 2)
 	{
 		tmp = tmp->next;
 		cd_with_paramitre(tmp, env);
+	}
+	else
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		exit(EXIT_FAILURE);
 	}
 }

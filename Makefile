@@ -6,7 +6,7 @@
 #    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/18 04:10:46 by takra            ###   ########.fr        #
+#    Updated: 2023/08/19 15:36:03 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c $(PATH
 		$(PATHBUILT)is_variable_exists.c\
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
 	 	$(PATHBUILT)expend_data.c $(PATHBUILT)update_env_value.c\
-		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c \
+		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c $(PATHBUILT)update_shlvl.c \
 	 $(PATHERR)print_error.c \
 	 $(PATHPARS)parse_data.c 
 MAIN_SRC=minishell.c
