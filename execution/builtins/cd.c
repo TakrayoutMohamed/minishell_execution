@@ -10,6 +10,12 @@ void	cd_no_parametre(t_list	*env)
 	}
 	else
 	{
+		if (!is_variable_exists("OLDPWD", env))
+		{
+			ft_lstadd_back(&env, ft_lstnew(ft_strdup("OLDPWD"), ft_strdup("NULL")));
+		}
+		if (!is_variable_exists("PWD", env))
+			ft_lstadd_back(&env, ft_lstnew(ft_strdup("PWD"), getcwd(NULL, 0)));
 		update_env_value("OLDPWD", "PWD", env);
 		update_env_value("PWD", "HOME", env);
 	}
@@ -20,19 +26,24 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 {
 	char	*path;
 	char	*home;
+	char	*value;
 
-	if (ft_strncmp((lst->value), "~", 1) == 0)
+	value = lst->value;
+	home = NULL;
+	if (ft_strncmp(value, "~", 1) == 0)
 	{
+		value++;
 		home = ft_strdup(get_variable_value("HOME", env));
-		path = ft_strjoin(home, ++(lst->value));
+		path = ft_strjoin(home, value);
 	}
 	else if (ft_strcmp((lst->value), "-") == 0)
 	{
+		value++;
 		home = ft_strdup(get_variable_value("OLDPWD", env));
-		path = ft_strjoin(home, ++(lst->value));
+		path = ft_strjoin(home, value);
 	}
 	else
-		path = lst->value;
+		path = ft_strdup(lst->value);
 	if (chdir(path) != 0)
 	{
 		print_error(errno);
@@ -40,16 +51,22 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	}
 	else
 	{
-		// if (!is_variable_exists("OLDPWD", env))
-		// {
-		// 	ft_lstadd_back(&env, ft_lstnew(ft_strdup("OLDPWD"), NULL));
-		// }
-		// if (!is_variable_exists("PWD", env))
-		// {
-		// 	ft_lstadd_back(&env, ft_lstnew(ft_strdup("PWD"), getcwd(NULL, 0)));
-		// }
-		// update_env_value("OLDPWD", "PWD", env);
-		// update_env_value("PWD", path, env);
+		if (!is_variable_exists("OLDPWD", env))
+		{
+			if (ft_strcmp((lst->value), "-") == 0)
+			{
+				ft_putstr_fd("cd: OLDPWD not set\n", 2);
+			}
+			else
+				ft_lstadd_back(&env, ft_lstnew(ft_strdup("OLDPWD"), NULL));
+		}
+		if (!is_variable_exists("PWD", env))
+		{
+			ft_lstadd_back(&env, ft_lstnew(ft_strdup("PWD"), getcwd(NULL, 0)));
+		}
+		update_env_value("OLDPWD", "PWD", env);
+		free(get_variable_value("PWD", env));
+		update_env_value("PWD", path, env);
 		free(home);
 		free(path);
 	}
@@ -64,18 +81,21 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 */
 void	cd(t_list *lst, t_list *env)
 {
-	if (lst == NULL)
+	t_list	*tmp;
+
+	tmp = lst;
+	if (tmp == NULL)
 	{
 		printf("the lst passed to the cd()\n");
 		exit(-1);
 	}
-	if (ft_lstsize(lst) == 1)
+	if (ft_lstsize(tmp) == 1)
 	{
-		// cd_no_parametre(env);
+		cd_no_parametre(env);
 	}
 	else
 	{
-		lst = lst->next;
-		cd_with_paramitre(lst, env);
+		tmp = tmp->next;
+		cd_with_paramitre(tmp, env);
 	}
 }
