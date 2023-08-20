@@ -1,4 +1,5 @@
 #include "./../libminishell.h"
+
 void foo(void)
 {
 	// system("leaks cd");
@@ -31,18 +32,15 @@ int main(int argc, char **argv, char **env)
     env_lst = convert_env_to_list(env);
 	// tmp = ft_lstnew(ft_strdup("NULL"), ft_strdup("NULL"));
 	// ft_lstadd_back(&lst, tmp);
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("cd")));
-	// ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("/khfgkhghk")));
-	// ft_lstlast(cmd)->next = NULL;
-	// lst->cmd = cmd;
-    cd(cmd, env_lst);
-	// ft_lstclear(&cmd, del);
-    // export(ft_lstnew(NULL, ft_strdup("export")), env_lst);
-    env_(env_lst);
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("cd")));
+    char *path = get_path_of_cmd(env_lst, "clear");
+    printf("the path of the cmd ls=|%s|",path);
+    // env_(env_lst);
+    free(path);
 	ft_lstclear(&env_lst, del);
-	ft_lstclear(&cmd, del);
+	// ft_lstclear(&cmd, del);
 	// ft_lstclear(&lst, del);
 	// print_lst(cmd);
-	exit(88);
+	exit(errno);
     return (0);
 }
