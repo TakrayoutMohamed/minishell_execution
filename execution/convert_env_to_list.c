@@ -20,6 +20,7 @@
 // 	ft_putchar_fd('\n', 1);
 // }
 
+/*return a list pointer created from the double pointer entered (env)*/
 t_list	*convert_env_to_list(char **env)
 {
 	char	*value;

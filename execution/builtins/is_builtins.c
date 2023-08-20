@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:00 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/16 15:38:34 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:22:07 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ bool	is_exit(char *command)
 	return (false);
 }
 
+/*edit all chars to lower case*/
 void	ft_strtolower(char *str)
 {
 	if (!str)
@@ -66,11 +67,13 @@ void	ft_strtolower(char *str)
 	}
 }
 
+/*return true if the first node's value is a builtins programe*/
 int	is_builtins(t_list *lst)
 {
 	char *value_to_lower;
 
 	value_to_lower = ft_strdup(lst->value);
+	ft_strtolower(value_to_lower);
 	if (is_echo(value_to_lower))
 		return (free(value_to_lower), 1);
 	if (is_cd(value_to_lower))

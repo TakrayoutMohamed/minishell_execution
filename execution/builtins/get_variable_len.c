@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_variable_len.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 19:52:16 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/06 19:52:19 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:18:17 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../libminishell.h"
 
-/*return the len of a variable*/
+/*return the len of a variable in the form of bash variables*/
 int	get_variable_len(char *str)
 {
 	int	i;

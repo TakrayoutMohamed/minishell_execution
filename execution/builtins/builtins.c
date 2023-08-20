@@ -1,5 +1,6 @@
 #include "./../../libminishell.h"
 
+/*execute one of the builtind depending on the first lst node's value*/
 void	builtins(t_list *lst ,t_list *env)
 {
 	if (lst == NULL)

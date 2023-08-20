@@ -1,5 +1,6 @@
 #include "./../../libminishell.h"
 
+/*update the value of key in envirement with allocation for the new value*/
 bool	update_env_value(char *key, char *new_key, t_list *env)
 {
 	t_list	*tmp;

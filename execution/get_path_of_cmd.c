@@ -1,13 +1,14 @@
 #include "./../libminishell.h"
 
-bool	is_cmd_in_dir(char *path, char *cmd)
+/*return true if the program in the path is exist and its executable*/
+bool	is_cmd_in_dir(char *path, char *program)
 {
-	char			*psuedo_path;
+	char			*pseudo_path;
 	char			*full_path;
 
-	psuedo_path = ft_strjoin("/", cmd);
-	full_path = ft_strjoin(path, psuedo_path);
-	free(psuedo_path);
+	pseudo_path = ft_strjoin("/", program);
+	full_path = ft_strjoin(path, pseudo_path);
+	free(pseudo_path);
 	if (access(full_path, X_OK | F_OK) == 0)
 		return (free(full_path), true);
 	free(full_path);
@@ -15,12 +16,15 @@ bool	is_cmd_in_dir(char *path, char *cmd)
 
 }
 
-/*this function returns the path of entred cmd depending on the env $PATH*/
+/*this function returns the executable of the command "cmd" with
+* within its absolute path depending on the env variable $PATH
+* exemple : if the cmd is "ls" than the  return will be like "/bin/ls" (in linux)
+*/
 char	*get_path_of_cmd(t_list *env, char *cmd)
 {
 	char	**matrix;
 	char	*path;
-	char	*psuedo_path;
+	char	*pseudo_path;
 	int		i;
 
 	path = NULL;
@@ -37,9 +41,9 @@ char	*get_path_of_cmd(t_list *env, char *cmd)
 		{
 			if (is_cmd_in_dir(matrix[i], cmd))
 			{
-				psuedo_path = ft_strjoin("/", cmd);
-				path = ft_strjoin(matrix[i], psuedo_path);
-				free(psuedo_path);
+				pseudo_path = ft_strjoin("/", cmd);
+				path = ft_strjoin(matrix[i], pseudo_path);
+				free(pseudo_path);
 				break ;
 			}
 			i++;

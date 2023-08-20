@@ -1,5 +1,6 @@
 #include "./../../libminishell.h"
 
+/*remove a variable from the envirement's data*/
 void	unset(t_list *env, char *variable_name)
 {
 	t_list	*tmp;

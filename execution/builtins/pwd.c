@@ -1,5 +1,6 @@
 #include "./../../libminishell.h"
 
+/*print the current directory to the stdout*/
 void	pwd(void)
 {
 	char	*pwd;

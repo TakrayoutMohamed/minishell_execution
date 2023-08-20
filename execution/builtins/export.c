@@ -1,5 +1,6 @@
 #include "./../../libminishell.h"
 
+/*check if the str entered has a form of an acceptable variable*/
 bool	is_valid_identifier(char *str)
 {
 	int	i;
@@ -26,6 +27,7 @@ bool	is_valid_identifier(char *str)
 	return (true);
 }
 
+/*export the data or add the variable str to the env linked list*/
 void	export_with_parameter(t_list *env, char *str)
 {
 	char	*key;
@@ -78,6 +80,7 @@ void	export_with_parameter(t_list *env, char *str)
 
 }
 
+/*swap the data of the entered nodes lsta and lstb*/
 void	ft_lstswap(t_list *lsta, t_list *lstb)
 {
 	char	*tmpkey;
@@ -94,6 +97,7 @@ void	ft_lstswap(t_list *lsta, t_list *lstb)
 	}
 }
 
+/*print the data in the envirement with export apearence*/
 void	print_export(t_list *env)
 {
 	t_list	*tmp;
@@ -150,6 +154,7 @@ void	export_no_parameter(t_list *env)
 	tmp = NULL;
 }
 
+/*execute export function */
 void	export(t_list *lst, t_list *env)
 {
 	t_list	*tmp;
