@@ -6,7 +6,7 @@
 #    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/20 03:39:44 by takra            ###   ########.fr        #
+#    Updated: 2023/08/21 00:44:02 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,11 @@ PATHPARS= ./parsing/
 
 SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c\
-	 $(PATHBUILT)is_builtins.c $(PATHBUILT)builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c\
+	 $(PATHEXEC)convert_list_to_matrix.c\
+		$(PATHBUILT)is_builtins.c $(PATHBUILT)builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c\
 		$(PATHBUILT)is_variable_exists.c\
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
-	 	$(PATHBUILT)expend_data.c $(PATHBUILT)update_env_value.c\
+	 	$(PATHBUILT)update_env_value.c\
 		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c $(PATHBUILT)update_shlvl.c \
 	 $(PATHERR)print_error.c \
 	 $(PATHPARS)parse_data.c 

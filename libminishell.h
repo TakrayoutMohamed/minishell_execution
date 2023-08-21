@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/20 03:36:21 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/21 18:03:26 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@
 int status;
 
 t_list  *convert_env_to_list(char **env);
+char    **convert_list_to_matrix(t_list *lst);
 int		prompt(int argc, char **argv, t_list *env);
-void	execution(t_list *command, t_list *env);
+void	execution(t_list *command, t_list *env, int position);
 void	execute_list(t_list *lst, t_list *env);
 int		is_builtins(t_list *lst);
 bool	is_echo(char *command);
@@ -58,7 +59,7 @@ char	*get_variable_name(char *str);
 int		get_variable_len(char *str);
 char	*get_path_of_cmd(t_list *env, char *cmd);
 bool	update_env_value(char *key, char *new_key, t_list *env);
-void	expend_data(char *str, t_list *env);
+// void	expend_data(char *str, t_list *env);
 // int		echo(t_list *lst, t_list *env);
 void	env_(t_list *env);
 void	cd(t_list *lst, t_list *env);

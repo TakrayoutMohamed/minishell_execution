@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:39:11 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/16 02:56:18 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/20 23:20:43 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	prompt(int argc, char **argv, t_list *env)
 	int i = 0;
 	while (i < 5)
 	{
-		// ft_putstr_fd("here no sigfault0000000000000\n",2);
 		command = readline("ⵜⴰⵎⴰⵣⵖⴰ> ");
 		lst = parse_data(command);
 		if (lst == NULL)
@@ -34,6 +33,5 @@ int	prompt(int argc, char **argv, t_list *env)
 		
 	}
 	rl_clear_history();
-	// command = readline("done> ");
 	return (0);
 }

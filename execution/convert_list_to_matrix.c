@@ -5,6 +5,7 @@ char **convert_list_to_matrix(t_list *lst)
 {
 	char	**matrix;
 	t_list	*tmp;
+	char	*str;
 	int		i;
 
 	i = 0;
@@ -12,17 +13,16 @@ char **convert_list_to_matrix(t_list *lst)
 	if (lst == NULL)
 		return (NULL);
 	matrix = (char **)malloc(ft_lstsize(lst) + 1);
-	while (lst != NULL)
+	//this function for some reason does not work proprely
+	while (tmp != NULL)
 	{
-		matrix[i] = (char *)malloc(ft_strlen(tmp) + 1);
-		if (!matrix[i])
-		{
-			ft_freematrix(matrix);
-			return (NULL);
-		}
-		ft_strlcpy(matrix[i], tmp->value, ft_strlen(tmp) + 1);
+
+		str = ft_strjoin(tmp->key, "=");
+		matrix[i] = ft_strjoin(str, tmp->value);
+		free(str);
 		i++;
 		tmp = tmp->next;
 	}
+	matrix[ft_lstsize(lst)] = NULL;
 	return (matrix);
 }

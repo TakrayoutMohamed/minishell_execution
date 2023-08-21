@@ -165,12 +165,7 @@ void	print_lst(t_list *lst)
 void	ft_pipe_middle(t_list *lst)
 {
 	pid_t	pid;
-	char	*cmd[4];
-
-	cmd[0] = lst->cmd->command;
-	cmd[1] = lst->cmd->options;
-	cmd[2] = lst->cmd->message;
-	cmd[3] = NULL;
+	char	**cmd;
 
 	pid = fork();
 	if (pid == -1)
@@ -180,6 +175,7 @@ void	ft_pipe_middle(t_list *lst)
 	}
 	else if (pid == 0) // this is child
 	{
+		cmd = convert_lst_to_matrix(lst);
 		dup2(lst->previous->pipe[0], 0);
 		dup2(lst->pipe[1], 1);
 		close_pipe(lst->pipe);
