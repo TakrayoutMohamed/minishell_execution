@@ -5,24 +5,19 @@ char **convert_list_to_matrix(t_list *lst)
 {
 	char	**matrix;
 	t_list	*tmp;
-	char	*str;
 	int		i;
 
 	i = 0;
 	tmp = lst;
 	if (lst == NULL)
 		return (NULL);
-	matrix = (char **)malloc(ft_lstsize(lst) + 1);
-	//this function for some reason does not work proprely
+	matrix = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
 	while (tmp != NULL)
 	{
-
-		str = ft_strjoin(tmp->key, "=");
-		matrix[i] = ft_strjoin(str, tmp->value);
-		free(str);
+		matrix[i] = ft_strdup(lst->value);
 		i++;
 		tmp = tmp->next;
 	}
-	matrix[ft_lstsize(lst)] = NULL;
+	matrix[i] = NULL;
 	return (matrix);
 }

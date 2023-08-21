@@ -42,7 +42,7 @@ int main(int argc, char **argv, char **env)
     t_list  *env_lst = NULL;
 
     env_lst = convert_env_to_list(env);
-    print_lst(env_lst);
+    // print_lst(env_lst);
     // printf("\n****************the first matrix**********************\n");
     // print_matrix(env);
 	// exit(0);
@@ -50,11 +50,11 @@ int main(int argc, char **argv, char **env)
     printf("\n****************the second matrix**********************\n");
     matrix = convert_list_to_matrix(env_lst);
 
-    print_matrix(matrix);
+    // print_matrix(matrix);
     printf("\n****************end the second matrix**********************\n");
-	ft_putstr_fd("here sig befor freematrix\n", 1);
-    // ft_freematrix(matrix);
-	// ft_lstclear(&env_lst, del);
+	// ft_putstr_fd("here sig befor freematrix\n", 1);
+    ft_freematrix(matrix);
+	ft_lstclear(&env_lst, del);
 	// exit(88);
     return (0);
 }
