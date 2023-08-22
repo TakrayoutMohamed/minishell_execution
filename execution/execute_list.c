@@ -28,10 +28,10 @@ void	execute_list(t_list *lst, t_list *env)
 	tmp = lst;
 	while (tmp)
 	{
-		if (tmp == lst)
-			position = 1;
-		else if (tmp == ft_lstlast(lst))
+		if (tmp == ft_lstlast(lst))
 			position = 3;
+		else if (tmp == lst)
+			position = 1;
 		else
 			position = 2;
 		if (is_builtins(lst->cmd))

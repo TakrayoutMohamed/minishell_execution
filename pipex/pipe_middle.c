@@ -7,8 +7,7 @@ int	pipe_middle(t_list *lst, char **argv)
 	pid = fork();
 	if (pid == -1)
 	{
-		print_error(errno);
-		return (errno);
+		return (ft_freematrix(argv), print_error(errno), errno);
 	}
 	else if (pid == 0) // this is child
 	{
@@ -20,5 +19,5 @@ int	pipe_middle(t_list *lst, char **argv)
 	}
 	close(lst->pipe[1]);
 	waitpid(pid, &status, WUNTRACED);
-	return (status);
+	return (ft_freematrix(argv), status);
 }

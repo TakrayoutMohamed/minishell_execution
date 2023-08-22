@@ -8,7 +8,7 @@ int	pipe_beginning(t_list *lst, char **argv)
 	if (pid == -1)
 	{
 		print_error(errno);
-		return (EXIT_FAILURE);
+		return (ft_freematrix(argv), EXIT_FAILURE);
 	}
 	else if (pid == 0)
 	{
@@ -20,5 +20,5 @@ int	pipe_beginning(t_list *lst, char **argv)
 	}
 	close(lst->pipe[1]);
 	waitpid(pid, &status, WUNTRACED);
-	return (status);
+	return (ft_freematrix(argv), status);
 }

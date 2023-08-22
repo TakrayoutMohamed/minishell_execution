@@ -55,7 +55,7 @@ char	*get_path_of_cmd(t_list *env, char *cmd)
 	if (path == NULL)
 	{
 		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": command not found\n", 2);;
+		ft_putstr_fd(": command not found\n", 2);
 	}
 	return (path);
 }
