@@ -30,6 +30,8 @@ char	*get_path_of_cmd(t_list *env, char *cmd)
 	path = NULL;
 	matrix = NULL;
 	i = 0;
+	if (is_cmd_in_dir("", cmd))
+		return (ft_strdup(cmd));
 	if (is_variable_exists("PATH", env))
 	{
 		matrix = ft_split(get_variable_value("PATH", env), ':');
