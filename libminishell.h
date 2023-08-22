@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/22 01:43:28 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/22 10:32:34 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		get_variable_len(char *str);
 char	*get_path_of_cmd(t_list *env, char *cmd);
 bool	update_env_value(char *key, char *new_key, t_list *env);
 // void	expend_data(char *str, t_list *env);
-// int		echo(t_list *lst, t_list *env);
+int     echo(t_list *lst);
 void	env_(t_list *env);
 void	cd(t_list *lst, t_list *env);
 void	export(t_list *lst, t_list *env);
@@ -71,5 +71,6 @@ int		pipe_end(t_list *lst, char **argv);
 int		pipe_middle(t_list *lst, char **argv);
 int		pipe_beginning(t_list *lst, char **argv);
 void	close_pipe(int pipe_fd[2]);
+int     read_from_fd(int fd);
 
 #endif

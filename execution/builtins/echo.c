@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/17 18:54:50 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/22 12:09:48 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libecho.h"
+#include "./../../libminishell.h"
 
 bool	is_match_echo_options(char *str)
 {
@@ -59,27 +59,27 @@ void	echo_no_line(char **matrix)
 	}
 }
 
-int	main(int argc, char **argv)
+int	echo(t_list *lst)
 {
 	char	**matrix;
+	char	**argv;
 
-	matrix = argv;
-	if (argc == 1)
-		ft_putstr_fd("\n", 1);
-	else if (argc == 2 && !is_match_echo_options(argv[1]))
-		ft_putendl_fd(argv[1], 1);
+	matrix = convert_list_to_matrix(lst);
+	argv = matrix;
+	if (ft_lstsize(lst) == 1 && !is_match_echo_options(argv[0]))
+		ft_putendl_fd(argv[0], 1);
 	else
 	{
-		matrix++;
 		while (*matrix)
 		{
 			if (!is_match_echo_options(*matrix))
 				break;
 			matrix++;
 		}
-		if (is_match_echo_options(argv[1]))
+		if (is_match_echo_options(argv[0]))
 			echo_no_line(matrix);
 		else
 			echo_new_line(matrix);
 	}
+	return (ft_freematrix(argv), EXIT_SUCCESS);
 }

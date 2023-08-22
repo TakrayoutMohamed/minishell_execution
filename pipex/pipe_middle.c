@@ -18,10 +18,7 @@ int	pipe_middle(t_list *lst, char **argv)
 		execve(argv[0], argv, NULL);
 		exit(EXIT_FAILURE);
 	}
-	else //this is parent
-	{
-		close(lst->pipe[1]);
-		waitpid(pid, &status, WUNTRACED);
-		return (status);
-	}
+	close(lst->pipe[1]);
+	waitpid(pid, &status, WUNTRACED);
+	return (status);
 }

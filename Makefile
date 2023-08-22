@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
+#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/22 01:44:17 by takra            ###   ########.fr        #
+#    Updated: 2023/08/22 10:33:20 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,12 +35,13 @@ PATHPARS= ./parsing/
 SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c\
 	 $(PATHEXEC)convert_list_to_matrix.c\
-		$(PATHBUILT)is_builtins.c $(PATHBUILT)builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c\
-		$(PATHBUILT)is_variable_exists.c\
+		$(PATHBUILT)is_builtins.c $(PATHBUILT)builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c \
+		$(PATHBUILT)echo.c  $(PATHBUILT)is_variable_exists.c\
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
 	 	$(PATHBUILT)update_env_value.c\
 		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c $(PATHBUILT)update_shlvl.c \
-	 $(PATHPIPE)pipe_beginning.c $(PATHPIPE)pipe_middle.c $(PATHPIPE)pipe_end.c $(PATHPIPE)close_pipe.c\
+	 $(PATHPIPE)pipe_beginning.c $(PATHPIPE)pipe_middle.c $(PATHPIPE)pipe_end.c\
+	 $(PATHPIPE)read_from_fd.c $(PATHPIPE)close_pipe.c \
 	 $(PATHERR)print_error.c \
 	 $(PATHPARS)parse_data.c 
 MAIN_SRC=minishell.c
