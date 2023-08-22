@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/21 18:03:26 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/22 01:43:28 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 
 int status;
 
-t_list  *convert_env_to_list(char **env);
-char    **convert_list_to_matrix(t_list *lst);
+t_list	*convert_env_to_list(char **env);
+char	**convert_list_to_matrix(t_list *lst);
 int		prompt(int argc, char **argv, t_list *env);
 void	execution(t_list *command, t_list *env, int position);
 void	execute_list(t_list *lst, t_list *env);
@@ -52,7 +52,7 @@ bool	is_export(char *command);
 bool	is_unset(char *command);
 bool	is_env(char *command);
 bool	is_exit(char *command);
-void	builtins(t_list *command, t_list *env);
+void	builtins(t_list *command, t_list *env, int position);
 bool	is_variable_exists(char *key, t_list *env);
 char	*get_variable_value(char *key, t_list *env);
 char	*get_variable_name(char *str);
@@ -64,9 +64,12 @@ bool	update_env_value(char *key, char *new_key, t_list *env);
 void	env_(t_list *env);
 void	cd(t_list *lst, t_list *env);
 void	export(t_list *lst, t_list *env);
-void    pwd(void);
+void	pwd(void);
 void	unset(t_list *env, char *variable_name);
 void	update_shlvl(t_list *env);
-
+int		pipe_end(t_list *lst, char **argv);
+int		pipe_middle(t_list *lst, char **argv);
+int		pipe_beginning(t_list *lst, char **argv);
+void	close_pipe(int pipe_fd[2]);
 
 #endif

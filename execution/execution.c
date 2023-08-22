@@ -8,21 +8,23 @@ void	execution(t_list *lst, t_list *env, int position)
 
 	lst_cmd = lst->cmd;
 	matrix = convert_list_to_matrix(lst_cmd);
+	path = get_path_of_cmd(env, matrix[0]);
+	free(matrix[0]);
+	matrix[0] = path;
 	if (matrix != NULL && *matrix != NULL)
 	{
 		if (position == 1)
 		{
-			ft_pipe_begain(lst, matrix); //still need to create this one 
+			pipe_beginning(lst, matrix); //still need to test this one
 		}
 		else if (position == 2)
 		{
-			ft_pipe_middle(lst, matrix); //still need to create this one 
+			pipe_middle(lst, matrix); //still need to test this one 
 		}
 		else
 		{
-			ft_pipe_end(lst, matrix); //still need to create this one 
+			pipe_end(lst, matrix);
 		}
 	}
-	
 	return ;
 }

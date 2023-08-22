@@ -6,7 +6,7 @@
 #    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/21 00:44:02 by takra            ###   ########.fr        #
+#    Updated: 2023/08/22 01:44:17 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ HEADERS=./libminishell.h ./libft/libft.h ./error_handler/liberror.h
 READLINE_INC = -I/goinfre/$(USER)/.brew/opt/readline/include		 	#MAC
 READLINE_LIB = -lreadline -L/goinfre/$(USER)/.brew/opt/readline/lib    #MAC
 
+PATHPIPE=./pipex/
 PATHEXEC= ./execution/
 PATHBUILT=$(PATHEXEC)builtins/
 PATHERR=./error_handler/
@@ -39,6 +40,7 @@ SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
 	 	$(PATHBUILT)update_env_value.c\
 		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c $(PATHBUILT)update_shlvl.c \
+	 $(PATHPIPE)pipe_beginning.c $(PATHPIPE)pipe_middle.c $(PATHPIPE)pipe_end.c $(PATHPIPE)close_pipe.c\
 	 $(PATHERR)print_error.c \
 	 $(PATHPARS)parse_data.c 
 MAIN_SRC=minishell.c

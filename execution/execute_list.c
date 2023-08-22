@@ -15,7 +15,6 @@ void	print_lst(t_list *lst)
 }
 
 /*
-
 * in position variable we store three value 
 * 1 : the bigening of the list 
 * 2 : the middle of the list 
@@ -25,8 +24,7 @@ void	execute_list(t_list *lst, t_list *env)
 {
 	t_list	*tmp;
 	int		position;
-	// print_lst(lst->cmd);
-	// exit(20);
+
 	tmp = lst;
 	while (tmp)
 	{
@@ -37,7 +35,7 @@ void	execute_list(t_list *lst, t_list *env)
 		else
 			position = 2;
 		if (is_builtins(lst->cmd))
-			builtins(lst->cmd ,env);
+			builtins(tmp ,env, position);
 		else
 		{
 			// exit(1);
