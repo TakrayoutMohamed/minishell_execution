@@ -6,7 +6,7 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/22 10:33:20 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/22 12:19:32 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,6 @@ CFLAGS=
 RM=rm -f
 HEADERS=./libminishell.h ./libft/libft.h ./error_handler/liberror.h
 
-# READLINE_INC = -I/goinfre/$(USER)/homebrew/opt/readline/include #linux
-# READLINE_LIB = -lreadline -L/goinfre/$(USER)/homebrew/opt/readline/lib #linux
-
 READLINE_INC = -I/goinfre/$(USER)/.brew/opt/readline/include		 	#MAC
 READLINE_LIB = -lreadline -L/goinfre/$(USER)/.brew/opt/readline/lib    #MAC
 
@@ -30,7 +27,6 @@ PATHEXEC= ./execution/
 PATHBUILT=$(PATHEXEC)builtins/
 PATHERR=./error_handler/
 PATHPARS= ./parsing/
-# PATHTREE= ./tree/
 
 SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c\
