@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/22 12:09:48 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:22:33 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,15 @@ void	echo_no_line(char **matrix)
 	}
 }
 
-int	echo(t_list *lst)
+int	echo(t_list *cmd_lst)
 {
 	char	**matrix;
 	char	**argv;
 
-	matrix = convert_list_to_matrix(lst);
+	cmd_lst = cmd_lst->next;
+	matrix = convert_list_to_matrix(cmd_lst);
 	argv = matrix;
-	if (ft_lstsize(lst) == 1 && !is_match_echo_options(argv[0]))
+	if (ft_lstsize(cmd_lst) == 1 && !is_match_echo_options(argv[0]))
 		ft_putendl_fd(argv[0], 1);
 	else
 	{

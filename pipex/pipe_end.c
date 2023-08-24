@@ -6,7 +6,7 @@ int	pipe_end(t_list *lst, char **argv)
 
 	pid = fork();
 	if (pid == -1)
-		return (ft_freematrix(argv), print_error(errno), errno);
+		return (print_error(errno), errno);
 	else if (pid == 0)
 	{
 		if (lst->previous != NULL)
@@ -22,6 +22,6 @@ int	pipe_end(t_list *lst, char **argv)
 	close(lst->pipe[1]);
 	waitpid(pid, &status, WUNTRACED);
 	if (read_from_fd(lst->pipe[0]) != EXIT_SUCCESS)
-		return (ft_freematrix(argv), EXIT_FAILURE);
-	return (ft_freematrix(argv), EXIT_SUCCESS);
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

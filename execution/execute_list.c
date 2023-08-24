@@ -14,6 +14,19 @@
 // 	printf("\n");
 // }
 
+static bool	is_output_builtins(t_list *lst_cmd, char *str)
+{
+	if (is_echo(str))
+		return (true);
+	if (is_env(str))
+		return (true);
+	if (is_export(str) && ft_lstsize(lst_cmd) == 1)
+		return (true);
+	if (is_pwd(str))
+		return (true);
+	return (false);
+}
+
 /*
 * in position variable we store three value 
 * 1 : the bigening of the list 
@@ -34,11 +47,16 @@ void	execute_list(t_list *lst, t_list *env)
 			position = 1;
 		else
 			position = 2;
-		if (is_builtins(lst->cmd))
-			builtins(tmp ,env, position);
+		if (is_builtins(tmp->cmd))
+		{
+			ft_putstr_fd("here are builtins\n", 2);
+			if (is_output_builtins(tmp->cmd, tmp->cmd->value))
+				pipe_builtins(tmp, env);
+			else
+				builtins_no_output(tmp ,env, position);
+		}
 		else
 		{
-			// exit(1);
 			execution(tmp, env, position);
 		}
 		tmp = tmp->next;

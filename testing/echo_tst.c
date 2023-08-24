@@ -39,7 +39,7 @@ int main(int argc, char **argv, char **env)
 	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("hello all")));
 	// ft_lstlast(cmd)->next = NULL;
 	// lst->cmd = cmd;
-    echo(cmd->next);
+    echo(cmd);
 	// ft_lstclear(&cmd, del);
     // export(ft_lstnew(NULL, ft_strdup("export")), env_lst);
     // env_(env_lst);

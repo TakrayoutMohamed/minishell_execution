@@ -49,5 +49,6 @@ void	execution(t_list *lst, t_list *env, int position)
 			pipe_end(lst, matrix);
 		}
 	}
+	ft_freematrix(matrix);
 	return ;
 }

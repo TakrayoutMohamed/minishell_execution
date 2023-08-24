@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/22 10:32:34 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:20:43 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ bool	is_export(char *command);
 bool	is_unset(char *command);
 bool	is_env(char *command);
 bool	is_exit(char *command);
-void	builtins(t_list *command, t_list *env, int position);
+void	builtins_no_output(t_list *command, t_list *env, int position);
+int	    pipe_builtins(t_list *lst, t_list *env);
 bool	is_variable_exists(char *key, t_list *env);
 char	*get_variable_value(char *key, t_list *env);
 char	*get_variable_name(char *str);
@@ -60,10 +61,10 @@ int		get_variable_len(char *str);
 char	*get_path_of_cmd(t_list *env, char *cmd);
 bool	update_env_value(char *key, char *new_key, t_list *env);
 // void	expend_data(char *str, t_list *env);
-int     echo(t_list *lst);
+int     echo(t_list *cmd_lst);
 void	env_(t_list *env);
 void	cd(t_list *lst, t_list *env);
-void	export(t_list *lst, t_list *env);
+void	export(t_list *cmd_lst, t_list *env);
 void	pwd(void);
 void	unset(t_list *env, char *variable_name);
 void	update_shlvl(t_list *env);
