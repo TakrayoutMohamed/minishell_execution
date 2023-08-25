@@ -155,15 +155,15 @@ void	export_no_parameter(t_list *env)
 }
 
 /*execute export function */
-void	export(t_list *lst, t_list *env)
+void	export(t_list *cmd_lst, t_list *env)
 {
 	t_list	*tmp;
 
-	if (lst == NULL)
+	if (cmd_lst == NULL)
 		return ;
-	if (ft_lstsize(lst) > 1)
+	if (ft_lstsize(cmd_lst) > 1)
 	{
-		tmp = lst->next;
+		tmp = cmd_lst->next;
 		while (tmp)
 		{
 			export_with_parameter(env, tmp->value);

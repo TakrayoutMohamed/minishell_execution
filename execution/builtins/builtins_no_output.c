@@ -5,24 +5,24 @@ void	builtins_no_output(t_list *lst ,t_list *env, int position)
 {
 	char	**matrix;
 	char	*path;
-	t_list	*lst_cmd;
+	t_list	*cmd_lst;
 
-	lst_cmd = lst->cmd;
-	if (is_unset(lst_cmd->value))
+	cmd_lst = lst->cmd;
+	if (is_unset(cmd_lst->value))
 	{
-		lst_cmd = lst_cmd->next;
-		unset(env, lst_cmd->value);
+		cmd_lst = cmd_lst->next;
+		unset(env, cmd_lst->value);
 	}
-	else if (is_cd(lst_cmd->value))
+	else if (is_cd(cmd_lst->value))
 	{
-		cd(lst_cmd, env);
+		cd(cmd_lst, env);
 	}
-	else if (is_exit(lst_cmd->value))
+	else if (is_exit(cmd_lst->value))
 	{
 		ft_putstr_fd("here is exit function\n", 1);
 	}
-	else if (is_export(lst_cmd->value) && ft_lstsize(lst_cmd) > 1)
+	else if (is_export(cmd_lst->value) && ft_lstsize(cmd_lst) > 1)
 	{
-		export(lst_cmd, env);
+		export(cmd_lst, env);
 	}
 }

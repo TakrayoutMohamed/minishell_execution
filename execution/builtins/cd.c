@@ -91,21 +91,21 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 *
 *
 */
-void	cd(t_list *lst, t_list *env)
+void	cd(t_list *cmd_lst, t_list *env)
 {
 	t_list	*tmp;
 
-	tmp = lst;
+	tmp = cmd_lst;
 	if (tmp == NULL)
 	{
-		printf("the lst passed to the cd()\n");
+		printf("the cmd_lst passed to the cd()\n");
 		exit(-1);
 	}
 	if (ft_lstsize(tmp) == 1)
 	{
 		cd_no_parametre(env);
 	}
-	else if (ft_lstsize(lst) == 2)
+	else if (ft_lstsize(cmd_lst) == 2)
 	{
 		tmp = tmp->next;
 		cd_with_paramitre(tmp, env);

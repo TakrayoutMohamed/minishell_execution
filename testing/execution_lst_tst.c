@@ -1,7 +1,7 @@
 #include "./../libminishell.h"
 void foo(void)
 {
-	system("leaks execution_lst");
+	// system("leaks execution_lst");
 }
 
 // void	print_lst(t_list *lst)
@@ -37,20 +37,20 @@ int main(int argc, char **argv, char **env)
 	ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
 
 	/*the first command*/
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("echo")));
+	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("cd")));
 	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("hello ")));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("world")));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("world")));
 	lst->cmd = cmd;
 
 	/*the second command*/
 	ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("grep")));
-	ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("lib")));
+	ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("PWD")));
 	// ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("-a")));
 	lst->next->cmd = cmd1;
 
 	/*the third command*/
-	ft_lstadd_back(&cmd2, ft_lstnew(NULL, ft_strdup("wc")));
-	ft_lstadd_back(&cmd2, ft_lstnew(NULL, ft_strdup("-l")));
+	ft_lstadd_back(&cmd2, ft_lstnew(NULL, ft_strdup("grep")));
+	ft_lstadd_back(&cmd2, ft_lstnew(NULL, ft_strdup("PWD")));
 	// ft_lstadd_back(&cmd2, ft_lstnew(NULL, ft_strdup("-a")));
 	ft_lstlast(lst)->cmd = cmd2;
 	tmp = lst;

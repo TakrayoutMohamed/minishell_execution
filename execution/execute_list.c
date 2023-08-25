@@ -49,7 +49,7 @@ void	execute_list(t_list *lst, t_list *env)
 			position = 2;
 		if (is_builtins(tmp->cmd))
 		{
-			ft_putstr_fd("here are builtins\n", 2);
+			// ft_putstr_fd("here are builtins\n", 2);
 			if (is_output_builtins(tmp->cmd, tmp->cmd->value))
 				pipe_builtins(tmp, env);
 			else
