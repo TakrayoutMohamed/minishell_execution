@@ -39,6 +39,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	value = lst->value;
 	home = NULL;
 	path = NULL;
+	status = 1;
 	if (ft_strncmp(value, "~", 1) == 0)
 	{
 		value++;
@@ -48,7 +49,8 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	else if (ft_strcmp((lst->value), "-") == 0)
 	{
 		value++;
-		home = ft_strdup(get_variable_value("OLDPWD", env));
+		if (is_variable_exists("OLDPWD", env))
+			home = ft_strdup(get_variable_value("OLDPWD", env));
 		path = ft_strjoin(home, value);
 	}
 	else
@@ -81,6 +83,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	}
 	free(home);
 	free(path);
+	status = 0;
 	exit(EXIT_SUCCESS);
 }
 

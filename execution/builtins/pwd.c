@@ -9,4 +9,5 @@ void	pwd(void)
 	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);
 	free(pwd);
+	status = 0;
 }

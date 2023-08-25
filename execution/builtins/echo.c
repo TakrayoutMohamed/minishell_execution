@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/24 22:22:33 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/25 13:52:01 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int	echo(t_list *cmd_lst)
 		else
 			echo_new_line(matrix);
 	}
+	status = 0;
 	return (ft_freematrix(argv), EXIT_SUCCESS);
 }

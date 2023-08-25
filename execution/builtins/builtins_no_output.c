@@ -19,7 +19,11 @@ void	builtins_no_output(t_list *lst ,t_list *env, int position)
 	}
 	else if (is_exit(cmd_lst->value))
 	{
-		ft_putstr_fd("here is exit function\n", 1);
+		if (cmd_lst == NULL)
+			return ;
+		if (ft_lstsize(cmd_lst) > 2)
+			status = 1;
+		exit_(cmd_lst);
 	}
 	else if (is_export(cmd_lst->value) && ft_lstsize(cmd_lst) > 1)
 	{

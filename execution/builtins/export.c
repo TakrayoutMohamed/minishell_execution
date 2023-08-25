@@ -36,11 +36,12 @@ void	export_with_parameter(t_list *env, char *str)
 	int		i;
 
 	i = 0;
+	status = 1;
 	if (!is_valid_identifier(str))
 	{
-		ft_putstr_fd("export: `",1);
-		ft_putstr_fd(str,1);
-		ft_putstr_fd("\': not a valid identifier\n",1);
+		ft_putstr_fd("export: `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\': not a valid identifier\n", 2);
 		return ;
 	}
 	key = get_variable_name(str);
@@ -77,7 +78,7 @@ void	export_with_parameter(t_list *env, char *str)
 	}
 	free(value);
 	free(key);
-
+	status = 0;
 }
 
 /*swap the data of the entered nodes lsta and lstb*/

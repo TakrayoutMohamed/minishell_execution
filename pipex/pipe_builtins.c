@@ -46,11 +46,9 @@ int	pipe_builtins(t_list *lst, t_list *env)
 			close_pipe(lst->pipe);
 		}
 		result = execut_output_builtins(lst->cmd, env);
-		while (lst->previous != NULL)
-			lst = lst->previous;
 		ft_lstclearall(lst);
 		ft_lstclear(&env, del);
-		exit (result);
+		exit (status);
 	}
 	close(lst->pipe[1]);
 	// ft_putstr_fd("the status befor pipe builtins =",2);

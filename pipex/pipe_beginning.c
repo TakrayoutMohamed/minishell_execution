@@ -16,7 +16,8 @@ int	pipe_beginning(t_list *lst, char **argv)
 		dup2(lst->pipe[1], 1);
 		close_pipe(lst->pipe);
 		execve(argv[0], argv, NULL);
-		exit(EXIT_FAILURE);
+		status = errno;
+		exit(status);
 	}
 	close(lst->pipe[1]);
 	waitpid(pid, &status, WUNTRACED);

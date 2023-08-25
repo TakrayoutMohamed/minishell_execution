@@ -10,8 +10,8 @@ int	read_from_fd(int fd)
 		numRead = read(fd, &buf, 1);
 		if (numRead == -1)
 		{
-			print_error(errno);
-			return (errno);
+			status = errno;
+			return (print_error(errno), errno);
 		}
 		if (numRead == 0)
 		{
@@ -19,9 +19,10 @@ int	read_from_fd(int fd)
 		}
 		if (write (1, &buf, numRead) != numRead)
 		{
-			print_error(errno);
-			return (errno);
+			status = errno;
+			return (print_error(errno), errno);
 		}
 	}
+	status = 0;
 	return (EXIT_SUCCESS);
 }
