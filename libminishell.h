@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/25 12:05:22 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/26 23:54:34 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 int status;
 
 t_list	*convert_env_to_list(char **env);
+t_list	*convert_matrix_to_list(char **matrix);
 char	**convert_list_to_matrix(t_list *lst);
 int		prompt(int argc, char **argv, t_list *env);
 void	execution(t_list *command, t_list *env, int position);

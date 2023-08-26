@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
+#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/25 12:05:15 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/26 23:55:38 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ PATHPARS= ./parsing/
 
 SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c\
-	 $(PATHEXEC)convert_list_to_matrix.c\
+	 $(PATHEXEC)convert_list_to_matrix.c $(PATHEXEC)convert_matrix_to_list.c\
 		$(PATHBUILT)is_builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c \
 		$(PATHBUILT)echo.c $(PATHBUILT)exit_.c  $(PATHBUILT)is_variable_exists.c\
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
