@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:13:46 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/19 04:48:10 by takra            ###   ########.fr       */
+/*   Updated: 2023/08/26 19:12:59 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,13 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 /*Bonus part*/
 
-typedef struct s_file
-{
-	bool	is_append;
-	bool	is_herdoc;
-	char	*file_in;
-	char	*file_out;
-}	t_file;
-
 typedef struct s_list
 {
 	char			*key;
 	char			*value;
-	t_file			*file;
 	int				pipe[2];
+	int				infile;
+	int				outfile;
 	struct s_list	*cmd;
 	struct s_list	*next;
 	struct s_list	*previous;
