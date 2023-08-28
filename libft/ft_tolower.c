@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:32:34 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/16 15:44:37 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:00:47 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ int	ft_tolower(int c)
 {
 	if (!ft_isalpha(c) || (c <= 'z' && c >= 'a'))
 		return (c);
-	// else (c <= 'Z' && c >= 'A')
 	return ('a' - 'A' + c);
 }
