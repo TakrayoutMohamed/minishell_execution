@@ -17,7 +17,8 @@ static int	execut_output_builtins(t_list *cmd_lst, t_list *env)
 
 void	ft_lstclearall(t_list *lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
+
 	while (lst->previous != NULL)
 		lst = lst->previous;
 	tmp = lst;
@@ -51,12 +52,6 @@ int	pipe_builtins(t_list *lst, t_list *env)
 		exit (status);
 	}
 	close(lst->pipe[1]);
-	// ft_putstr_fd("the status befor pipe builtins =",2);
-	// ft_putnbr_fd(status, 2);
-	// ft_putstr_fd("\n", 2);
 	waitpid(pid, &status, WUNTRACED);
-	// ft_putstr_fd("the status after pipe builtins =",2);
-	// ft_putnbr_fd(status, 2);
-	// ft_putstr_fd("\n", 2);
 	return (status);
 }

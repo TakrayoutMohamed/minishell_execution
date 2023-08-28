@@ -9,7 +9,7 @@ int	pipe_middle(t_list *lst, char **argv)
 	{
 		return (print_error(errno), errno);
 	}
-	else if (pid == 0) // this is child
+	else if (pid == 0)
 	{
 		dup2(lst->previous->pipe[0], 0);
 		dup2(lst->pipe[1], 1);
