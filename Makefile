@@ -3,19 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
+#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/26 23:55:38 by takra            ###   ########.fr        #
+#    Updated: 2023/08/29 19:07:37 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=MINISHELL
-LIBMINI=libmini.a
+NAME=libmini.a
 LIBFT=./libft/libft.a
 CC=cc
-CFLAGS=
-# CFLAGS=-Wall -Werror -Wextra
+CFLAGS=-Wall -Werror -Wextra
 RM=rm -f
 HEADERS=./libminishell.h ./libft/libft.h ./error_handler/liberror.h
 
@@ -26,9 +24,8 @@ PATHPIPE=./pipex/
 PATHEXEC= ./execution/
 PATHBUILT=$(PATHEXEC)builtins/
 PATHERR=./error_handler/
-PATHPARS= ./parsing/
 
-SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
+SRC= $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c\
 	 $(PATHEXEC)convert_list_to_matrix.c $(PATHEXEC)convert_matrix_to_list.c\
 		$(PATHBUILT)is_builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c \
@@ -38,24 +35,17 @@ SRC= $(PATHEXEC)prompt.c $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c $(PATHBUILT)update_shlvl.c\
 		$(PATHBUILT)builtins_no_output.c \
 	 $(PATHPIPE)pipe_beginning.c $(PATHPIPE)pipe_middle.c $(PATHPIPE)pipe_end.c $(PATHPIPE)pipe_builtins.c\
-	 $(PATHPIPE)read_from_fd.c $(PATHPIPE)close_pipe.c \
-	 $(PATHERR)print_error.c \
-	 $(PATHPARS)parse_data.c 
-MAIN_SRC=minishell.c
+	 	$(PATHPIPE)read_from_fd.c $(PATHPIPE)close_pipe.c \
+	 $(PATHERR)print_error.c
 
 
 
 OBJ=$(SRC:.c=.o)
-MAIN_OBJ=$(MAIN_SRC:.c=.o)
 
 all:$(NAME)
 
-$(NAME) : $(OBJ) $(MAIN_OBJ) $(LIBMINI)
-		$(CC)  -o $@ $(MAIN_OBJ) $(OBJ) $(LIBMINI) $(LIBFT) $(READLINE_LIB)
-		@echo "the executable $@ has been created"
-
-$(LIBMINI):$(LIBFT) $(OBJ) 
-		ar rc  $@ $(OBJ) 
+$(NAME):$(LIBFT) $(OBJ)
+		ar rc  $@ $(OBJ) $(LIBFT)
 		@echo "the libmini.a archieve has been created"
 
 $(LIBFT):
@@ -68,13 +58,13 @@ $(LIBFT):
 
 
 clean:
-	$(RM) $(OBJ) $(MAIN_OBJ)
+	$(RM) $(OBJ)
 	make -C ./libft clean
 
 fclean: clean
-	$(RM) $(NAME) $(LIBMINI)
+	$(RM) $(NAME)
 	make -C ./libft fclean
 	
 re: fclean all
 
-.PHONY: clean fclean re $(NAME) $(LIBMINI) all
+.PHONY: clean fclean re $(NAME) all

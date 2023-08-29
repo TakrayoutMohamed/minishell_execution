@@ -33,7 +33,7 @@ void	export_with_parameter(t_list *env, char *str)
 	char	*key;
 	char	*value;
 	char	*variable_value;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	status = 1;

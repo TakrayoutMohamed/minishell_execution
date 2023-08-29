@@ -1,19 +1,5 @@
 #include "./../libminishell.h"
 
-// void	print_lst(t_list *lst)
-// {
-// 	t_list	*tmp;
-
-// 	tmp = lst;
-// 	while (lst != NULL)
-// 	{
-// 		printf("**%s = %s** ",lst->key, lst->value);
-// 		lst = lst->next;
-// 	}
-// 	lst = tmp;
-// 	printf("\n");
-// }
-
 static bool	is_output_builtins(t_list *lst_cmd, char *str)
 {
 	if (is_echo(str))
@@ -53,7 +39,7 @@ void	execute_list(t_list *lst, t_list *env)
 			if (is_output_builtins(tmp->cmd, tmp->cmd->value))
 				pipe_builtins(tmp, env);
 			else
-				builtins_no_output(tmp ,env, position);
+				builtins_no_output(tmp ,env);
 		}
 		else
 		{
