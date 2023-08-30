@@ -12,6 +12,8 @@ char **convert_list_to_matrix(t_list *lst)
 	if (lst == NULL)
 		return (NULL);
 	matrix = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	if (!matrix)
+		return (NULL);
 	while (tmp != NULL)
 	{
 		matrix[i] = ft_strdup(tmp->value);

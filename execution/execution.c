@@ -1,39 +1,68 @@
 #include "../libminishell.h"
 
-// void	print_matrix(char **matrix)
-// {
-// 	int	i = 0;
-// 	int j;
+void	print_matrix(char **matrix)
+{
+	int	i = 0;
+	int j;
 
-// 	ft_putchar_fd('{', 1);
-// 	while (matrix[i])
+	ft_putchar_fd('{', 1);
+	while (matrix[i])
+	{
+		j = 0;
+		ft_putchar_fd('[', 1);
+		while (matrix[i][j])
+		{
+			ft_putchar_fd(matrix[i][j], 1);
+			j++;
+		}
+		ft_putchar_fd(']', 1);
+		ft_putchar_fd('\n', 1);
+		i++;
+	}
+	ft_putchar_fd('}', 1);
+}
+
+// static char	**get_term_value(t_list *env)
+// {
+// 	char	**matrix;
+// 	char	*key_value;
+
+// 	matrix = NULL;
+// 	if (is_variable_exists("TERM", env))
 // 	{
-// 		j = 0;
-// 		ft_putchar_fd('[', 1);
-// 		while (matrix[i][j])
-// 		{
-// 			ft_putchar_fd(matrix[i][j], 1);
-// 			j++;
-// 		}
-// 		ft_putchar_fd(']', 1);
-// 		ft_putchar_fd('\n', 1);
-// 		i++;
+// 		key_value = ft_strjoin("TERM=", get_variable_value("TERM", env));
+// 		matrix = ft_split(key_value, ' ');
+// 		free(key_value);
 // 	}
-// 	ft_putchar_fd('}', 1);
+// 	return (matrix);
 // }
 
-char	**get_term_value(t_list *env)
+static char	**convert_env_lst_to_env_matrix(t_list *env)
 {
 	char	**matrix;
-	char	*key_value;
+	char	*str_helper;
+	t_list	*tmp;
+	int		i;
 
+	tmp = env;
+	i = 0;
 	matrix = NULL;
-	if (is_variable_exists("TERM", env))
+	if (env == NULL)
+		return (NULL);
+	matrix = (char **)malloc(sizeof(char *) * (ft_lstsize(tmp) + 1));
+	if (!matrix)
+		return (NULL);
+	while (tmp != NULL)
 	{
-		key_value = ft_strjoin("TERM=", get_variable_value("TERM", env));
-		matrix = ft_split(key_value, ' ');
-		free(key_value);
+		str_helper = ft_strjoin(tmp->key, "=");
+		// ft_putstr_fd("kkkkk1\n",2);
+		matrix[i] = ft_strjoin(str_helper, tmp->value);
+		// ft_putstr_fd("kkkkk\n",2);
+		free(str_helper);
+		i++;
+		tmp = tmp->next;
 	}
+	matrix[i] = NULL;
 	return (matrix);
 }
 
@@ -49,7 +78,7 @@ void	execution(t_list *lst, t_list *env, int position)
 	path = get_path_of_cmd(env, matrix[0]);
 	free(matrix[0]);
 	matrix[0] = path;
-	matrixp = get_term_value(env);
+	matrixp = convert_env_lst_to_env_matrix(env);
 	printf("the path of executable |%s| is |%s|\n",lst_cmd->value, matrix[0]);
 	printf("the position is |%d|\n",position);
 	if (matrix != NULL && *matrix != NULL)

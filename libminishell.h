@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/30 13:20:00 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:04:32 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 #include "./error_handler/liberror.h"
 #endif
 
-int status;
+#include "./../libstatus.h"
 
 t_list	*convert_env_to_list(char **env);
 t_list	*convert_matrix_to_list(char **matrix);
