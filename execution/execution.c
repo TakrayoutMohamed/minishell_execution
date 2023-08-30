@@ -34,6 +34,7 @@ void	execution(t_list *lst, t_list *env, int position)
 	path = get_path_of_cmd(env, matrix[0]);
 	free(matrix[0]);
 	matrix[0] = path;
+	// printf("path of the command is |%s|\n",matrix[0]);
 	if (matrix != NULL && *matrix != NULL)
 	{
 		if (position == 1)
