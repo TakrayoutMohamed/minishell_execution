@@ -6,7 +6,7 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/08/29 19:07:37 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/08/30 12:08:40 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ CFLAGS=-Wall -Werror -Wextra
 RM=rm -f
 HEADERS=./libminishell.h ./libft/libft.h ./error_handler/liberror.h
 
-READLINE_INC = -I/goinfre/$(USER)/.brew/opt/readline/include		 	#MAC
-READLINE_LIB = -lreadline -L/goinfre/$(USER)/.brew/opt/readline/lib    #MAC
+READLINE_INC =-I/goinfre/$(USER)/.brew/opt/readline/include
+READLINE_LIB =-lreadline -L/goinfre/$(USER)/.brew/opt/readline/lib
 
 PATHPIPE=./pipex/
 PATHEXEC= ./execution/

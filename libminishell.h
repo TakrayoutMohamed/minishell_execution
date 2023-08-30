@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/29 19:14:35 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:20:00 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	pwd(void);
 void	unset(t_list *env, char *variable_name);
 void	exit_(t_list *cmd_lst);
 void	update_shlvl(t_list *env);
-int		pipe_end(t_list *lst, char **argv);
-int		pipe_middle(t_list *lst, char **argv);
-int		pipe_beginning(t_list *lst, char **argv);
+int		pipe_end(t_list *lst, char **argv, char **envp);
+int		pipe_middle(t_list *lst, char **argv, char **envp);
+int		pipe_beginning(t_list *lst, char **argv, char **envp);
 void	close_pipe(int pipe_fd[2]);
 int     read_from_fd(int fd);
 
