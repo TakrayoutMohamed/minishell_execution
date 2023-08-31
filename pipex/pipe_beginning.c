@@ -47,6 +47,8 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp)
 		exit(status);
 	}
 	close(lst->pipe[1]);
+	flag_sigint = 1;
 	waitpid(pid, &status, WUNTRACED);
+	flag_sigint = 0;
 	return (status);
 }
