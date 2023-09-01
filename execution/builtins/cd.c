@@ -83,7 +83,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 		}
 		update_env_value("OLDPWD", "PWD", env);
 		free(get_variable_value("PWD", env));
-		update_env_value("PWD", path, env);
+		update_env_value("PWD", getcwd(NULL, 0), env);
 	}
 	free(home);
 	free(path);
