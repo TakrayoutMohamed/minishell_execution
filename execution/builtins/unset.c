@@ -28,5 +28,5 @@ void	unset(t_list *env, char *variable_name)
 		}
 		tmp = tmp->next;
 	}
-	status = 0;
+	t_stats.status = 0;
 }

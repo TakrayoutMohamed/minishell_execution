@@ -13,7 +13,7 @@ void	cd_no_parametre(t_list	*env)
 	{
 		print_error(errno);
 		free(path);
-		status = errno;
+		t_stats.status = errno;
 		return ;
 		// exit(EXIT_FAILURE);
 	}
@@ -41,7 +41,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	value = lst->value;
 	home = NULL;
 	path = NULL;
-	status = 1;
+	t_stats.status = 1;
 	if (ft_strncmp(value, "~", 1) == 0)
 	{
 		value++;
@@ -62,7 +62,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 		print_error(errno);
 		free(home);
 		free(path);
-		status = errno;
+		t_stats.status = errno;
 		return ;
 		// exit(EXIT_FAILURE);
 	}
@@ -87,7 +87,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	}
 	free(home);
 	free(path);
-	status = 0;
+	t_stats.status = 0;
 	// exit(EXIT_SUCCESS);
 }
 
@@ -120,7 +120,7 @@ void	cd(t_list *cmd_lst, t_list *env)
 	else
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
-		status = 1;
+		t_stats.status = 1;
 		return ;
 		// exit(EXIT_FAILURE);
 	}

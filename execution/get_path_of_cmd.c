@@ -15,11 +15,11 @@ bool	is_cmd_in_dir(char *path, char *program)
 	{
 		if (access(full_path, X_OK) == 0)
 		{
-			status = errno;
+			t_stats.status = errno;
 			return (free(full_path), true);
 		}
 		else
-			status = errno;
+			t_stats.status = errno;
 	}
 	free(full_path);
 	return (false);
@@ -40,7 +40,7 @@ char	*get_path_of_cmd(t_list *env, char *cmd)
 	path = NULL;
 	matrix = NULL;
 	i = 0;
-	status = 0;
+	t_stats.status = 0;
 	// printf("is cmd in dir |%s| = |%d|\n", cmd, is_cmd_in_dir("",cmd));
 	if (is_cmd_in_dir("", cmd))
 		return (ft_strdup(cmd));
@@ -68,7 +68,7 @@ char	*get_path_of_cmd(t_list *env, char *cmd)
 	{
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
-		status = errno;
+		t_stats.status = errno;
 	}
 	// if (errno != 0)
 	// {

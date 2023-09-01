@@ -10,7 +10,7 @@ int	read_from_fd(int fd)
 		numread = read(fd, &buf, 1);
 		if (numread == -1)
 		{
-			status = errno;
+			t_stats.status = errno;
 			return (print_error(errno), errno);
 		}
 		if (numread == 0)
@@ -19,10 +19,10 @@ int	read_from_fd(int fd)
 		}
 		if (write (1, &buf, numread) != numread)
 		{
-			status = errno;
+			t_stats.status = errno;
 			return (print_error(errno), errno);
 		}
 	}
-	status = 0;
+	t_stats.status = 0;
 	return (EXIT_SUCCESS);
 }

@@ -36,7 +36,7 @@ void	export_with_parameter(t_list *env, char *str)
 	size_t	i;
 
 	i = 0;
-	status = 1;
+	t_stats.status = 1;
 	if (!is_valid_identifier(str))
 	{
 		ft_putstr_fd("export: `", 2);
@@ -78,7 +78,7 @@ void	export_with_parameter(t_list *env, char *str)
 	}
 	free(value);
 	free(key);
-	status = 0;
+	t_stats.status = 0;
 }
 
 /*swap the data of the entered nodes lsta and lstb*/

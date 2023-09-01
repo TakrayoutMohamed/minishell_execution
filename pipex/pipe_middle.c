@@ -42,12 +42,12 @@ int	pipe_middle(t_list *lst, char **argv, char **envp)
 		pipe_middle_infile(lst);
 		pipe_middle_outfile(lst);
 		execve(argv[0], argv, envp);
-		status = errno;
-		exit(status);
+		t_stats.status = errno;
+		exit(t_stats.status);
 	}
 	close(lst->pipe[1]);
-	flag_sigint = 1;
-	waitpid(pid, &status, WUNTRACED);
-	flag_sigint = 0;
-	return (status);
+	t_stats.flag_sigint = 1;
+	waitpid(pid, &(t_stats.status), WUNTRACED);
+	t_stats.flag_sigint = 0;
+	return (t_stats.status);
 }

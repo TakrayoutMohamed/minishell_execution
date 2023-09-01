@@ -95,7 +95,7 @@ void	exit_(t_list *cmd_lst)
 	}
 	if (ft_lstsize(cmd_lst) == 1)
 	{
-		status = 0;
+		t_stats.status = 0;
 		exit (0);
 	}
 	cmd_lst = cmd_lst->next;
@@ -105,11 +105,11 @@ void	exit_(t_list *cmd_lst)
 		ft_putstr_fd("exit: ", 2);
 		ft_putstr_fd(cmd_lst->value, 2);
 		ft_putstr_fd(":  numeric argument required\n", 2);
-		status = 255;
+		t_stats.status = 255;
 		exit (255);
 	}
 	real_exit_value = (unsigned char) ll_int;
-	status = real_exit_value;
+	t_stats.status = real_exit_value;
 	// printf("the value returned is {{%lld}}\n",ll_int);
 	exit (real_exit_value);
 }

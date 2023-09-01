@@ -40,14 +40,14 @@ int	pipe_end(t_list *lst, char **argv, char **envp)
 		pipe_end_infile(lst);
 		pipe_end_outfile(lst);
 		execve(argv[0], argv, envp);
-		status = errno;
-		exit(status);
+		t_stats.status = errno;
+		exit(t_stats.status);
 	}
 	close(lst->pipe[1]);
-	flag_sigint = 1;
-	waitpid(pid, &status, WUNTRACED);
-	flag_sigint = 0;
+	t_stats.flag_sigint = 1;
+	waitpid(pid, &(t_stats.status), WUNTRACED);
+	t_stats.flag_sigint = 0;
 	if (read_from_fd(lst->pipe[0]) != EXIT_SUCCESS)
-		return (status);
-	return (status);
+		return (t_stats.status);
+	return (t_stats.status);
 }

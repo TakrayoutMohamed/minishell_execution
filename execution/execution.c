@@ -22,21 +22,6 @@ void	print_matrix(char **matrix)
 	ft_putchar_fd('}', 1);
 }
 
-// static char	**get_term_value(t_list *env)
-// {
-// 	char	**matrix;
-// 	char	*key_value;
-
-// 	matrix = NULL;
-// 	if (is_variable_exists("TERM", env))
-// 	{
-// 		key_value = ft_strjoin("TERM=", get_variable_value("TERM", env));
-// 		matrix = ft_split(key_value, ' ');
-// 		free(key_value);
-// 	}
-// 	return (matrix);
-// }
-
 static char	**convert_env_lst_to_env_matrix(t_list *env)
 {
 	char	**matrix;
@@ -55,9 +40,7 @@ static char	**convert_env_lst_to_env_matrix(t_list *env)
 	while (tmp != NULL)
 	{
 		str_helper = ft_strjoin(tmp->key, "=");
-		// ft_putstr_fd("kkkkk1\n",2);
 		matrix[i] = ft_strjoin(str_helper, tmp->value);
-		// ft_putstr_fd("kkkkk\n",2);
 		free(str_helper);
 		i++;
 		tmp = tmp->next;
@@ -79,8 +62,8 @@ void	execution(t_list *lst, t_list *env, int position)
 	free(matrix[0]);
 	matrix[0] = path;
 	matrixp = convert_env_lst_to_env_matrix(env);
-	printf("the path of executable |%s| is |%s|\n",lst_cmd->value, matrix[0]);
-	printf("the position is |%d|\n",position);
+	// printf("the path of executable |%s| is |%s|\n",lst_cmd->value, matrix[0]);
+	// printf("the position is |%d|\n",position);
 	if (matrix != NULL && *matrix != NULL)
 	{
 		if (position == 1)

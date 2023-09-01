@@ -69,12 +69,12 @@ int	pipe_builtins(t_list *lst, t_list *env)
 	{
 		pipe_builtins_infile(lst);
 		pipe_builtins_outfile(lst);
-		status = execut_output_builtins(lst->cmd, env);
+		t_stats.status = execut_output_builtins(lst->cmd, env);
 		ft_lstclearall(lst);
 		ft_lstclear(&env, del);
-		exit (status);
+		exit (t_stats.status);
 	}
 	close(lst->pipe[1]);
-	waitpid(pid, &status, WUNTRACED);
-	return (status);
+	waitpid(pid, &(t_stats.status), WUNTRACED);
+	return (t_stats.status);
 }
