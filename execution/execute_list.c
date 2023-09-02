@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_list.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
+/*   Updated: 2023/09/02 18:49:09 by takra            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../libminishell.h"
 
 static bool	is_output_builtins(t_list *lst_cmd, char *str)
@@ -38,7 +50,7 @@ void	execute_list(t_list *lst, t_list *env)
 			if (is_output_builtins(tmp->cmd, tmp->cmd->value))
 				pipe_builtins(tmp, env);
 			else
-				builtins_no_output(tmp, env);
+				t_stats.status = builtins_no_output(tmp, env);
 		}
 		else
 		{

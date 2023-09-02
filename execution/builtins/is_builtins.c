@@ -3,57 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:00 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/24 21:22:44 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:31:59 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../libminishell.h"
-
-bool	is_echo(char *command)
-{
-	if (!ft_strcmp(command, "echo"))
-		return (true);
-	return (false);
-}
-bool	is_cd(char *command)
-{
-	if (!ft_strcmp(command, "cd"))
-		return (true);
-	return (false);
-}
-bool	is_pwd(char *command)
-{
-	if (!ft_strcmp(command, "pwd"))
-		return (true);
-	return (false);
-}
-bool	is_export(char *command)
-{
-	if (!ft_strcmp(command, "export"))
-		return (true);
-	return (false);
-}
-bool	is_unset(char *command)
-{
-	if (!ft_strcmp(command, "unset"))
-		return (true);
-	return (false);
-}
-bool	is_env(char *command)
-{
-	if (!ft_strcmp(command, "env"))
-		return (true);
-	return (false);
-}
-bool	is_exit(char *command)
-{
-	if (!ft_strcmp(command, "exit"))
-		return (true);
-	return (false);
-}
 
 /*return true if the first node's value is a builtins programe*/
 int	is_builtins(t_list *lst)

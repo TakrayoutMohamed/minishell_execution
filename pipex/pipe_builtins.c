@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_builtins.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
+/*   Updated: 2023/09/02 18:49:40 by takra            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../libminishell.h"
 
 static void	pipe_builtins_infile(t_list *lst)
@@ -37,9 +49,9 @@ static int	execut_output_builtins(t_list *cmd_lst, t_list *env)
 	if (is_env(cmd_lst->value))
 		return (env_(env), EXIT_SUCCESS);
 	if (is_export(cmd_lst->value) && ft_lstsize(cmd_lst) == 1)
-		return (export(cmd_lst, env), EXIT_SUCCESS);
+		return (export(cmd_lst, env));
 	if (is_pwd(cmd_lst->value))
-		return (pwd(), EXIT_SUCCESS);
+		return (pwd(), t_stats.status);
 	return (EXIT_FAILURE);
 }
 

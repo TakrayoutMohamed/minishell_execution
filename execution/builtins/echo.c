@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/01 14:51:16 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/02 18:37:10 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../libminishell.h"
 
-bool	is_match_echo_options(char *str)
+static bool	is_match_echo_options(char *str)
 {
 	if (!str || !*str)
 		return (false);
@@ -28,7 +28,7 @@ bool	is_match_echo_options(char *str)
 	return (true);
 }
 
-void	echo_new_line(char **matrix)
+static void	echo_new_line(char **matrix)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ void	echo_new_line(char **matrix)
 	ft_putstr_fd("\n", 1);
 }
 
-void	echo_no_line(char **matrix)
+static void	echo_no_line(char **matrix)
 {
 	int	i;
 
@@ -74,7 +74,7 @@ int	echo(t_list *cmd_lst)
 		while (*matrix)
 		{
 			if (!is_match_echo_options(*matrix))
-				break;
+				break ;
 			matrix++;
 		}
 		if (is_match_echo_options(argv[0]))

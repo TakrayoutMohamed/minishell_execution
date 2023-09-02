@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_pipe.c                                       :+:      :+:    :+:   */
+/*   ft_lstswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/02 18:49:28 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:49:29 by takra            ###   ########.fr       */
+/*   Created: 2023/09/02 18:48:45 by takra             #+#    #+#             */
+/*   Updated: 2023/09/02 18:48:46 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../libminishell.h"
+#include "./../../libminishell.h"
 
-void	close_pipe(int pipe_fd[2])
+/*swap the data of the entered nodes lsta and lstb*/
+void	ft_lstswap(t_list *lsta, t_list *lstb)
 {
-	if (close(pipe_fd[0]) == -1)
+	char	*tmpkey;
+	char	*tmpvalue;
+
+	if (lsta != NULL && lstb != NULL)
 	{
-		print_error(errno);
-		t_stats.status = errno;
-	}
-	if (close(pipe_fd[1]) == -1)
-	{
-		print_error(errno);
-		t_stats.status = errno;
+		tmpkey = lsta->key;
+		tmpvalue = lsta->value;
+		lsta->key = lstb->key;
+		lsta->value = lstb->value;
+		lstb->key = tmpkey;
+		lstb->value = tmpvalue;
 	}
 }

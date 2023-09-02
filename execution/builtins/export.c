@@ -1,42 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/02 18:47:30 by takra             #+#    #+#             */
+/*   Updated: 2023/09/02 18:47:31 by takra            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./../../libminishell.h"
 
+/*return the exit status of 1 and print error that the identifier is not valid*/
+static int	not_valid_identifier(char *str)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\': not a valid identifier\n", 2);
+	t_stats.status = 1;
+	return (t_stats.status);
+}
+
+/*return an allocated string with value of the variable in the
+* concatenating stats
+*/
+static char	*get_value(char *str, char *key, t_list *env)
+{
+	char	*variable_value;
+	char	*value;
+
+	if (ft_strncmp(str, "+=", 2) == 0)
+	{
+		str = str + 2;
+		variable_value = ft_strdup(get_variable_value(key, env));
+		value = ft_strjoin(variable_value, str);
+		free(variable_value);
+	}
+	else
+	{
+		str++;
+		value = ft_strdup(str);
+	}
+	return (value);
+}
+
 /*export the data or add the variable str to the env linked list*/
-void	export_with_parameter(t_list *env, char *str)
+static int	export_with_parameter(t_list *env, char *str)
 {
 	char	*key;
 	char	*value;
-	char	*variable_value;
 	size_t	i;
 
-	i = 0;
+	i = -1;
 	if (!is_valid_identifier(str))
-	{
-		ft_putstr_fd("export: `", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\': not a valid identifier\n", 2);
-		return ;
-	}
+		return (not_valid_identifier(str), t_stats.status);
 	key = get_variable_name(str);
-	while (i < ft_strlen(key) && *str)
-	{
-		i++;
+	while (++i < ft_strlen(key) && *str)
 		str++;
-	}
 	if (*str != '\0')
-	{
-		if (ft_strncmp(str, "+=", 2) == 0)
-		{
-			str = str + 2;
-			variable_value = ft_strdup(get_variable_value(key, env));
-			value = ft_strjoin(variable_value, str);
-			free(variable_value);
-		}
-		else
-		{
-			str++;
-			value = ft_strdup(str);
-		}
-	}
+		value = get_value(str, key, env);
 	else
 		value = NULL;
 	if (is_variable_exists(key, env))
@@ -46,28 +69,13 @@ void	export_with_parameter(t_list *env, char *str)
 	}
 	else
 		ft_lstadd_back(&env, ft_lstnew(ft_strdup(key), ft_strdup(value)));
-	free(value);
-	free(key);
+	return (free(value), free(key), EXIT_SUCCESS);
 }
 
-/*swap the data of the entered nodes lsta and lstb*/
-void	ft_lstswap(t_list *lsta, t_list *lstb)
-{
-	char	*tmpkey;
-	char	*tmpvalue;
-
-	if (lsta != NULL && lstb != NULL)
-	{
-		tmpkey = lsta->key;
-		tmpvalue = lsta->value;
-		lsta->key = lstb->key;
-		lsta->value = lstb->value;
-		lstb->key = tmpkey;
-		lstb->value = tmpvalue;
-	}
-}
-
-void	export_no_parameter(t_list *env)
+/*create a list with sorted alphabeticlly data of env  than free it 
+* after using it.
+*/
+static void	export_no_parameter(t_list *env)
 {
 	t_list	*sorted_list;
 	t_list	*tmp;
@@ -97,12 +105,12 @@ void	export_no_parameter(t_list *env)
 }
 
 /*execute export function */
-void	export(t_list *cmd_lst, t_list *env)
+int	export(t_list *cmd_lst, t_list *env)
 {
 	t_list	*tmp;
 
 	if (cmd_lst == NULL)
-		return ;
+		return (EXIT_FAILURE);
 	if (ft_lstsize(cmd_lst) > 1)
 	{
 		tmp = cmd_lst->next;
@@ -111,9 +119,10 @@ void	export(t_list *cmd_lst, t_list *env)
 			export_with_parameter(env, tmp->value);
 			tmp = tmp->next;
 		}
+		return (t_stats.status);
 	}
 	else
 	{
-		export_no_parameter(env);
+		return (export_no_parameter(env), EXIT_SUCCESS);
 	}
 }

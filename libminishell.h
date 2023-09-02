@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/02 04:31:26 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/02 18:42:05 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	is_unset(char *command);
 bool	is_env(char *command);
 bool	is_exit(char *command);
 int		pipe_builtins(t_list *lst, t_list *env);
-void	builtins_no_output(t_list *lst, t_list *env);
+int		builtins_no_output(t_list *lst, t_list *env);
 bool	is_variable_exists(char *key, t_list *env);
 char	*get_variable_value(char *key, t_list *env);
 char	*get_variable_name(char *str);
@@ -62,7 +62,8 @@ void	env_(t_list *env);
 void	cd(t_list *cmd_lst, t_list *env);
 bool	is_valid_identifier(char *str);
 void	print_export(t_list *env);
-void	export(t_list *cmd_lst, t_list *env);
+int		export(t_list *cmd_lst, t_list *env);
+void	ft_lstswap(t_list *lsta, t_list *lstb);
 void	pwd(void);
 void	unset(t_list *env, char *variable_name);
 void	exit_(t_list *cmd_lst);
