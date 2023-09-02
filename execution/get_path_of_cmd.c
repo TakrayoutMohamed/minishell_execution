@@ -15,15 +15,46 @@ bool	is_cmd_in_dir(char *path, char *program)
 	{
 		if (access(full_path, X_OK) == 0)
 		{
-			t_stats.status = errno;
+			t_stats.status = 0;
 			return (free(full_path), true);
 		}
 		else
-			t_stats.status = errno;
+		{
+			t_stats.status = 126;
+			return (free(full_path), true);
+		}
 	}
 	free(full_path);
 	return (false);
 
+}
+
+char	*path_of_cmd(t_list *env, char *cmd)
+{
+	char	*path;
+	char	*pseudo_path;
+	char	**matrix;
+	int		i;
+
+	i = -1;
+	path = NULL;
+	matrix = NULL;
+	matrix = ft_split(get_variable_value("PATH", env), ':');
+	if (!matrix)
+		return (ft_freematrix(matrix), NULL);
+	while (matrix[++i])
+	{
+		if (is_cmd_in_dir(matrix[i], cmd))
+		{
+			pseudo_path = ft_strjoin("/", cmd);
+			path = ft_strjoin(matrix[i], pseudo_path);
+			free(pseudo_path);
+			break ;
+		}
+	}
+	if (path == NULL)
+		t_stats.status = 127;
+	return (ft_freematrix(matrix), path);
 }
 
 /*this function returns the executable of the command "cmd" with
@@ -32,48 +63,30 @@ bool	is_cmd_in_dir(char *path, char *program)
 */
 char	*get_path_of_cmd(t_list *env, char *cmd)
 {
-	char	**matrix;
 	char	*path;
-	char	*pseudo_path;
-	int		i;
 
 	path = NULL;
-	matrix = NULL;
-	i = 0;
-	t_stats.status = 0;
-	// printf("is cmd in dir |%s| = |%d|\n", cmd, is_cmd_in_dir("",cmd));
 	if (is_cmd_in_dir("", cmd))
 		return (ft_strdup(cmd));
 	if (is_variable_exists("PATH", env))
 	{
-		matrix = ft_split(get_variable_value("PATH", env), ':');
-		if (!matrix)
+		path = path_of_cmd(env, cmd);
+		if (path == NULL || (path != NULL && t_stats.status == 126))
 		{
-			return (ft_freematrix(matrix), NULL);
-		}
-		while (matrix[i])
-		{
-			if (is_cmd_in_dir(matrix[i], cmd))
-			{
-				pseudo_path = ft_strjoin("/", cmd);
-				path = ft_strjoin(matrix[i], pseudo_path);
-				free(pseudo_path);
-				break ;
-			}
-			i++;
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd, 2);
+			if (path == NULL)
+				ft_putstr_fd(": command not found\n", 2);
+			else
+				ft_putstr_fd(": Permission denied\n", 2);
 		}
 	}
-	ft_freematrix(matrix);
-	if (path == NULL)
+	else
 	{
+		t_stats.status = 127;
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		t_stats.status = errno;
+		ft_putstr_fd(": No such file or directory\n", 2);
 	}
-	// if (errno != 0)
-	// {
-	// 	ft_putstr_fd(cmd, 2);
-	// 	print_error(status);
-	// }
 	return (path);
 }

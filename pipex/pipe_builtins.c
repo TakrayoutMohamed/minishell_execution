@@ -21,9 +21,9 @@ static void	pipe_builtins_outfile(t_list *lst)
 		dup2(lst->outfile, 1);
 		close(lst->outfile);
 	}
-	else
+	else if (lst->next != NULL)
 	{
-		// dup2(lst->pipe[1], 1);
+		dup2(lst->pipe[1], 1);
 		close(lst->pipe[1]);
 	}
 }
@@ -43,7 +43,7 @@ static int	execut_output_builtins(t_list *cmd_lst, t_list *env)
 	return (EXIT_FAILURE);
 }
 
-void	ft_lstclearall(t_list *lst)
+static void	ft_lstclearall(t_list *lst)
 {
 	t_list	*tmp;
 
@@ -75,6 +75,6 @@ int	pipe_builtins(t_list *lst, t_list *env)
 		exit (t_stats.status);
 	}
 	close(lst->pipe[1]);
-	waitpid(pid, &(t_stats.status), WUNTRACED);
+	waitpid(pid, &(t_stats.status), 0);
 	return (t_stats.status);
 }

@@ -23,6 +23,5 @@ int	read_from_fd(int fd)
 			return (print_error(errno), errno);
 		}
 	}
-	t_stats.status = 0;
 	return (EXIT_SUCCESS);
 }

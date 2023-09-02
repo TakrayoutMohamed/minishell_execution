@@ -48,7 +48,7 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp)
 	}
 	close(lst->pipe[1]);
 	t_stats.flag_sigint = 1;
-	waitpid(pid, &(t_stats.status), WUNTRACED);
+	waitpid(pid, &(t_stats.status), 0);
 	t_stats.flag_sigint = 0;
 	return (t_stats.status);
 }

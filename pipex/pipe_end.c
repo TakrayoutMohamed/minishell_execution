@@ -21,11 +21,6 @@ static void	pipe_end_outfile(t_list *lst)
 		dup2(lst->outfile, 1);
 		close(lst->outfile);
 	}
-	else
-	{
-		// dup2(lst->pipe[1], 1);
-		close(lst->pipe[1]);
-	}
 }
 
 int	pipe_end(t_list *lst, char **argv, char **envp)
@@ -45,9 +40,9 @@ int	pipe_end(t_list *lst, char **argv, char **envp)
 	}
 	close(lst->pipe[1]);
 	t_stats.flag_sigint = 1;
-	waitpid(pid, &(t_stats.status), WUNTRACED);
+	waitpid(pid, &(t_stats.status), 0);
 	t_stats.flag_sigint = 0;
-	if (read_from_fd(lst->pipe[0]) != EXIT_SUCCESS)
-		return (t_stats.status);
+	if (t_stats.status == 0)
+		read_from_fd(lst->pipe[0]);
 	return (t_stats.status);
 }

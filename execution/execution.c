@@ -1,27 +1,5 @@
 #include "../libminishell.h"
 
-void	print_matrix(char **matrix)
-{
-	int	i = 0;
-	int j;
-
-	ft_putchar_fd('{', 1);
-	while (matrix[i])
-	{
-		j = 0;
-		ft_putchar_fd('[', 1);
-		while (matrix[i][j])
-		{
-			ft_putchar_fd(matrix[i][j], 1);
-			j++;
-		}
-		ft_putchar_fd(']', 1);
-		ft_putchar_fd('\n', 1);
-		i++;
-	}
-	ft_putchar_fd('}', 1);
-}
-
 static char	**convert_env_lst_to_env_matrix(t_list *env)
 {
 	char	**matrix;
@@ -58,26 +36,18 @@ void	execution(t_list *lst, t_list *env, int position)
 
 	lst_cmd = lst->cmd;
 	matrix = convert_list_to_matrix(lst_cmd);
-	path = get_path_of_cmd(env, matrix[0]);
-	free(matrix[0]);
-	matrix[0] = path;
 	matrixp = convert_env_lst_to_env_matrix(env);
-	// printf("the path of executable |%s| is |%s|\n",lst_cmd->value, matrix[0]);
-	// printf("the position is |%d|\n",position);
 	if (matrix != NULL && *matrix != NULL)
 	{
+		path = get_path_of_cmd(env, matrix[0]);
+		free(matrix[0]);
+		matrix[0] = path;
 		if (position == 1)
-		{
 			pipe_beginning(lst, matrix, matrixp);
-		}
 		else if (position == 2)
-		{
 			pipe_middle(lst, matrix, matrixp);
-		}
 		else
-		{
 			pipe_end(lst, matrix, matrixp);
-		}
 	}
 	ft_freematrix(matrix);
 	ft_freematrix(matrixp);
