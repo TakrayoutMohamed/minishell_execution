@@ -3,7 +3,7 @@
 /*increment envirement variable "SHLVL" if exits else create it with value 1*/
 void	update_shlvl(t_list *env)
 {
-	char	*itoa; 
+	char	*itoa;
 
 	if (env && is_variable_exists("SHLVL", env))
 	{

@@ -6,7 +6,7 @@
 #    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/09/01 18:49:05 by takra            ###   ########.fr        #
+#    Updated: 2023/09/02 04:32:32 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC= $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 		$(PATHBUILT)is_builtins.c $(PATHBUILT)cd.c $(PATHBUILT)env_.c \
 		$(PATHBUILT)echo.c $(PATHBUILT)exit_.c  $(PATHBUILT)is_variable_exists.c\
 		$(PATHBUILT)get_variable_len.c $(PATHBUILT)get_variable_name.c $(PATHBUILT)get_variable_value.c\
-	 	$(PATHBUILT)update_env_value.c\
+	 	$(PATHBUILT)update_env_value.c $(PATHBUILT)print_export.c\
+	 	$(PATHBUILT)is_valid_identifier.c\
 		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c $(PATHBUILT)update_shlvl.c\
 		$(PATHBUILT)builtins_no_output.c \
 	 $(PATHPIPE)pipe_beginning.c $(PATHPIPE)pipe_middle.c $(PATHPIPE)pipe_end.c $(PATHPIPE)pipe_builtins.c\

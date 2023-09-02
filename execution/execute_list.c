@@ -38,7 +38,7 @@ void	execute_list(t_list *lst, t_list *env)
 			if (is_output_builtins(tmp->cmd, tmp->cmd->value))
 				pipe_builtins(tmp, env);
 			else
-				builtins_no_output(tmp ,env);
+				builtins_no_output(tmp, env);
 		}
 		else
 		{

@@ -1,12 +1,12 @@
 #include "./../libminishell.h"
 
 /*return true if the program in the path is exist and its executable*/
-bool	is_cmd_in_dir(char *path, char *program)
+static bool	is_cmd_in_dir(char *path, char *program)
 {
 	char			*pseudo_path;
 	char			*full_path;
 
-	if (access(program, F_OK | X_OK) == 0 )
+	if (access(program, F_OK | X_OK) == 0)
 		return (true);
 	pseudo_path = ft_strjoin("/", program);
 	full_path = ft_strjoin(path, pseudo_path);
@@ -26,10 +26,9 @@ bool	is_cmd_in_dir(char *path, char *program)
 	}
 	free(full_path);
 	return (false);
-
 }
 
-char	*path_of_cmd(t_list *env, char *cmd)
+static char	*path_of_cmd(t_list *env, char *cmd)
 {
 	char	*path;
 	char	*pseudo_path;
@@ -80,13 +79,11 @@ char	*get_path_of_cmd(t_list *env, char *cmd)
 			else
 				ft_putstr_fd(": Permission denied\n", 2);
 		}
+		return (path);
 	}
-	else
-	{
-		t_stats.status = 127;
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-	}
+	t_stats.status = 127;
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	return (path);
 }

@@ -37,7 +37,6 @@ static long long	ft_atoll(char *str)
 
 static bool	is_ll_interval(long long intll, char *str)
 {
-
 	while (is_space(*str))
 		str++;
 	if (*str == '-' || *str == '+')
@@ -85,8 +84,8 @@ static bool	is_numeric_value(char *value)
 
 void	exit_(t_list *cmd_lst)
 {
-	long long	ll_int;
-	unsigned char real_exit_value;
+	long long		ll_int;
+	unsigned char	real_exit_value;
 
 	if (cmd_lst != NULL && ft_lstsize(cmd_lst) > 2)
 	{
@@ -94,15 +93,13 @@ void	exit_(t_list *cmd_lst)
 		return ;
 	}
 	if (ft_lstsize(cmd_lst) == 1)
-	{
-		t_stats.status = 0;
-		exit (0);
-	}
+		exit (t_stats.status);
 	cmd_lst = cmd_lst->next;
 	ll_int = ft_atoll(cmd_lst->value);
-	if (!is_numeric_value(cmd_lst->value) || !is_ll_interval(ll_int, cmd_lst->value))
+	if (!is_numeric_value(cmd_lst->value) || \
+	!is_ll_interval(ll_int, cmd_lst->value))
 	{
-		ft_putstr_fd("exit: ", 2);
+		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(cmd_lst->value, 2);
 		ft_putstr_fd(":  numeric argument required\n", 2);
 		t_stats.status = 255;
@@ -110,6 +107,5 @@ void	exit_(t_list *cmd_lst)
 	}
 	real_exit_value = (unsigned char) ll_int;
 	t_stats.status = real_exit_value;
-	// printf("the value returned is {{%lld}}\n",ll_int);
 	exit (real_exit_value);
 }

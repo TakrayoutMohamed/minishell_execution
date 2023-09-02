@@ -1,32 +1,5 @@
 #include "./../../libminishell.h"
 
-/*check if the str entered has a form of an acceptable variable*/
-bool	is_valid_identifier(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str || !*str)
-	{
-		return (false);
-	}
-	if (!ft_isalpha(*str) && *str != '_')
-		return (false);
-	while (*str && *str != '=' && *str != '+')
-	{
-		if (ft_isalpha(*str) || *str == '_' || ft_isdigit(*str))
-		{
-			i++;
-			str++;
-		}
-		else
-			return (false);
-	}
-	if (*str == '+' && ft_strncmp(str, "+=", 2) != 0)
-		return (false);
-	return (true);
-}
-
 /*export the data or add the variable str to the env linked list*/
 void	export_with_parameter(t_list *env, char *str)
 {
@@ -36,7 +9,6 @@ void	export_with_parameter(t_list *env, char *str)
 	size_t	i;
 
 	i = 0;
-	t_stats.status = 1;
 	if (!is_valid_identifier(str))
 	{
 		ft_putstr_fd("export: `", 2);
@@ -73,12 +45,9 @@ void	export_with_parameter(t_list *env, char *str)
 		update_env_value(key, value, env);
 	}
 	else
-	{
 		ft_lstadd_back(&env, ft_lstnew(ft_strdup(key), ft_strdup(value)));
-	}
 	free(value);
 	free(key);
-	t_stats.status = 0;
 }
 
 /*swap the data of the entered nodes lsta and lstb*/
@@ -98,31 +67,6 @@ void	ft_lstswap(t_list *lsta, t_list *lstb)
 	}
 }
 
-/*print the data in the envirement with export apearence*/
-void	print_export(t_list *env)
-{
-	t_list	*tmp;
-
-	tmp = env;
-	if (env == NULL)
-		return ;
-	while (tmp->previous != NULL)
-		tmp = tmp->previous;
-	while (tmp)
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(tmp->key, 1);
-		if (tmp->value != NULL)
-		{
-			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(tmp->value, 1);
-			ft_putstr_fd("\"", 1);
-		}
-		ft_putstr_fd("\n", 1);
-		tmp = tmp->next;
-	}
-}
-
 void	export_no_parameter(t_list *env)
 {
 	t_list	*sorted_list;
@@ -130,7 +74,6 @@ void	export_no_parameter(t_list *env)
 	t_list	*tmp1;
 
 	sorted_list = NULL;
-	tmp1 = NULL;
 	tmp = env;
 	while (tmp)
 	{
@@ -151,8 +94,6 @@ void	export_no_parameter(t_list *env)
 	}
 	print_export(sorted_list);
 	ft_lstclear(&sorted_list, del);
-	sorted_list = NULL;
-	tmp = NULL;
 }
 
 /*execute export function */
@@ -175,5 +116,4 @@ void	export(t_list *cmd_lst, t_list *env)
 	{
 		export_no_parameter(env);
 	}
-	// export_no_parameter(env);// when i finished testing i need to remove this line
 }

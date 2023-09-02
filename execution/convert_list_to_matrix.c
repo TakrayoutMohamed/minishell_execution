@@ -1,7 +1,7 @@
 #include "./../libminishell.h"
 
 /*return a double pointer created from the list pointer entered (lst)*/
-char **convert_list_to_matrix(t_list *lst)
+char	**convert_list_to_matrix(t_list *lst)
 {
 	char	**matrix;
 	t_list	*tmp;

@@ -1,7 +1,7 @@
 #include "./../../libminishell.h"
 
 /*execute one of the builtind depending on the first lst node's value*/
-void	builtins_no_output(t_list *lst ,t_list *env)
+void	builtins_no_output(t_list *lst, t_list *env)
 {
 	t_list	*cmd_lst;
 

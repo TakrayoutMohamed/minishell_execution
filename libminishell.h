@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/02 03:23:40 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/02 04:31:26 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ bool	update_env_value(char *key, char *new_key, t_list *env);
 int		echo(t_list *cmd_lst);
 void	env_(t_list *env);
 void	cd(t_list *cmd_lst, t_list *env);
+bool	is_valid_identifier(char *str);
+void	print_export(t_list *env);
 void	export(t_list *cmd_lst, t_list *env);
 void	pwd(void);
 void	unset(t_list *env, char *variable_name);

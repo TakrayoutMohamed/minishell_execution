@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 19:50:41 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/08/18 03:05:06 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/02 04:36:42 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_variable_name(char *str)
 	{
 		return (NULL);
 	}
-	variable = (char *)malloc(sizeof(char) * var_len + 1); //malloc here
+	variable = (char *)malloc(sizeof(char) * var_len + 1);
 	if (variable == NULL)
 		return (NULL);
 	ft_strlcpy(variable, str, var_len + 1);
