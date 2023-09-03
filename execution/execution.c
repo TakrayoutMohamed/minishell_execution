@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:49:15 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/03 03:28:19 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,23 @@ void	execution(t_list *lst, t_list *env, int position)
 		free(matrix[0]);
 		matrix[0] = path;
 		if (position == 1)
+		{
+			printf("begining1\n");
 			pipe_beginning(lst, matrix, matrixp);
+			printf("begining2\n");
+		}
 		else if (position == 2)
+		{
+			printf("middle1\n");
 			pipe_middle(lst, matrix, matrixp);
+			printf("middle2\n");
+		}
 		else
+		{
+			printf("end1\n");
 			pipe_end(lst, matrix, matrixp);
+			printf("end2\n");
+		}
 	}
 	ft_freematrix(matrix);
 	ft_freematrix(matrixp);
