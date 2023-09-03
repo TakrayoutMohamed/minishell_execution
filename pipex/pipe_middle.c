@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:50 by takra             #+#    #+#             */
-/*   Updated: 2023/09/03 17:53:30 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/03 19:03:26 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ int	pipe_middle(t_list *lst, char **argv, char **envp)
 		pipe_middle_infile(lst);
 		pipe_middle_outfile(lst);
 		execve(argv[0], argv, envp);
-		t_stats.status = errno;
-		exit(t_stats.status);
+		exit(127);
 	}
 	close(lst->pipe[1]);
 	if (lst->previous != NULL)
