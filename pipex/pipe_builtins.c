@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:49:40 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/03 19:13:54 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 
 static void	pipe_builtins_infile(t_list *lst)
 {
-	if (lst->infile >= 0)
+	t_list	*tmp;
+
+	tmp = lst;
+	if (lst->infile > 0)
 	{
 		dup2(lst->infile, 0);
 		close(lst->infile);
 	}
 	else if (lst->previous != NULL)
-	{
 		dup2(lst->previous->pipe[0], 0);
-		close(lst->previous->pipe[0]);
+	close(lst->pipe[0]);
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	while (tmp->previous != NULL)
+	{
+		close(tmp->pipe[0]);
+		tmp = tmp->previous;
 	}
 }
 
@@ -36,8 +44,8 @@ static void	pipe_builtins_outfile(t_list *lst)
 	else if (lst->next != NULL)
 	{
 		dup2(lst->pipe[1], 1);
-		close(lst->pipe[1]);
 	}
+	close(lst->pipe[1]);
 }
 
 static int	execut_output_builtins(t_list *cmd_lst, t_list *env)
@@ -87,6 +95,9 @@ int	pipe_builtins(t_list *lst, t_list *env)
 		exit (t_stats.status);
 	}
 	close(lst->pipe[1]);
-	waitpid(pid, &(t_stats.status), 0);
+	if (lst->next == NULL)
+		close(lst->pipe[0]);
+	if (lst->previous != NULL)
+		close(lst->previous->pipe[0]);
 	return (t_stats.status);
 }
