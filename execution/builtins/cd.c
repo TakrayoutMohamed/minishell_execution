@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:47:19 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/04 05:15:12 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 		t_stats.status = errno;
 	}
 	else
-		update_pwd_oldpwd(env, path, oldpath);
+		update_pwd_oldpwd(env, getcwd(NULL, 0), oldpath);
 	free(oldpath);
 	free(path);
 }
