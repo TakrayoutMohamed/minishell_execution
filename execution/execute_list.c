@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/03 19:18:04 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/04 03:46:43 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,6 @@ int	wait_allchilds(void)
 	return (st1);
 }
 
-// void	close_all_pipes(t_list *lst)
-// {
-// 	t_list	*tmp;
-// 	int		i;
-
-// 	i = 1;
-// 	tmp = lst;
-// 	while (tmp->previous != NULL)
-// 		tmp = tmp->previous;
-// 	while (tmp)
-// 	{
-// 		fprintf(stderr, "==================\n");
-// 		fprintf(stderr, "the lst value = %d\n", i);
-// 		fprintf(stderr, "input\n");
-// 		if (close(tmp->pipe[0]) == -1)
-// 		{
-// 			print_error(errno);
-// 			fprintf(stderr, " \n");
-// 		}
-// 		fprintf(stderr, "output\n");
-// 		if (close(tmp->pipe[1]) == -1)
-// 		{
-// 			print_error(errno);
-// 			fprintf(stderr, " \n");
-// 		}
-// 		fprintf(stderr, "==================\n");
-// 		i++;
-// 		tmp = tmp->next;
-// 	}
-// }
-
-
 int	get_position(t_list *lst, t_list *tmp)
 {
 	int	position;
@@ -88,8 +56,12 @@ void	set_status(int status)
 {
 	if (WIFEXITED(status))
 		t_stats.status = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
+	else if (WIFSIGNALED(status))
+	{
 		t_stats.status = WTERMSIG(status) + 128;
+		if (status == -2)
+			t_stats.status = 126;
+	}
 }
 
 /*
