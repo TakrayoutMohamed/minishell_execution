@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/04 16:48:25 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/04 17:05:10 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	wait_allchilds(void)
 {
 	int	st;
 	int	st1;
-	
+
 	st1 = t_stats.status;
 	while (waitpid(-1, &st, 0) != -1)
 	{

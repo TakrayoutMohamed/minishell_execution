@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/04 16:52:19 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/04 17:05:01 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ static char	**convert_env_lst_to_env_matrix(t_list *env)
 
 bool	is_dir(char *str)
 {
-	struct stat detail;
+	struct stat	detail;
 
-    if (stat(str, &detail) != -1)
+	if (stat(str, &detail) != -1)
 	{
 		if (S_ISDIR(detail.st_mode))
-            return (true);
+			return (true);
 	}
 	return (false);
 }
