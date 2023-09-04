@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/03 03:28:19 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/04 03:51:42 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,28 @@ static char	**convert_env_lst_to_env_matrix(t_list *env)
 	return (matrix);
 }
 
+bool	is_dir(char *str)
+{
+	struct stat detail;
+
+    if (stat(str, &detail) != -1)
+	{
+		if (S_ISDIR(detail.st_mode))
+            return (true);
+	}
+	return (false);
+}
+
+void	execute_pipes(t_list *lst, char **matrix, char **matrixp, int position)
+{
+	if (position == 1)
+		pipe_beginning(lst, matrix, matrixp);
+	else if (position == 2)
+		pipe_middle(lst, matrix, matrixp);
+	else
+		pipe_end(lst, matrix, matrixp);
+}
+
 void	execution(t_list *lst, t_list *env, int position)
 {
 	char	**matrix;
@@ -54,26 +76,15 @@ void	execution(t_list *lst, t_list *env, int position)
 		path = get_path_of_cmd(env, matrix[0]);
 		free(matrix[0]);
 		matrix[0] = path;
-		if (position == 1)
+		execute_pipes(lst, matrix, matrixp, position);
+		if (is_dir(matrix[0]))
 		{
-			printf("begining1\n");
-			pipe_beginning(lst, matrix, matrixp);
-			printf("begining2\n");
-		}
-		else if (position == 2)
-		{
-			printf("middle1\n");
-			pipe_middle(lst, matrix, matrixp);
-			printf("middle2\n");
-		}
-		else
-		{
-			printf("end1\n");
-			pipe_end(lst, matrix, matrixp);
-			printf("end2\n");
+			t_stats.status = -2;
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(matrix[0], 2);
+			ft_putstr_fd(": Is a directory\n", 2);
 		}
 	}
 	ft_freematrix(matrix);
 	ft_freematrix(matrixp);
-	return ;
 }
