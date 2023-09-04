@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:44 by takra             #+#    #+#             */
-/*   Updated: 2023/09/03 19:02:15 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/04 16:51:16 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	pipe_end(t_list *lst, char **argv, char **envp)
 		close(lst->previous->pipe[0]);
 	t_stats.flag_sigint = 1;
 	waitpid(pid, &(t_stats.status), 0);
+	if (WIFSIGNALED(t_stats.status))
+		t_stats.status = WTERMSIG(t_stats.status) + 128;
 	t_stats.flag_sigint = 0;
 	return (t_stats.status);
 }

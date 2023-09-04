@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/04 03:46:43 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/04 16:48:25 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ int	wait_allchilds(void)
 	while (waitpid(-1, &st, 0) != -1)
 	{
 		st1 = st;
+		if (WIFSIGNALED(st))
+		{
+			st1 = t_stats.status;
+		}
 	}
 	return (st1);
 }
@@ -56,7 +60,7 @@ void	set_status(int status)
 {
 	if (WIFEXITED(status))
 		t_stats.status = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
+	if (WIFSIGNALED(status))
 	{
 		t_stats.status = WTERMSIG(status) + 128;
 		if (status == -2)
