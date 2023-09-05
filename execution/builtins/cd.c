@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/04 05:15:12 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/05 23:09:34 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	oldpath = getcwd(NULL, 0);
 	if (chdir(path) != 0)
 	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(path, 2);
 		print_error(errno);
-		t_stats.status = errno;
+		t_stats.status = 1;
 	}
 	else
 		update_pwd_oldpwd(env, getcwd(NULL, 0), oldpath);
@@ -97,16 +99,18 @@ void	cd(t_list *cmd_lst, t_list *env)
 		return ;
 	if (ft_lstsize(tmp) == 1)
 	{
+		t_stats.status = 0;
 		cd_no_parametre(env);
 	}
 	else if (ft_lstsize(cmd_lst) == 2)
 	{
 		tmp = tmp->next;
+		t_stats.status = 0;
 		cd_with_paramitre(tmp, env);
 	}
 	else
 	{
-		ft_putstr_fd("cd: too many arguments\n", 2);
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
 		t_stats.status = 1;
 		return ;
 	}

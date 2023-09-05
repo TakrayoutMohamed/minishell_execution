@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/05 03:11:14 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/06 00:53:55 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	set_status(int status)
 * 2 : the middle of the list 
 * 3 : the end of the list 
 */
-void	execute_list(t_list *lst, t_list *env)
+void	execute_list(t_list *lst, t_list **env)
 {
 	t_list	*tmp;
 	int		position;
@@ -88,12 +88,12 @@ void	execute_list(t_list *lst, t_list *env)
 		if (is_builtins(tmp->cmd))
 		{
 			if (is_output_builtins(tmp->cmd, tmp->cmd->value))
-				pipe_builtins(tmp, env);
+				pipe_builtins(tmp, *env);
 			else
 				t_stats.status = builtins_no_output(tmp, env);
 		}
 		else
-			execution(tmp, env, position);
+			execution(tmp, *env, position);
 		tmp = tmp->next;
 	}
 	set_status(wait_allchilds());

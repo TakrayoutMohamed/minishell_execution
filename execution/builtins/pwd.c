@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:48:24 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:48:25 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/05 22:31:52 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,16 @@ void	pwd(void)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	ft_putstr_fd(pwd, 1);
-	ft_putstr_fd("\n", 1);
-	free(pwd);
-	t_stats.status = 0;
+	if (pwd)
+	{
+		ft_putstr_fd(pwd, 1);
+		ft_putstr_fd("\n", 1);
+		free(pwd);
+		t_stats.status = 0;
+	}
+	else
+	{
+		printf("hhhhhh\n");
+	}
+
 }
