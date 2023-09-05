@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/04 17:05:10 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/05 03:11:14 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static bool	is_output_builtins(t_list *lst_cmd, char *str)
 {
+	if (!str)
+		return (false);
 	if (is_echo(str))
 		return (true);
 	if (is_env(str))
