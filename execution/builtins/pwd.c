@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:48:24 by takra             #+#    #+#             */
-/*   Updated: 2023/09/05 22:31:52 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/06 18:09:58 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,10 @@
 /*print the current directory to the stdout*/
 void	pwd(void)
 {
-	char	*pwd;
+	char	pwd[MAXPATHLEN];
 
-	pwd = getcwd(NULL, 0);
-	if (pwd)
-	{
-		ft_putstr_fd(pwd, 1);
-		ft_putstr_fd("\n", 1);
-		free(pwd);
-		t_stats.status = 0;
-	}
-	else
-	{
-		printf("hhhhhh\n");
-	}
-
+	getcwd(pwd, MAXPATHLEN);
+	ft_putstr_fd(pwd, 1);
+	ft_putstr_fd("\n", 1);
+	t_stats.status = 0;
 }

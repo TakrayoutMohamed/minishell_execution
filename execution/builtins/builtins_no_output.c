@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_no_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:13 by takra             #+#    #+#             */
-/*   Updated: 2023/09/06 01:48:33 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/06 17:52:28 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	builtins_no_output(t_list *lst, t_list **env)
 	else if (is_exit(cmd_lst->value))
 	{
 		if (ft_lstsize(cmd_lst) > 2)
-			t_stats.status = 1;
+			t_stats.status = 256;
 		exit_(cmd_lst);
 	}
 	else if (is_export(cmd_lst->value) && ft_lstsize(cmd_lst) > 1)

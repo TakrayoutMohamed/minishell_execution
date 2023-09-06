@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:30 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:47:31 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/06 17:52:39 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	not_valid_identifier(char *str)
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("\': not a valid identifier\n", 2);
-	t_stats.status = 1;
+	t_stats.status = 256;
 	return (t_stats.status);
 }
 

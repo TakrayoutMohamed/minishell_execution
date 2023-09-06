@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/06 02:01:16 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/06 17:55:19 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ void	execute_list(t_list *lst, t_list **env)
 				pipe_builtins(tmp, *env);
 			else
 				t_stats.status = builtins_no_output(tmp, env);
-			if (ft_lstlast(lst) == tmp)
-				return ;
 		}
 		else
 			execution(tmp, *env, position);
