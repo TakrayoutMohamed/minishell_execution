@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:48:29 by takra             #+#    #+#             */
-/*   Updated: 2023/09/06 01:42:02 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/07 00:35:55 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	unset(t_list **env, char *variable_name)
 		{
 			to_delete = tmp;
 			link_data(env, &tmp);
+			if (ft_lstsize(*env) <= 1)
+				*env = NULL;
 			ft_lstdelone(to_delete, del);
 			return ;
 		}

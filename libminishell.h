@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/06 16:11:48 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/07 00:33:20 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_lstswap(t_list *lsta, t_list *lstb);
 void	pwd(void);
 void	unset(t_list **env, char *variable_name);
 void	exit_(t_list *cmd_lst);
-void	update_shlvl(t_list *env);
+void	update_shlvl(t_list **env);
 int		pipe_end(t_list *lst, char **argv, char **envp);
 int		pipe_middle(t_list *lst, char **argv, char **envp);
 int		pipe_beginning(t_list *lst, char **argv, char **envp);
