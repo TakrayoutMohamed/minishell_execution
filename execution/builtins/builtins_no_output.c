@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:13 by takra             #+#    #+#             */
-/*   Updated: 2023/09/06 00:50:10 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/06 01:48:33 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	builtins_no_output(t_list *lst, t_list **env)
 		cmd_lst = cmd_lst->next;
 		if (cmd_lst && cmd_lst->value)
 			unset(env, cmd_lst->value);
-		printf("unset here\n");
 	}
 	else if (is_cd(cmd_lst->value))
 		cd(cmd_lst, *env);

@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/05 23:09:34 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/06 01:57:22 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	char	*path;
 	char	*oldpath;
 
+	t_stats.status = 0;
 	if (ft_strcmp((lst->value), "-") == 0)
 	{
 		if (is_variable_exists("OLDPWD", env))
