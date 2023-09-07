@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/07 19:29:03 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/07 23:15:05 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	update_pwd_oldpwd(t_list **env, char *path, char *oldpath)
 {
 	if (!is_variable_exists("OLDPWD", *env))
-		ft_lstadd_back(env, ft_lstnew("OLDPWD", NULL));
+		ft_lstadd_back(env, ft_lstnew(ft_strdup("OLDPWD"), NULL));
 	if (get_variable_value("OLDPWD", *env))
 		free(get_variable_value("OLDPWD", *env));
 	update_env_value("OLDPWD", ft_strdup(oldpath), *env);
 	if (!is_variable_exists("PWD", *env))
-		ft_lstadd_back(env, ft_lstnew("PWD", NULL));
+		ft_lstadd_back(env, ft_lstnew(ft_strdup("PWD"), NULL));
 	if (get_variable_value("PWD", *env))
 		free(get_variable_value("PWD", *env));
 	update_env_value("PWD", ft_strdup(path), *env);
@@ -100,12 +100,8 @@ void	cd_with_paramitre(t_list *lst, t_list **env)
 		path = ft_strdup(lst->value);
 	getcwd(oldpath, MAXPATHLEN);
 	if (change_dir(path))
-	{
-		getcwd(newpath, MAXPATHLEN);
-		update_pwd_oldpwd(env, newpath, oldpath);
-	}
+		update_pwd_oldpwd(env, getcwd(newpath, MAXPATHLEN), oldpath);
 	free(path);
-	env_(*env);
 }
 
 /*
@@ -117,7 +113,6 @@ void	cd(t_list *cmd_lst, t_list **env)
 	t_list	*tmp;
 
 	tmp = cmd_lst;
-	printf("begain inside cd the size of the list is %d\n", ft_lstsize(*env));
 	if (tmp == NULL)
 		return ;
 	if (ft_lstsize(tmp) == 1)
@@ -137,5 +132,4 @@ void	cd(t_list *cmd_lst, t_list **env)
 		t_stats.status = 256;
 		return ;
 	}
-	printf("end inside cd the size of the list is %d\n", ft_lstsize(*env));
 }
