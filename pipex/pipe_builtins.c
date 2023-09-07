@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/03 19:13:54 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/07 18:06:24 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	execut_output_builtins(t_list *cmd_lst, t_list *env)
 	if (is_env(cmd_lst->value))
 		return (env_(env), EXIT_SUCCESS);
 	if (is_export(cmd_lst->value) && ft_lstsize(cmd_lst) == 1)
-		return (export(cmd_lst, env));
+		return (export(cmd_lst, &env));
 	if (is_pwd(cmd_lst->value))
 		return (pwd(), t_stats.status);
 	return (EXIT_FAILURE);

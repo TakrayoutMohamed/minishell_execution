@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:30 by takra             #+#    #+#             */
-/*   Updated: 2023/09/06 17:52:39 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:04:22 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*get_value(char *str, char *key, t_list *env)
 }
 
 /*export the data or add the variable str to the env linked list*/
-static int	export_with_parameter(t_list *env, char *str)
+static int	export_with_parameter(t_list **env, char *str)
 {
 	char	*key;
 	char	*value;
@@ -59,16 +59,16 @@ static int	export_with_parameter(t_list *env, char *str)
 	while (++i < ft_strlen(key) && *str)
 		str++;
 	if (*str != '\0')
-		value = get_value(str, key, env);
+		value = get_value(str, key, *env);
 	else
 		value = NULL;
-	if (is_variable_exists(key, env))
+	if (is_variable_exists(key, *env))
 	{
-		free(get_variable_value(key, env));
-		update_env_value(key, value, env);
+		free(get_variable_value(key, *env));
+		update_env_value(key, value, *env);
 	}
 	else
-		ft_lstadd_back(&env, ft_lstnew(ft_strdup(key), ft_strdup(value)));
+		ft_lstadd_back(env, ft_lstnew(ft_strdup(key), ft_strdup(value)));
 	return (free(value), free(key), EXIT_SUCCESS);
 }
 
@@ -105,7 +105,7 @@ static void	export_no_parameter(t_list *env)
 }
 
 /*execute export function */
-int	export(t_list *cmd_lst, t_list *env)
+int	export(t_list *cmd_lst, t_list **env)
 {
 	t_list	*tmp;
 
@@ -123,6 +123,6 @@ int	export(t_list *cmd_lst, t_list *env)
 	}
 	else
 	{
-		return (export_no_parameter(env), EXIT_SUCCESS);
+		return (export_no_parameter(*env), EXIT_SUCCESS);
 	}
 }
