@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/07 18:02:56 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:34:45 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*get_path_of_cmd(t_list *env, char *cmd);
 bool	update_env_value(char *key, char *new_key, t_list *env);
 int		echo(t_list *cmd_lst);
 void	env_(t_list *env);
-void	cd(t_list *cmd_lst, t_list *env);
+void	cd(t_list *cmd_lst, t_list **env);
 bool	is_valid_identifier(char *str);
 void	print_export(t_list *env);
 int		export(t_list *cmd_lst, t_list **env);

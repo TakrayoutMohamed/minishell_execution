@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:13 by takra             #+#    #+#             */
-/*   Updated: 2023/09/07 18:02:16 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:29:44 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	builtins_no_output(t_list *lst, t_list **env)
 			unset(env, cmd_lst->value);
 	}
 	else if (is_cd(cmd_lst->value))
-		cd(cmd_lst, *env);
+		cd(cmd_lst, env);
 	else if (is_exit(cmd_lst->value))
 	{
 		if (ft_lstsize(cmd_lst) > 2)

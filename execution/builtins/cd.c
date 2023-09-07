@@ -6,48 +6,48 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/06 20:13:06 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:29:03 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../libminishell.h"
 
-void	update_pwd_oldpwd(t_list *env, char *path, char *oldpath)
+void	update_pwd_oldpwd(t_list **env, char *path, char *oldpath)
 {
-	if (!is_variable_exists("OLDPWD", env))
-		ft_lstadd_back(&env, ft_lstnew("OLDPWD", NULL));
-	if (get_variable_value("OLDPWD", env))
-		free(get_variable_value("OLDPWD", env));
-	update_env_value("OLDPWD", oldpath, env);
-	if (!is_variable_exists("PWD", env))
-		ft_lstadd_back(&env, ft_lstnew("PWD", NULL));
-	if (get_variable_value("PWD", env))
-		free(get_variable_value("PWD", env));
-	update_env_value("PWD", path, env);
+	if (!is_variable_exists("OLDPWD", *env))
+		ft_lstadd_back(env, ft_lstnew("OLDPWD", NULL));
+	if (get_variable_value("OLDPWD", *env))
+		free(get_variable_value("OLDPWD", *env));
+	update_env_value("OLDPWD", ft_strdup(oldpath), *env);
+	if (!is_variable_exists("PWD", *env))
+		ft_lstadd_back(env, ft_lstnew("PWD", NULL));
+	if (get_variable_value("PWD", *env))
+		free(get_variable_value("PWD", *env));
+	update_env_value("PWD", ft_strdup(path), *env);
 }
 
 /*redirect to the home directory and update oldpwd and pwd*/
-void	cd_no_parametre(t_list	*env)
+void	cd_no_parametre(t_list	**env)
 {
 	char	oldpath[MAXPATHLEN];
 
-	if (!is_variable_exists("HOME", env))
+	if (!is_variable_exists("HOME", *env))
 	{
 		t_stats.status = 256;
 		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		return ;
 	}
 	getcwd(oldpath, MAXPATHLEN);
-	if (chdir(get_variable_value("HOME", env)) != 0)
+	if (chdir(get_variable_value("HOME", *env)) != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(get_variable_value("HOME", env), 2);
+		ft_putstr_fd(get_variable_value("HOME", *env), 2);
 		print_error(errno);
 		t_stats.status = 256;
 	}
 	else
 	{
-		update_pwd_oldpwd(env, get_variable_value("HOME", env), oldpath);
+		update_pwd_oldpwd(env, get_variable_value("HOME", *env), oldpath);
 	}
 }
 
@@ -79,7 +79,7 @@ int	change_dir(char *path)
 }
 
 /*redirect to some path with value and update the oldpwd and pwd*/
-void	cd_with_paramitre(t_list *lst, t_list *env)
+void	cd_with_paramitre(t_list *lst, t_list **env)
 {
 	char	*path;
 	char	oldpath[MAXPATHLEN];
@@ -88,8 +88,8 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 	t_stats.status = 0;
 	if (ft_strcmp((lst->value), "-") == 0)
 	{
-		if (is_variable_exists("OLDPWD", env))
-			path = ft_strdup(get_variable_value("OLDPWD", env));
+		if (is_variable_exists("OLDPWD", *env))
+			path = ft_strdup(get_variable_value("OLDPWD", *env));
 		else
 		{
 			print_strerror_set_status("minishell: cd: OLDPWD not set\n", 256);
@@ -100,19 +100,24 @@ void	cd_with_paramitre(t_list *lst, t_list *env)
 		path = ft_strdup(lst->value);
 	getcwd(oldpath, MAXPATHLEN);
 	if (change_dir(path))
-		update_pwd_oldpwd(env, getcwd(newpath, MAXPATHLEN), oldpath);
+	{
+		getcwd(newpath, MAXPATHLEN);
+		update_pwd_oldpwd(env, newpath, oldpath);
+	}
 	free(path);
+	env_(*env);
 }
 
 /*
 *the first variable takes the list that have all the command data
 *the sicond is a list that have the envirement values and keys
 */
-void	cd(t_list *cmd_lst, t_list *env)
+void	cd(t_list *cmd_lst, t_list **env)
 {
 	t_list	*tmp;
 
 	tmp = cmd_lst;
+	printf("begain inside cd the size of the list is %d\n", ft_lstsize(*env));
 	if (tmp == NULL)
 		return ;
 	if (ft_lstsize(tmp) == 1)
@@ -132,4 +137,5 @@ void	cd(t_list *cmd_lst, t_list *env)
 		t_stats.status = 256;
 		return ;
 	}
+	printf("end inside cd the size of the list is %d\n", ft_lstsize(*env));
 }
