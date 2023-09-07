@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
+#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/09/02 17:55:10 by takra            ###   ########.fr        #
+#    Updated: 2023/09/07 16:23:50 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ OBJ=$(SRC:.c=.o)
 all:$(NAME)
 
 $(NAME):$(LIBFT) $(OBJ)
+		make -C ./libft all
 		ar rc  $@ $(OBJ) $(LIBFT)
 		@echo "the libmini.a archieve has been created"
 

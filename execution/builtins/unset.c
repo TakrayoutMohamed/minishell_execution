@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:48:29 by takra             #+#    #+#             */
-/*   Updated: 2023/09/07 00:48:30 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/07 17:55:03 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void	link_data(t_list **env, t_list **tmp)
 		*env = (*env)->next;
 		(*tmp)->next->previous = NULL;
 	}
+	else if ((*tmp)->previous == NULL && (*tmp)->next == NULL)
+	{
+		*env = NULL;
+	}
 }
 
 /*remove a variable from the envirement's data*/
@@ -42,9 +46,7 @@ void	unset(t_list **env, char *variable_name)
 			to_delete = tmp;
 			link_data(env, &tmp);
 			ft_lstdelone(to_delete, del);
-			if (ft_lstsize(*env) == 0)
-				*env = NULL;
-			return ;
+			break ;
 		}
 		tmp = tmp->next;
 	}
