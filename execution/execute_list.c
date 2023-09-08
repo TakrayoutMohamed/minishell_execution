@@ -6,16 +6,40 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/06 17:55:19 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/08 22:58:19 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../libminishell.h"
 
-static bool	is_output_builtins(t_list *lst_cmd, char *str)
+int	check_lstsize(t_list *lst)
+{
+	while (lst->previous != NULL)
+		lst = lst->previous;
+	return (ft_lstsize(lst));
+}
+
+// void	set_exit_status(t_list *cmd_lst)
+// {
+// 	cmd_lst = cmd_lst->next;
+// 	printf("%s \n", cmd_lst->value);
+// 	if (cmd_lst->value)
+// 	{
+
+// 		printf("|%s| int |%d| \n", cmd_lst->value, ft_atoi(cmd_lst->value));
+// 		t_stats.status = ft_atoi(cmd_lst->value);
+// 	}
+// 	else
+// 		t_stats.status = 0;
+// }
+
+static bool	is_output_builtins(t_list *lst, t_list *lst_cmd, char *str)
 {
 	if (!str)
 		return (false);
+	if (is_exit(str) && check_lstsize(lst) > 1 && \
+	(ft_lstsize(lst_cmd) == 2 || ft_lstsize(lst_cmd) == 1))
+		return (true);
 	if (is_echo(str))
 		return (true);
 	if (is_env(str))
@@ -58,18 +82,6 @@ int	get_position(t_list *lst, t_list *tmp)
 	return (position);
 }
 
-void	set_status(int status)
-{
-	if (WIFEXITED(status))
-		t_stats.status = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-	{
-		t_stats.status = WTERMSIG(status) + 128;
-		if (status == -2)
-			t_stats.status = 126;
-	}
-}
-
 /*
 * in position variable we store three value 
 * 1 : the bigening of the list 
@@ -88,7 +100,7 @@ void	execute_list(t_list *lst, t_list **env)
 		if (is_builtins(tmp->cmd))
 		{
 			t_stats.status = 0;
-			if (is_output_builtins(tmp->cmd, tmp->cmd->value))
+			if (is_output_builtins(tmp, tmp->cmd, tmp->cmd->value))
 				pipe_builtins(tmp, *env);
 			else
 				t_stats.status = builtins_no_output(tmp, env);

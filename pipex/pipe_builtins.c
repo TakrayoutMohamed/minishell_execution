@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/07 18:06:24 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/08 22:34:21 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ static void	pipe_builtins_outfile(t_list *lst)
 
 static int	execut_output_builtins(t_list *cmd_lst, t_list *env)
 {
+	if (is_exit(cmd_lst->value))
+	{
+		if (ft_lstsize(cmd_lst) == 1)
+			t_stats.status = 0;
+		else
+		{
+			cmd_lst = cmd_lst->next;
+			t_stats.status = ft_atoi(cmd_lst->value);
+		}
+		return (t_stats.status);
+	}
 	if (is_echo(cmd_lst->value))
 	{
 		return (echo(cmd_lst));
