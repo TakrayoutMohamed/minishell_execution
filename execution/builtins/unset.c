@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:48:29 by takra             #+#    #+#             */
-/*   Updated: 2023/09/07 17:55:03 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:47:41 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,28 @@ void	link_data(t_list **env, t_list **tmp)
 }
 
 /*remove a variable from the envirement's data*/
-void	unset(t_list **env, char *variable_name)
+void	unset(t_list **env, t_list *cmd_lst)
 {
 	t_list	*tmp;
 	t_list	*to_delete;
+	char	*variable_name;
 
-	tmp = *env;
-	while (env && *env && variable_name && tmp)
+	while (cmd_lst)
 	{
-		if (ft_strcmp(tmp->key, variable_name) == 0)
+		tmp = *env;
+		variable_name = cmd_lst->value;
+		while (is_variable_exists(variable_name, *env) && env && *env && tmp)
 		{
-			to_delete = tmp;
-			link_data(env, &tmp);
-			ft_lstdelone(to_delete, del);
-			break ;
+			if (ft_strcmp(tmp->key, variable_name) == 0)
+			{
+				to_delete = tmp;
+				link_data(env, &tmp);
+				ft_lstdelone(to_delete, del);
+				break ;
+			}
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
+		cmd_lst = cmd_lst->next;
 	}
 	return ;
 }

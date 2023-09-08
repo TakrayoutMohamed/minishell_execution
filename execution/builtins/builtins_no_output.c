@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_no_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:13 by takra             #+#    #+#             */
-/*   Updated: 2023/09/07 18:29:44 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:36:31 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	builtins_no_output(t_list *lst, t_list **env)
 
 	cmd_lst = lst->cmd;
 	t_stats.status = 0;
-	if (is_unset(cmd_lst->value) && cmd_lst->value)
+	if (cmd_lst->value && is_unset(cmd_lst->value))
 	{
 		cmd_lst = cmd_lst->next;
 		if (cmd_lst && cmd_lst->value)
-			unset(env, cmd_lst->value);
+			unset(env, cmd_lst);
 	}
 	else if (is_cd(cmd_lst->value))
 		cd(cmd_lst, env);
