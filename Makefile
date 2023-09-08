@@ -6,7 +6,7 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/09/07 16:23:50 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/09/08 22:59:38 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ PATHBUILT=$(PATHEXEC)builtins/
 PATHERR=./error_handler/
 
 SRC= $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
-	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c\
+	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c $(PATHEXEC)set_status.c\
 	 $(PATHEXEC)convert_list_to_matrix.c $(PATHEXEC)convert_matrix_to_list.c\
 		$(PATHBUILT)is_builtins.c $(PATHBUILT)is_cd.c $(PATHBUILT)is_echo.c $(PATHBUILT)is_env.c\
 		$(PATHBUILT)is_exit.c $(PATHBUILT)is_export.c $(PATHBUILT)is_pwd.c $(PATHBUILT)is_unset.c\

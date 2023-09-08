@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/08 22:58:19 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/08 23:10:44 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,6 @@ int	check_lstsize(t_list *lst)
 		lst = lst->previous;
 	return (ft_lstsize(lst));
 }
-
-// void	set_exit_status(t_list *cmd_lst)
-// {
-// 	cmd_lst = cmd_lst->next;
-// 	printf("%s \n", cmd_lst->value);
-// 	if (cmd_lst->value)
-// 	{
-
-// 		printf("|%s| int |%d| \n", cmd_lst->value, ft_atoi(cmd_lst->value));
-// 		t_stats.status = ft_atoi(cmd_lst->value);
-// 	}
-// 	else
-// 		t_stats.status = 0;
-// }
 
 static bool	is_output_builtins(t_list *lst, t_list *lst_cmd, char *str)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/08 16:46:32 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/08 22:57:50 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int		pipe_middle(t_list *lst, char **argv, char **envp);
 int		pipe_beginning(t_list *lst, char **argv, char **envp);
 void	close_pipe(int pipe_fd[2]);
 int		read_from_fd(int fd);
+void	set_status(int status);
 
 #endif
