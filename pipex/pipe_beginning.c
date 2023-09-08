@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_beginning.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:33 by takra             #+#    #+#             */
-/*   Updated: 2023/09/03 19:02:45 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/08 22:41:28 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp)
 	}
 	else if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		pipe_beginning_infile(lst);
 		pipe_beginning_outfile(lst);
 		execve(argv[0], argv, envp);

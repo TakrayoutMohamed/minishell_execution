@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_end.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:44 by takra             #+#    #+#             */
-/*   Updated: 2023/09/04 16:51:16 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/08 22:42:04 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	pipe_end(t_list *lst, char **argv, char **envp)
 		return (print_error(errno), errno);
 	else if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		pipe_end_infile(lst);
 		pipe_end_outfile(lst);
 		execve(argv[0], argv, envp);
