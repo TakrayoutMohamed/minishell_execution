@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/08 23:10:44 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/09 05:10:15 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,18 @@ int	wait_allchilds(void)
 	int	st1;
 
 	st1 = t_stats.status;
+	t_stats.flag_sigint = 1;
 	while (waitpid(-1, &st, 0) != -1)
 	{
+		t_stats.flag_sigint = 0;
 		st1 = st;
 		if (WIFSIGNALED(st))
 		{
 			st1 = t_stats.status;
 		}
+		t_stats.flag_sigint = 1;
 	}
+	t_stats.flag_sigint = 0;
 	return (st1);
 }
 
