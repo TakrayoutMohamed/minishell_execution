@@ -33,18 +33,24 @@ int main(int argc, char **argv, char **env)
     env_lst = convert_env_to_list(env);
 
 	ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
+	lst->infile =-2;
+	lst->outfile =-2;
 	ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
+	ft_lstlast(lst)->infile =-2;
+	ft_lstlast(lst)->outfile =-2;
 	ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
+	ft_lstlast(lst)->infile =-2;
+	ft_lstlast(lst)->outfile =-2;
 
 	/*the first command*/
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("cd")));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("hello ")));
+	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("pwd")));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("")));
 	// ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("world")));
 	lst->cmd = cmd;
 
 	/*the second command*/
-	ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("grep")));
-	ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("PWD")));
+	ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("env")));
+	// ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("PWD")));
 	// ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("-a")));
 	lst->next->cmd = cmd1;
 
@@ -55,7 +61,7 @@ int main(int argc, char **argv, char **env)
 	ft_lstlast(lst)->cmd = cmd2;
 	tmp = lst;
 
-   execute_list(lst, env_lst);
+   execute_list(lst, &env_lst);
 	// fprintf(stderr,"here is \n");
 
 
