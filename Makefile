@@ -6,7 +6,7 @@
 #    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/09/08 22:59:38 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/09/09 22:30:01 by mohtakra         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ OBJ=$(SRC:.c=.o)
 all:$(NAME)
 
 $(NAME):$(LIBFT) $(OBJ)
-		make -C ./libft all
 		ar rc  $@ $(OBJ) $(LIBFT)
 		@echo "the libmini.a archieve has been created"
 
@@ -71,4 +70,4 @@ fclean: clean
 	
 re: fclean all
 
-.PHONY: clean fclean re $(NAME) all
+.PHONY: clean fclean re $(LIBFT) $(NAME) all
