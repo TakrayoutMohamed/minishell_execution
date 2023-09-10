@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/07 23:15:05 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/10 19:58:37 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	update_pwd_oldpwd(t_list **env, char *path, char *oldpath)
 		ft_lstadd_back(env, ft_lstnew(ft_strdup("OLDPWD"), NULL));
 	if (get_variable_value("OLDPWD", *env))
 		free(get_variable_value("OLDPWD", *env));
-	update_env_value("OLDPWD", ft_strdup(oldpath), *env);
+	update_env_value("OLDPWD", oldpath, *env);
 	if (!is_variable_exists("PWD", *env))
 		ft_lstadd_back(env, ft_lstnew(ft_strdup("PWD"), NULL));
 	if (get_variable_value("PWD", *env))
 		free(get_variable_value("PWD", *env));
-	update_env_value("PWD", ft_strdup(path), *env);
+	update_env_value("PWD", path, *env);
 }
 
 /*redirect to the home directory and update oldpwd and pwd*/
