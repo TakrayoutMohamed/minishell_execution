@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 22:43:39 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/02 18:37:10 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/10 17:29:05 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,13 @@ int	echo(t_list *cmd_lst)
 	cmd_lst = cmd_lst->next;
 	matrix = convert_list_to_matrix(cmd_lst);
 	argv = matrix;
+	if (ft_lstsize(cmd_lst) == 0)
+		return (ft_putstr_fd("\n", 1), ft_freematrix(argv), 0);
 	if (ft_lstsize(cmd_lst) == 1 && !is_match_echo_options(argv[0]))
 		ft_putendl_fd(argv[0], 1);
 	else
 	{
-		while (*matrix)
+		while (matrix && *matrix)
 		{
 			if (!is_match_echo_options(*matrix))
 				break ;
