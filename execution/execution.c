@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/10 04:55:47 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/10 18:45:54 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,23 @@ void	execute_pipes(t_list *lst, char **matrix, char **matrixp, int position)
 		pipe_end(lst, matrix, matrixp);
 }
 
+static char	*adding_path_to_argv(t_list *env, char **matrix)
+{
+	char	*path;
+
+	path = get_path_of_cmd(env, matrix[0]);
+	if (path != NULL)
+	{
+		free(matrix[0]);
+		matrix[0] = path;
+	}
+	return (matrix[0]);
+}
+
 void	execution(t_list *lst, t_list *env, int position)
 {
 	char	**matrix;
 	char	**matrixp;
-	char	*path;
 	t_list	*lst_cmd;
 
 	lst_cmd = lst->cmd;
@@ -73,9 +85,7 @@ void	execution(t_list *lst, t_list *env, int position)
 	matrixp = convert_env_lst_to_env_matrix(env);
 	if (matrix && *matrix)
 	{
-		path = get_path_of_cmd(env, matrix[0]);
-		free(matrix[0]);
-		matrix[0] = path;
+		matrix[0] = adding_path_to_argv(env, matrix);
 	}
 	if (matrix && *matrix && is_dir(matrix[0]))
 	{

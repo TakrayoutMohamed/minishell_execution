@@ -1,5 +1,5 @@
 #! /bin/bash
-make re
+make
 # cc testing/export_tst.c libmini.a libft/libft.a -o export
 # cc testing/echo_tst.c libmini.a libft/libft.a -o echo
 # cc testing/env_tst.c libmini.a libft/libft.a -o env
