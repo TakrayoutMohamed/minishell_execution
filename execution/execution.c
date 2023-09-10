@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/04 17:05:01 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/10 04:55:47 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,21 @@ void	execution(t_list *lst, t_list *env, int position)
 	lst_cmd = lst->cmd;
 	matrix = convert_list_to_matrix(lst_cmd);
 	matrixp = convert_env_lst_to_env_matrix(env);
-	if (matrix != NULL && *matrix != NULL)
+	if (matrix && *matrix)
 	{
 		path = get_path_of_cmd(env, matrix[0]);
 		free(matrix[0]);
 		matrix[0] = path;
-		if (is_dir(matrix[0]))
-		{
-			t_stats.status = -2;
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(matrix[0], 2);
-			ft_putstr_fd(": Is a directory\n", 2);
-		}
-		else
-			execute_pipes(lst, matrix, matrixp, position);
 	}
+	if (matrix && *matrix && is_dir(matrix[0]))
+	{
+		t_stats.status = -2;
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(matrix[0], 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+	}
+	else
+		execute_pipes(lst, matrix, matrixp, position);
 	ft_freematrix(matrix);
 	ft_freematrix(matrixp);
 }
