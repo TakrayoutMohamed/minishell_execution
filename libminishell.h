@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/08 22:57:50 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:22:46 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 t_list	*convert_env_to_list(char **env);
 t_list	*convert_matrix_to_list(char **matrix);
 char	**convert_list_to_matrix(t_list *lst);
-void	execution(t_list *command, t_list *env, int position);
-void	execute_list(t_list *lst, t_list **env);
+int		execution(t_list *command, t_list *env, int position);
+int		execute_list(t_list *lst, t_list **env);
 int		is_builtins(t_list *lst);
 bool	is_echo(char *command);
 bool	is_cd(char *command);

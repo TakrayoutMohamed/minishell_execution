@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:33 by takra             #+#    #+#             */
-/*   Updated: 2023/09/08 22:41:28 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:08:02 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ static void	pipe_beginning_infile(t_list *lst)
 		close(lst->infile);
 	}
 	close(lst->pipe[0]);
-	while (tmp->next != NULL)
-	{
-		close(tmp->pipe[0]);
-		tmp = tmp->next;
-	}
 }
 
 static void	pipe_beginning_outfile(t_list *lst)
@@ -50,10 +45,7 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp)
 
 	pid = fork();
 	if (pid == -1)
-	{
-		print_error(errno);
-		return (EXIT_FAILURE);
-	}
+		return (close_pipe(lst->pipe), print_error(errno), EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -64,5 +56,5 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp)
 		exit(127);
 	}
 	close(lst->pipe[1]);
-	return (t_stats.status);
+	return (EXIT_SUCCESS);
 }

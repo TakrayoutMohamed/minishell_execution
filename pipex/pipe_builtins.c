@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/08 22:34:21 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:12:20 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,11 @@ static void	pipe_builtins_infile(t_list *lst)
 		close(lst->infile);
 	}
 	else if (lst->previous != NULL)
-		dup2(lst->previous->pipe[0], 0);
-	close(lst->pipe[0]);
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	while (tmp->previous != NULL)
 	{
-		close(tmp->pipe[0]);
-		tmp = tmp->previous;
+		dup2(lst->previous->pipe[0], 0);
+		close(lst->previous->pipe[0]);
 	}
+	close(lst->pipe[0]);
 }
 
 static void	pipe_builtins_outfile(t_list *lst)
@@ -93,9 +89,11 @@ int	pipe_builtins(t_list *lst, t_list *env)
 {
 	pid_t	pid;
 
+	if (pipe(lst->pipe) == -1)
+		return (print_error(errno), EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
-		return (print_error(errno), EXIT_FAILURE);
+		return (close_pipe(lst->pipe), print_error(errno), EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		pipe_builtins_infile(lst);
@@ -110,5 +108,5 @@ int	pipe_builtins(t_list *lst, t_list *env)
 		close(lst->pipe[0]);
 	if (lst->previous != NULL)
 		close(lst->previous->pipe[0]);
-	return (t_stats.status);
+	return (EXIT_SUCCESS);
 }

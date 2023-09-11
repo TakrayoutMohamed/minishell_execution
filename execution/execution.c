@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/10 18:45:54 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:16:51 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,20 @@ bool	is_dir(char *str)
 	return (false);
 }
 
-void	execute_pipes(t_list *lst, char **matrix, char **matrixp, int position)
+int	execute_pipes(t_list *lst, char **matrix, char **matrixp, int position)
 {
+	if (pipe(lst->pipe) == -1)
+	{
+		ft_putstr_fd(strerror(errno), 2);
+		return (EXIT_FAILURE);
+	}
 	if (position == 1)
-		pipe_beginning(lst, matrix, matrixp);
+		return (pipe_beginning(lst, matrix, matrixp));
 	else if (position == 2)
-		pipe_middle(lst, matrix, matrixp);
+		return (pipe_middle(lst, matrix, matrixp));
 	else
-		pipe_end(lst, matrix, matrixp);
+		return (pipe_end(lst, matrix, matrixp));
+	return (EXIT_SUCCESS);
 }
 
 static char	*adding_path_to_argv(t_list *env, char **matrix)
@@ -74,7 +80,7 @@ static char	*adding_path_to_argv(t_list *env, char **matrix)
 	return (matrix[0]);
 }
 
-void	execution(t_list *lst, t_list *env, int position)
+int	execution(t_list *lst, t_list *env, int position)
 {
 	char	**matrix;
 	char	**matrixp;
@@ -94,8 +100,7 @@ void	execution(t_list *lst, t_list *env, int position)
 		ft_putstr_fd(matrix[0], 2);
 		ft_putstr_fd(": Is a directory\n", 2);
 	}
-	else
-		execute_pipes(lst, matrix, matrixp, position);
-	ft_freematrix(matrix);
-	ft_freematrix(matrixp);
+	else if (!execute_pipes(lst, matrix, matrixp, position))
+		return (ft_freematrix(matrix), ft_freematrix(matrixp), EXIT_FAILURE);
+	return (ft_freematrix(matrix), ft_freematrix(matrixp), EXIT_SUCCESS);
 }

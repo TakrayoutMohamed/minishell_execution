@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/09 05:10:15 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/11 20:29:34 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,22 @@ int	get_position(t_list *lst, t_list *tmp)
 	return (position);
 }
 
+void	close_previous_input(t_list *lst)
+{
+	while (lst->previous != NULL)
+	{
+		close(lst->pipe[0]);
+		lst = lst->previous;
+	}
+}
+
 /*
 * in position variable we store three value 
 * 1 : the bigening of the list 
 * 2 : the middle of the list 
 * 3 : the end of the list 
 */
-void	execute_list(t_list *lst, t_list **env)
+int	execute_list(t_list *lst, t_list **env)
 {
 	t_list	*tmp;
 	int		position;
@@ -95,9 +104,10 @@ void	execute_list(t_list *lst, t_list **env)
 			else
 				t_stats.status = builtins_no_output(tmp, env);
 		}
-		else
-			execution(tmp, *env, position);
+		else if (!execution(tmp, *env, position))
+			return (close_previous_input(tmp), EXIT_FAILURE);
 		tmp = tmp->next;
 	}
 	set_status(wait_allchilds());
+	return (EXIT_SUCCESS);
 }
