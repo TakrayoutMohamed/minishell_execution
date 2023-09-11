@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/11 20:16:51 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 23:36:41 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,38 @@ bool	is_dir(char *str)
 	return (false);
 }
 
-int	execute_pipes(t_list *lst, char **matrix, char **matrixp, int position)
+int	get_position(t_list *lst, t_list *tmp)
 {
+	int	position;
+
+	while (lst->previous != NULL)
+		lst = lst->previous;
+	position = 0;
+	if (tmp == ft_lstlast(lst))
+		position = 3;
+	else if (tmp == lst)
+		position = 1;
+	else
+		position = 2;
+	return (position);
+}
+
+int	execute_pipes(t_list *lst, char **matrix, char **matrixp, t_list **p_ids)
+{
+	int	position;
+
+	position = get_position(lst, lst);
 	if (pipe(lst->pipe) == -1)
 	{
 		ft_putstr_fd(strerror(errno), 2);
 		return (EXIT_FAILURE);
 	}
 	if (position == 1)
-		return (pipe_beginning(lst, matrix, matrixp));
+		return (pipe_beginning(lst, matrix, matrixp, p_ids));
 	else if (position == 2)
-		return (pipe_middle(lst, matrix, matrixp));
+		return (pipe_middle(lst, matrix, matrixp, p_ids));
 	else
-		return (pipe_end(lst, matrix, matrixp));
+		return (pipe_end(lst, matrix, matrixp, p_ids));
 	return (EXIT_SUCCESS);
 }
 
@@ -80,7 +99,7 @@ static char	*adding_path_to_argv(t_list *env, char **matrix)
 	return (matrix[0]);
 }
 
-int	execution(t_list *lst, t_list *env, int position)
+int	execution(t_list *lst, t_list *env, t_list **p_ids)
 {
 	char	**matrix;
 	char	**matrixp;
@@ -100,7 +119,7 @@ int	execution(t_list *lst, t_list *env, int position)
 		ft_putstr_fd(matrix[0], 2);
 		ft_putstr_fd(": Is a directory\n", 2);
 	}
-	else if (!execute_pipes(lst, matrix, matrixp, position))
+	else if (!execute_pipes(lst, matrix, matrixp, p_ids))
 		return (ft_freematrix(matrix), ft_freematrix(matrixp), EXIT_FAILURE);
 	return (ft_freematrix(matrix), ft_freematrix(matrixp), EXIT_SUCCESS);
 }

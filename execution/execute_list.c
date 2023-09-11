@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/11 20:29:34 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 23:34:27 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,38 @@ int	wait_allchilds(void)
 	return (st1);
 }
 
-int	get_position(t_list *lst, t_list *tmp)
-{
-	int	position;
+// int	get_position(t_list *lst, t_list *tmp)
+// {
+// 	int	position;
 
-	position = 0;
-	if (tmp == ft_lstlast(lst))
-		position = 3;
-	else if (tmp == lst)
-		position = 1;
-	else
-		position = 2;
-	return (position);
-}
+// 	position = 0;
+// 	if (tmp == ft_lstlast(lst))
+// 		position = 3;
+// 	else if (tmp == lst)
+// 		position = 1;
+// 	else
+// 		position = 2;
+// 	return (position);
+// }
 
 void	close_previous_input(t_list *lst)
 {
 	while (lst->previous != NULL)
 	{
-		close(lst->pipe[0]);
+		close(lst->previous->pipe[0]);
 		lst = lst->previous;
+	}
+}
+
+void	kill_child_procs(t_list *p_ids)
+{
+	if (!p_ids)
+		return ;
+	while (p_ids)
+	{
+		signal(SIGINT, SIG_DFL);
+		kill(ft_atoi(p_ids->value), SIGINT);
+		p_ids = p_ids->next;
 	}
 }
 
@@ -90,22 +102,29 @@ void	close_previous_input(t_list *lst)
 int	execute_list(t_list *lst, t_list **env)
 {
 	t_list	*tmp;
-	int		position;
+	t_list	*p_ids;
 
 	tmp = lst;
+	p_ids = NULL;
 	while (tmp)
 	{
-		position = get_position(lst, tmp);
 		if (is_builtins(tmp->cmd))
 		{
 			t_stats.status = 0;
 			if (is_output_builtins(tmp, tmp->cmd, tmp->cmd->value))
-				pipe_builtins(tmp, *env);
+			{
+				if (!pipe_builtins(tmp, *env, &p_ids))
+				{
+					return (kill_child_procs(p_ids), ft_lstclear(&p_ids, del), close_previous_input(tmp), EXIT_FAILURE);
+				}
+			}
 			else
 				t_stats.status = builtins_no_output(tmp, env);
 		}
-		else if (!execution(tmp, *env, position))
-			return (close_previous_input(tmp), EXIT_FAILURE);
+		else if (!execution(tmp, *env, &p_ids))
+		{
+			return (kill_child_procs(p_ids), ft_lstclear(&p_ids, del), close_previous_input(tmp), EXIT_FAILURE);
+		}
 		tmp = tmp->next;
 	}
 	set_status(wait_allchilds());

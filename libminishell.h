@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/11 20:22:46 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 22:54:01 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <dirent.h>
 # include <errno.h>
@@ -40,7 +41,7 @@
 t_list	*convert_env_to_list(char **env);
 t_list	*convert_matrix_to_list(char **matrix);
 char	**convert_list_to_matrix(t_list *lst);
-int		execution(t_list *command, t_list *env, int position);
+int		execution(t_list *command, t_list *env, t_list **p_ids);
 int		execute_list(t_list *lst, t_list **env);
 int		is_builtins(t_list *lst);
 bool	is_echo(char *command);
@@ -50,7 +51,7 @@ bool	is_export(char *command);
 bool	is_unset(char *command);
 bool	is_env(char *command);
 bool	is_exit(char *command);
-int		pipe_builtins(t_list *lst, t_list *env);
+int		pipe_builtins(t_list *lst, t_list *env, t_list **p_ids);
 int		builtins_no_output(t_list *lst, t_list **env);
 bool	is_variable_exists(char *key, t_list *env);
 char	*get_variable_value(char *key, t_list *env);
@@ -69,9 +70,9 @@ void	pwd(void);
 void	unset(t_list **env, t_list *cmd_lst);
 void	exit_(t_list *cmd_lst);
 void	update_shlvl(t_list **env);
-int		pipe_end(t_list *lst, char **argv, char **envp);
-int		pipe_middle(t_list *lst, char **argv, char **envp);
-int		pipe_beginning(t_list *lst, char **argv, char **envp);
+int		pipe_end(t_list *lst, char **argv, char **envp, t_list **p_ids);
+int		pipe_middle(t_list *lst, char **argv, char **envp, t_list **p_ids);
+int		pipe_beginning(t_list *lst, char **argv, char **envp, t_list **p_ids);
 void	close_pipe(int pipe_fd[2]);
 int		read_from_fd(int fd);
 void	set_status(int status);

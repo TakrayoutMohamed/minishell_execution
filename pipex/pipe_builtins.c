@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/11 20:12:20 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 22:38:54 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	ft_lstclearall(t_list *lst)
 	ft_lstclear(&lst, del);
 }
 
-int	pipe_builtins(t_list *lst, t_list *env)
+int	pipe_builtins(t_list *lst, t_list *env, t_list **procc_ids)
 {
 	pid_t	pid;
 
@@ -93,7 +93,7 @@ int	pipe_builtins(t_list *lst, t_list *env)
 		return (print_error(errno), EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
-		return (close_pipe(lst->pipe), print_error(errno), EXIT_FAILURE);
+		return (close_pipe(lst->pipe), ft_putstr_fd("minishell : fork", 2), print_error(errno), EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		pipe_builtins_infile(lst);
@@ -103,6 +103,7 @@ int	pipe_builtins(t_list *lst, t_list *env)
 		ft_lstclear(&env, del);
 		exit (t_stats.status);
 	}
+	ft_lstadd_back(procc_ids, ft_lstnew(NULL, ft_itoa((int)pid)));
 	close(lst->pipe[1]);
 	if (lst->next == NULL)
 		close(lst->pipe[0]);

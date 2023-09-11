@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:50 by takra             #+#    #+#             */
-/*   Updated: 2023/09/11 20:10:55 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/11 22:49:32 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ static void	pipe_middle_outfile(t_list *lst)
 	close(lst->pipe[1]);
 }
 
-int	pipe_middle(t_list *lst, char **argv, char **envp)
+int	pipe_middle(t_list *lst, char **argv, char **envp, t_list **p_ids)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == -1)
-		return (close_pipe(lst->pipe), print_error(errno), EXIT_FAILURE);
+		return (close_pipe(lst->pipe), ft_putstr_fd("minishell : fork", 2), print_error(errno), EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -63,5 +63,6 @@ int	pipe_middle(t_list *lst, char **argv, char **envp)
 	close(lst->pipe[1]);
 	if (lst->previous != NULL)
 		close(lst->previous->pipe[0]);
+	ft_lstadd_back(p_ids, ft_lstnew(NULL, ft_itoa((int)pid)));
 	return (EXIT_SUCCESS);
 }
