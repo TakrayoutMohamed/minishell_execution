@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 06:30:38 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 17:15:09 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int	execute_pipes(t_list *lst, char **matrix, char **matrixp, t_list **p_ids)
 	position = get_position(lst, lst);
 	if (pipe(lst->pipe) == -1)
 	{
+		if (lst->previous != NULL)
+			close(lst->previous->pipe[0]);
 		ft_putstr_fd(strerror(errno), 2);
 		return (EXIT_FAILURE);
 	}

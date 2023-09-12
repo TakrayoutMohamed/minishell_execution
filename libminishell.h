@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/11 22:54:01 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:44:01 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int		pipe_beginning(t_list *lst, char **argv, char **envp, t_list **p_ids);
 void	close_pipe(int pipe_fd[2]);
 int		read_from_fd(int fd);
 void	set_status(int status);
+void	kill_child_proccs(t_list *p_ids);
 
 #endif

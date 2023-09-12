@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_beginning.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:33 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 02:25:16 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 23:02:51 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp, t_list **p_ids)
 	if (pid == -1)
 	{
 		close_pipe(lst->pipe);
+		if (lst->previous != NULL)
+			close(lst->previous->pipe[0]);
 		ft_putstr_fd("minishell : fork", 2);
 		print_error(errno);
 		return (EXIT_FAILURE);
@@ -57,7 +59,7 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp, t_list **p_ids)
 		execve(argv[0], argv, envp);
 		exit(127);
 	}
-	close(lst->pipe[1]);
 	ft_lstadd_back(p_ids, ft_lstnew(NULL, ft_itoa((int)pid)));
+	close(lst->pipe[1]);
 	return (EXIT_SUCCESS);
 }

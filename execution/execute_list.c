@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 06:31:07 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 22:57:49 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ int	wait_allchilds(void)
 	int	st;
 	int	st1;
 
+	sigemptyset(&st);
+	st1 = t_stats.status;
 	t_stats.flag_sigint = 1;
-	while (waitpid(-1, &st, WUNTRACED) != -1)
+	while (waitpid(-1, &st, 0) != -1)
 	{
 		t_stats.flag_sigint = 0;
 		st1 = st;
@@ -51,41 +53,6 @@ int	wait_allchilds(void)
 	}
 	t_stats.flag_sigint = 0;
 	return (st1);
-}
-
-// int	get_position(t_list *lst, t_list *tmp)
-// {
-// 	int	position;
-
-// 	position = 0;
-// 	if (tmp == ft_lstlast(lst))
-// 		position = 3;
-// 	else if (tmp == lst)
-// 		position = 1;
-// 	else
-// 		position = 2;
-// 	return (position);
-// }
-
-void	close_previous_input(t_list *lst)
-{
-	while (lst->previous != NULL)
-	{
-		close(lst->previous->pipe[0]);
-		lst = lst->previous;
-	}
-}
-
-void	kill_child_procs(t_list *p_ids)
-{
-	if (!p_ids)
-		return ;
-	while (p_ids)
-	{
-		signal(SIGINT, SIG_DFL);
-		kill(ft_atoi(p_ids->value), SIGINT);
-		p_ids = p_ids->next;
-	}
 }
 
 /*
@@ -98,31 +65,49 @@ int	execute_list(t_list *lst, t_list **env)
 {
 	t_list	*tmp;
 	t_list	*p_ids;
+	int		abnormalret;
 
 	tmp = lst;
 	p_ids = NULL;
+	abnormalret = 0;
 	while (tmp)
 	{
 		if (is_builtins(tmp->cmd))
 		{
+			if (pipe(lst->pipe) == -1)
+				return (print_error(errno), t_stats.status = 1, EXIT_FAILURE);
 			t_stats.status = 0;
 			if (is_output_builtins(tmp, tmp->cmd, tmp->cmd->value))
 			{
 				if (pipe_builtins(tmp, *env, &p_ids) == EXIT_FAILURE)
 				{
-					return (kill_child_procs(p_ids), ft_lstclear(&p_ids, del), close_previous_input(tmp), EXIT_FAILURE);
+					ft_putstr_fd("failure fork builtins\n", 2);
+					abnormalret = 1;
+					break ;
 				}
 			}
 			else
+			{
+				ft_putstr_fd("builtins no output\n", 2);
 				t_stats.status = builtins_no_output(tmp, env);
+			}
 		}
 		else if (execution(tmp, *env, &p_ids) == EXIT_FAILURE)
 		{
-			return (kill_child_procs(p_ids), ft_lstclear(&p_ids, del), close_previous_input(tmp), EXIT_FAILURE);
+			ft_putstr_fd("failure fork exec\n", 2);
+			abnormalret = 1;
+			break ;
 		}
 		tmp = tmp->next;
 	}
-	ft_lstclear(&p_ids, del);
+	if (abnormalret == 1)
+	{
+		kill_child_proccs(p_ids);
+		wait_allchilds();
+		ft_lstclear(&p_ids, del);
+		return (EXIT_FAILURE);
+	}
 	set_status(wait_allchilds());
+	ft_lstclear(&p_ids, del);
 	return (EXIT_SUCCESS);
 }

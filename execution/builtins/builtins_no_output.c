@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_no_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:13 by takra             #+#    #+#             */
-/*   Updated: 2023/09/09 05:56:17 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 22:33:11 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	close_previous_pipes(t_list *lst)
 {
 	if (lst->previous != NULL)
 		close(lst->previous->pipe[0]);
+	if (ft_lstlast(lst) == lst)
+		close(lst->pipe[0]);
 	close(lst->pipe[1]);
 }
 

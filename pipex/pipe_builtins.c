@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 06:32:10 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 23:03:00 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ int	pipe_builtins(t_list *lst, t_list *env, t_list **procc_ids)
 {
 	pid_t	pid;
 
-	if (pipe(lst->pipe) == -1)
-		return (print_error(errno), EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -100,6 +98,8 @@ int	pipe_builtins(t_list *lst, t_list *env, t_list **procc_ids)
 	}
 	else if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		pipe_builtins_infile(lst);
 		pipe_builtins_outfile(lst);
 		t_stats.status = execut_output_builtins(lst->cmd, env);

@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/10 19:58:37 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/12 22:30:39 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	cd_with_paramitre(t_list *lst, t_list **env)
 	}
 	else
 		path = ft_strdup(lst->value);
+	printf("here\n");
 	getcwd(oldpath, MAXPATHLEN);
 	if (change_dir(path))
 		update_pwd_oldpwd(env, getcwd(newpath, MAXPATHLEN), oldpath);

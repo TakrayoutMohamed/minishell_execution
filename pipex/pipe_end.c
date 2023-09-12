@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_end.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:44 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 05:13:32 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 23:03:08 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	pipe_end(t_list *lst, char **argv, char **envp, t_list **p_ids)
 		execve(argv[0], argv, envp);
 		exit(127);
 	}
+	ft_lstadd_back(p_ids, ft_lstnew(NULL, ft_itoa((int)pid)));
 	close_pipe(lst->pipe);
 	if (lst->previous != NULL)
 		close(lst->previous->pipe[0]);
-	ft_lstadd_back(p_ids, ft_lstnew(NULL, ft_itoa((int)pid)));
 	return (EXIT_SUCCESS);
 }
