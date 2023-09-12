@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 05:17:03 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 06:32:10 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	pipe_builtins(t_list *lst, t_list *env, t_list **procc_ids)
 		t_stats.status = execut_output_builtins(lst->cmd, env);
 		ft_lstclearall(lst);
 		ft_lstclear(&env, del);
+		ft_lstclear(procc_ids, del);
 		exit (t_stats.status);
 	}
 	ft_lstadd_back(procc_ids, ft_lstnew(NULL, ft_itoa((int)pid)));

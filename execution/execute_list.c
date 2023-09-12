@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 05:19:26 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/12 06:31:07 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	execute_list(t_list *lst, t_list **env)
 			t_stats.status = 0;
 			if (is_output_builtins(tmp, tmp->cmd, tmp->cmd->value))
 			{
-				if (!pipe_builtins(tmp, *env, &p_ids))
+				if (pipe_builtins(tmp, *env, &p_ids) == EXIT_FAILURE)
 				{
 					return (kill_child_procs(p_ids), ft_lstclear(&p_ids, del), close_previous_input(tmp), EXIT_FAILURE);
 				}
@@ -116,7 +116,7 @@ int	execute_list(t_list *lst, t_list **env)
 			else
 				t_stats.status = builtins_no_output(tmp, env);
 		}
-		else if (!execution(tmp, *env, &p_ids))
+		else if (execution(tmp, *env, &p_ids) == EXIT_FAILURE)
 		{
 			return (kill_child_procs(p_ids), ft_lstclear(&p_ids, del), close_previous_input(tmp), EXIT_FAILURE);
 		}
