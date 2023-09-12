@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_middle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:50 by takra             #+#    #+#             */
-/*   Updated: 2023/09/11 22:49:32 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/12 05:16:47 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static void	pipe_middle_infile(t_list *lst)
 {
-	t_list	*tmp;
-
-	tmp = lst;
 	if (lst->infile > 0)
 	{
 		dup2(lst->infile, 0);
@@ -50,7 +47,14 @@ int	pipe_middle(t_list *lst, char **argv, char **envp, t_list **p_ids)
 
 	pid = fork();
 	if (pid == -1)
-		return (close_pipe(lst->pipe), ft_putstr_fd("minishell : fork", 2), print_error(errno), EXIT_FAILURE);
+	{
+		close_pipe(lst->pipe);
+		if (lst->previous != NULL)
+			close(lst->previous->pipe[0]);
+		ft_putstr_fd("minishell : fork", 2);
+		print_error(errno);
+		return (EXIT_FAILURE);
+	}
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);

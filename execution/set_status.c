@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 22:56:41 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/08 23:00:07 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/12 05:13:40 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@ void	set_status(int status)
 {
 	if (WIFEXITED(status))
 		t_stats.status = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
+	else if (WIFSIGNALED(status))
 	{
 		t_stats.status = WTERMSIG(status) + 128;
-		if (status == -2)
-			t_stats.status = 126;
+		if (WCOREDUMP(status))
+			ft_putstr_fd("Quit (core dumped)\n", 1);
 	}
-	if (t_stats.status == 131)
+	else if (WIFSTOPPED(status))
+		t_stats.status = WSTOPSIG(status) + 128;
+	else
 	{
-		ft_putstr_fd("Quit: 3\n", 1);
+		if (WIFCONTINUED(status))
+			ft_putstr_fd("child continued\n", 1);
 	}
 }

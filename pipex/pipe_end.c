@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_end.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:44 by takra             #+#    #+#             */
-/*   Updated: 2023/09/11 22:49:25 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/12 05:13:32 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static void	pipe_end_infile(t_list *lst)
 {
-	t_list	*tmp;
-
-	tmp = lst;
 	if (lst->infile > 0)
 	{
 		dup2(lst->infile, 0);
@@ -46,7 +43,14 @@ int	pipe_end(t_list *lst, char **argv, char **envp, t_list **p_ids)
 
 	pid = fork();
 	if (pid == -1)
-		return (close_pipe(lst->pipe), ft_putstr_fd("minishell : fork", 2), print_error(errno), EXIT_FAILURE);
+	{
+		close_pipe(lst->pipe);
+		if (lst->previous != NULL)
+			close(lst->previous->pipe[0]);
+		ft_putstr_fd("minishell : fork", 2);
+		print_error(errno);
+		return (EXIT_FAILURE);
+	}
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -59,11 +63,6 @@ int	pipe_end(t_list *lst, char **argv, char **envp, t_list **p_ids)
 	close_pipe(lst->pipe);
 	if (lst->previous != NULL)
 		close(lst->previous->pipe[0]);
-	t_stats.flag_sigint = 1;
-	waitpid(pid, &(t_stats.status), 0);
-	if (WIFSIGNALED(t_stats.status))
-		t_stats.status = WTERMSIG(t_stats.status) + 128;
-	t_stats.flag_sigint = 0;
 	ft_lstadd_back(p_ids, ft_lstnew(NULL, ft_itoa((int)pid)));
 	return (EXIT_SUCCESS);
 }

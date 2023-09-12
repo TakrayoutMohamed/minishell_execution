@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/11 23:34:27 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/12 05:19:26 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,11 @@ int	wait_allchilds(void)
 	int	st;
 	int	st1;
 
-	st1 = t_stats.status;
 	t_stats.flag_sigint = 1;
-	while (waitpid(-1, &st, 0) != -1)
+	while (waitpid(-1, &st, WUNTRACED) != -1)
 	{
 		t_stats.flag_sigint = 0;
 		st1 = st;
-		if (WIFSIGNALED(st))
-		{
-			st1 = t_stats.status;
-		}
 		t_stats.flag_sigint = 1;
 	}
 	t_stats.flag_sigint = 0;
@@ -127,6 +122,7 @@ int	execute_list(t_list *lst, t_list **env)
 		}
 		tmp = tmp->next;
 	}
+	ft_lstclear(&p_ids, del);
 	set_status(wait_allchilds());
 	return (EXIT_SUCCESS);
 }
