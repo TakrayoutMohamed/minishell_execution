@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_beginning.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:33 by takra             #+#    #+#             */
-/*   Updated: 2023/09/13 21:34:06 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:28:10 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 static void	pipe_beginning_infile(t_list *lst)
 {
-	if (lst->infile == -1)
-		close(0);
+	// if (lst->infile == -1)
+	// 	close(0);
 	if (lst->infile > 0)
 	{
 		dup2(lst->infile, 0);
 		close(lst->infile);
+	}
+	else
+	{
+		dup2(lst->pipe[0], 0);
 	}
 	close(lst->pipe[0]);
 }
@@ -33,7 +37,8 @@ static void	pipe_beginning_outfile(t_list *lst)
 	}
 	else
 	{
-		dup2(lst->pipe[1], 1);
+		if (lst->infile != -1)
+			dup2(lst->pipe[1], 1);
 	}
 	close(lst->pipe[1]);
 }
