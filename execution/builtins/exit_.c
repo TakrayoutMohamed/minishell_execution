@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:23 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:47:24 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/13 00:52:53 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	exit_(t_list *cmd_lst)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(cmd_lst->value, 2);
 		ft_putstr_fd(":  numeric argument required\n", 2);
-		t_stats.status = 255;
-		exit (255);
+		t_stats.status = 2;
+		exit (2);
 	}
 	real_exit_value = (unsigned char) ll_int;
 	t_stats.status = real_exit_value;

@@ -1,7 +1,7 @@
 #include "./../libminishell.h"
 void foo(void)
 {
-	system("leaks execution_lst");
+	// system("leaks execution_lst");
 }
 
 // void	print_lst(t_list *lst)
@@ -35,24 +35,24 @@ int main(int argc, char **argv, char **env)
 	ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
 	lst->infile =-2;
 	lst->outfile =-2;
-	// ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
-	// ft_lstlast(lst)->infile =-2;
-	// ft_lstlast(lst)->outfile =-2;
+	ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
+	ft_lstlast(lst)->infile =-2;
+	ft_lstlast(lst)->outfile =-2;
 	// ft_lstadd_back(&lst, ft_lstnew(NULL, NULL));
 	// ft_lstlast(lst)->infile =-2;
 	// ft_lstlast(lst)->outfile =-2;
 
 	/*the first command*/
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("fadsfads")));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("fadsfad")));
-	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("fadsfas")));
+	ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("env")));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("fadsfad")));
+	// ft_lstadd_back(&cmd, ft_lstnew(NULL, ft_strdup("fadsfas")));
 	lst->cmd = cmd;
 
-	// /*the second command*/
-	// ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("env")));
-	// // ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("PWD")));
-	// // ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("-a")));
-	// lst->next->cmd = cmd1;
+	/*the second command*/
+	ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("pwd")));
+	// ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("PWD")));
+	// ft_lstadd_back(&cmd1, ft_lstnew(NULL, ft_strdup("-a")));
+	lst->next->cmd = cmd1;
 
 	// /*the third command*/
 	// ft_lstadd_back(&cmd2, ft_lstnew(NULL, ft_strdup("grep")));

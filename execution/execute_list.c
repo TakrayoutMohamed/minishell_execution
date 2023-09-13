@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 22:57:49 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/13 02:48:34 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,19 @@ int	wait_allchilds(void)
 	int	st;
 	int	st1;
 
-	sigemptyset(&st);
+	// sigemptyset(((sigset_t)&st));
 	st1 = t_stats.status;
 	t_stats.flag_sigint = 1;
 	while (waitpid(-1, &st, 0) != -1)
 	{
 		t_stats.flag_sigint = 0;
-		st1 = st;
+		if (WIFSIGNALED(st))
+		{
+			if (WTERMSIG(st) == SIGINT || WTERMSIG(st) == SIGINT)
+				st1 = st;
+		}
+		else
+			st1 = st;
 		t_stats.flag_sigint = 1;
 	}
 	t_stats.flag_sigint = 0;
@@ -74,7 +80,7 @@ int	execute_list(t_list *lst, t_list **env)
 	{
 		if (is_builtins(tmp->cmd))
 		{
-			if (pipe(lst->pipe) == -1)
+			if (pipe(tmp->pipe) == -1)
 				return (print_error(errno), t_stats.status = 1, EXIT_FAILURE);
 			t_stats.status = 0;
 			if (is_output_builtins(tmp, tmp->cmd, tmp->cmd->value))
@@ -88,7 +94,7 @@ int	execute_list(t_list *lst, t_list **env)
 			}
 			else
 			{
-				ft_putstr_fd("builtins no output\n", 2);
+				// ft_putstr_fd("builtins no output\n", 2);
 				t_stats.status = builtins_no_output(tmp, env);
 			}
 		}

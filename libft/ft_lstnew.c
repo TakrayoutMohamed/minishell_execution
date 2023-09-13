@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 03:24:16 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/11 19:11:05 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/13 01:50:55 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,14 @@ t_list	*ft_lstnew(char *key, char *value)
 	if (!p)
 		return (NULL);
 	p->cmd = NULL;
-	p->key = key;
-	p->value = value;
+	if (key)
+		p->key = key;
+	else
+		p->key = NULL;
+	if (value)
+		p->value = value;
+	else
+		p->value = NULL;
 	p->next = NULL;
 	p->previous = NULL;
 	return (p);

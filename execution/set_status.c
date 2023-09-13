@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 22:56:41 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/12 05:13:40 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/13 02:56:59 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_status(int status)
 	else if (WIFSIGNALED(status))
 	{
 		t_stats.status = WTERMSIG(status) + 128;
-		if (WCOREDUMP(status))
+		if (t_stats.status == 131)
 			ft_putstr_fd("Quit (core dumped)\n", 1);
 	}
 	else if (WIFSTOPPED(status))
@@ -29,4 +29,6 @@ void	set_status(int status)
 		if (WIFCONTINUED(status))
 			ft_putstr_fd("child continued\n", 1);
 	}
+	if (status == -2)
+		t_stats.status = 126;
 }
