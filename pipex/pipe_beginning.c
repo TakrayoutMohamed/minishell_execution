@@ -6,7 +6,7 @@
 /*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:33 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 23:02:51 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:55:35 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	pipe_beginning_outfile(t_list *lst)
 		dup2(lst->outfile, 1);
 		close(lst->outfile);
 	}
-	else
+	else if (lst->outfile == -2)
 	{
 		dup2(lst->pipe[1], 1);
 	}

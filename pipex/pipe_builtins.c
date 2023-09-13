@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:39 by takra             #+#    #+#             */
-/*   Updated: 2023/09/13 02:40:55 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/13 17:57:16 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	pipe_builtins_outfile(t_list *lst)
 		dup2(lst->outfile, 1);
 		close(lst->outfile);
 	}
-	else if (lst->next != NULL)
+	else if (lst->next != NULL && lst->outfile == -2)
 	{
 		dup2(lst->pipe[1], 1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_middle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:50 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 05:16:47 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/13 17:58:28 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	pipe_middle_outfile(t_list *lst)
 		dup2(lst->outfile, 1);
 		close(lst->outfile);
 	}
-	else if (lst->next != NULL)
+	else if (lst->next != NULL && lst->outfile == -2)
 	{
 		dup2(lst->pipe[1], 1);
 	}
