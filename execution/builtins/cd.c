@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:47:18 by takra             #+#    #+#             */
-/*   Updated: 2023/09/13 00:51:35 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/13 18:20:55 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,16 +120,10 @@ void	cd(t_list *cmd_lst, t_list **env)
 		t_stats.status = 0;
 		cd_no_parametre(env);
 	}
-	else if (ft_lstsize(cmd_lst) == 2)
+	else if (ft_lstsize(cmd_lst) >= 2)
 	{
 		tmp = tmp->next;
 		t_stats.status = 0;
 		cd_with_paramitre(tmp, env);
-	}
-	else
-	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		t_stats.status = 256;
-		return ;
 	}
 }
