@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:20 by takra             #+#    #+#             */
-/*   Updated: 2023/09/14 06:26:11 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 06:49:24 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static bool	is_cmd_in_dir(char *path, char *program)
 	char			*full_path;
 
 	full_path = NULL;
+	if (is_dir(program))
+		return (false);
 	if (!is_with_path(program))
 	{
 		pseudo_path = ft_strjoin("/", program);
