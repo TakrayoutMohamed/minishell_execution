@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+         #
+#    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/09/12 19:35:13 by mohtakra         ###   ########.fr        #
+#    Updated: 2023/09/14 05:12:00 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRC= $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 		$(PATHBUILT)builtins_no_output.c \
 	 $(PATHPIPE)pipe_beginning.c $(PATHPIPE)pipe_middle.c $(PATHPIPE)pipe_end.c $(PATHPIPE)pipe_builtins.c\
 	 	$(PATHPIPE)read_from_fd.c $(PATHPIPE)close_pipe.c \
-	 $(PATHERR)print_error.c $(PATHERR)print_strerror_set_status.c
+	 $(PATHERR)print_error.c $(PATHERR)print_strerror_set_status.c\
+	 $(PATHERR)print_error_notfound.c $(PATHERR)print_error_nofiledir.c $(PATHERR)print_error_permission.c
 
 
 

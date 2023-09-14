@@ -6,11 +6,25 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:20 by takra             #+#    #+#             */
-/*   Updated: 2023/09/02 18:49:21 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 05:59:54 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../libminishell.h"
+
+bool	is_with_path(char *str)
+{
+	if (str)
+	{
+		while (*str)
+		{
+			if (*str == '/')
+				return (true);
+			str++;
+		}
+	}
+	return (false);
+}
 
 /*return true if the program in the path is exist and its executable*/
 static bool	is_cmd_in_dir(char *path, char *program)
@@ -18,23 +32,19 @@ static bool	is_cmd_in_dir(char *path, char *program)
 	char			*pseudo_path;
 	char			*full_path;
 
-	if (access(program, F_OK | X_OK) == 0)
-		return (true);
-	pseudo_path = ft_strjoin("/", program);
-	full_path = ft_strjoin(path, pseudo_path);
-	free(pseudo_path);
+	full_path = NULL;
+	if (!is_with_path(program))
+	{
+		pseudo_path = ft_strjoin("/", program);
+		full_path = ft_strjoin(path, pseudo_path);
+		free(pseudo_path);
+	}
+	else
+		full_path = ft_strdup(program);
+	// printf("full path = %s existance %d\n", full_path, access(full_path, F_OK));
 	if (access(full_path, F_OK) == 0)
 	{
-		if (access(full_path, X_OK) == 0)
-		{
-			t_stats.status = 0;
-			return (free(full_path), true);
-		}
-		else
-		{
-			t_stats.status = 126;
-			return (free(full_path), true);
-		}
+		return (free(full_path), true);
 	}
 	free(full_path);
 	return (false);
@@ -63,8 +73,8 @@ static char	*path_of_cmd(t_list *env, char *cmd)
 			break ;
 		}
 	}
-	if (path == NULL)
-		t_stats.status = 127;
+	// if (path == NULL)
+	// 	t_stats.status = 127;
 	return (ft_freematrix(matrix), path);
 }
 
@@ -77,25 +87,26 @@ char	*get_path_of_cmd(t_list *env, char *cmd)
 	char	*path;
 
 	path = NULL;
-	if (is_cmd_in_dir("", cmd))
-		return (ft_strdup(cmd));
-	if (is_variable_exists("PATH", env))
+	if (is_with_path(cmd))
+	{
+		if (is_cmd_in_dir("", cmd) && access(cmd, X_OK) == -1)
+			return (print_error_permission(cmd), NULL);
+		else if (is_cmd_in_dir("", cmd) && access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+	}
+	else if (is_variable_exists("PATH", env))
 	{
 		path = path_of_cmd(env, cmd);
-		if (path == NULL || (path != NULL && t_stats.status == 126))
+		if (path == NULL)
 		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(cmd, 2);
-			if (path == NULL)
-				ft_putstr_fd(": command not found\n", 2);
-			else
-				ft_putstr_fd(": Permission denied\n", 2);
+			if (is_cmd_in_dir("./", cmd) && access(cmd, X_OK) == 0)
+				return (ft_strdup(cmd));
+			print_error_notfound(cmd);
 		}
+		else if (access(path, X_OK) == -1)
+			print_error_permission(path);
 		return (path);
 	}
-	t_stats.status = 127;
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	print_error_nofiledir(cmd);
 	return (path);
 }

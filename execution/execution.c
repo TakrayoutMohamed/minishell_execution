@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 17:15:09 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/14 05:41:25 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	execution(t_list *lst, t_list *env, t_list **p_ids)
 	{
 		matrix[0] = adding_path_to_argv(env, matrix);
 	}
-	if (matrix && *matrix && is_dir(matrix[0]))
+	if (matrix && *matrix && is_dir(matrix[0]) && strchr(matrix[0], '/'))
 	{
 		t_stats.status = -2;
 		ft_putstr_fd("minishell: ", 2);
