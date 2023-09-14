@@ -6,7 +6,7 @@
 #    By: takra <takra@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/29 22:02:20 by mohtakra          #+#    #+#              #
-#    Updated: 2023/09/14 05:12:00 by takra            ###   ########.fr        #
+#    Updated: 2023/09/14 06:39:39 by takra            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ PATHERR=./error_handler/
 
 SRC= $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 	 $(PATHEXEC)convert_env_to_list.c $(PATHEXEC)get_path_of_cmd.c $(PATHEXEC)set_status.c\
-	 $(PATHEXEC)kill_child_proccs.c\
+	 $(PATHEXEC)kill_child_proccs.c $(PATHEXEC)is_dir.c\
 	 $(PATHEXEC)convert_list_to_matrix.c $(PATHEXEC)convert_matrix_to_list.c\
 		$(PATHBUILT)is_builtins.c $(PATHBUILT)is_cd.c $(PATHBUILT)is_echo.c $(PATHBUILT)is_env.c\
 		$(PATHBUILT)is_exit.c $(PATHBUILT)is_export.c $(PATHBUILT)is_pwd.c $(PATHBUILT)is_unset.c\
@@ -39,7 +39,7 @@ SRC= $(PATHEXEC)execution.c $(PATHEXEC)execute_list.c \
 		$(PATHBUILT)export.c $(PATHBUILT)pwd.c $(PATHBUILT)unset.c $(PATHBUILT)update_shlvl.c\
 		$(PATHBUILT)builtins_no_output.c \
 	 $(PATHPIPE)pipe_beginning.c $(PATHPIPE)pipe_middle.c $(PATHPIPE)pipe_end.c $(PATHPIPE)pipe_builtins.c\
-	 	$(PATHPIPE)read_from_fd.c $(PATHPIPE)close_pipe.c \
+	 	$(PATHPIPE)read_from_fd.c $(PATHPIPE)close_pipe.c $(PATHPIPE)fork_failure.c\
 	 $(PATHERR)print_error.c $(PATHERR)print_strerror_set_status.c\
 	 $(PATHERR)print_error_notfound.c $(PATHERR)print_error_nofiledir.c $(PATHERR)print_error_permission.c
 

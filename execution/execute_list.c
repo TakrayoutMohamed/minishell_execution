@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:08 by takra             #+#    #+#             */
-/*   Updated: 2023/09/13 02:48:34 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 06:38:43 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	wait_allchilds(void)
 	int	st;
 	int	st1;
 
-	// sigemptyset(((sigset_t)&st));
 	st1 = t_stats.status;
 	t_stats.flag_sigint = 1;
 	while (waitpid(-1, &st, 0) != -1)
@@ -61,6 +60,13 @@ int	wait_allchilds(void)
 	return (st1);
 }
 
+void	pipe_fork_failure(t_list *p_ids)
+{
+	kill_child_proccs(p_ids);
+	wait_allchilds();
+	ft_lstclear(&p_ids, del);
+}
+
 /*
 * in position variable we store three value 
 * 1 : the bigening of the list 
@@ -71,11 +77,9 @@ int	execute_list(t_list *lst, t_list **env)
 {
 	t_list	*tmp;
 	t_list	*p_ids;
-	int		abnormalret;
 
 	tmp = lst;
 	p_ids = NULL;
-	abnormalret = 0;
 	while (tmp)
 	{
 		if (is_builtins(tmp->cmd))
@@ -86,34 +90,14 @@ int	execute_list(t_list *lst, t_list **env)
 			if (is_output_builtins(tmp, tmp->cmd, tmp->cmd->value))
 			{
 				if (pipe_builtins(tmp, *env, &p_ids) == EXIT_FAILURE)
-				{
-					ft_putstr_fd("failure fork builtins\n", 2);
-					abnormalret = 1;
-					break ;
-				}
+					return (pipe_fork_failure(p_ids), EXIT_FAILURE);
 			}
 			else
-			{
-				// ft_putstr_fd("builtins no output\n", 2);
 				t_stats.status = builtins_no_output(tmp, env);
-			}
 		}
 		else if (execution(tmp, *env, &p_ids) == EXIT_FAILURE)
-		{
-			ft_putstr_fd("failure fork exec\n", 2);
-			abnormalret = 1;
-			break ;
-		}
+			return (pipe_fork_failure(p_ids), EXIT_FAILURE);
 		tmp = tmp->next;
 	}
-	if (abnormalret == 1)
-	{
-		kill_child_proccs(p_ids);
-		wait_allchilds();
-		ft_lstclear(&p_ids, del);
-		return (EXIT_FAILURE);
-	}
-	set_status(wait_allchilds());
-	ft_lstclear(&p_ids, del);
-	return (EXIT_SUCCESS);
+	return (set_status(wait_allchilds()), ft_lstclear(&p_ids, del), 0);
 }

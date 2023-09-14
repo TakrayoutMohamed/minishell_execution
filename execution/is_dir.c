@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error_nofiledir.c                            :+:      :+:    :+:   */
+/*   is_dir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 06:16:15 by takra             #+#    #+#             */
-/*   Updated: 2023/09/14 06:16:17 by takra            ###   ########.fr       */
+/*   Created: 2023/09/14 06:29:20 by takra             #+#    #+#             */
+/*   Updated: 2023/09/14 06:29:28 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./liberror.h"
+#include "./../libminishell.h"
 
-void	print_error_nofiledir(char *cmd)
+bool	is_dir(char *str)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	print_strerror_set_status(": No such file or directory\n", 127);
+	struct stat	detail;
+
+	if (stat(str, &detail) != -1)
+	{
+		if (S_ISDIR(detail.st_mode))
+			return (true);
+	}
+	return (false);
 }

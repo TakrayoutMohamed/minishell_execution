@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:20 by takra             #+#    #+#             */
-/*   Updated: 2023/09/14 05:59:54 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 06:26:11 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static bool	is_cmd_in_dir(char *path, char *program)
 	}
 	else
 		full_path = ft_strdup(program);
-	// printf("full path = %s existance %d\n", full_path, access(full_path, F_OK));
 	if (access(full_path, F_OK) == 0)
 	{
 		return (free(full_path), true);
@@ -73,8 +72,6 @@ static char	*path_of_cmd(t_list *env, char *cmd)
 			break ;
 		}
 	}
-	// if (path == NULL)
-	// 	t_stats.status = 127;
 	return (ft_freematrix(matrix), path);
 }
 

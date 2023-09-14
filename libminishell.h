@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libminishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:54:42 by mohtakra          #+#    #+#             */
-/*   Updated: 2023/09/12 19:44:01 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/14 06:29:50 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ void	close_pipe(int pipe_fd[2]);
 int		read_from_fd(int fd);
 void	set_status(int status);
 void	kill_child_proccs(t_list *p_ids);
+void	fork_failure(t_list *lst);
+bool	is_dir(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:33 by takra             #+#    #+#             */
-/*   Updated: 2023/09/14 06:13:44 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 06:26:44 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,7 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp, t_list **p_ids)
 
 	pid = fork();
 	if (pid == -1)
-	{
-		close_pipe(lst->pipe);
-		if (lst->previous != NULL)
-			close(lst->previous->pipe[0]);
-		ft_putstr_fd("minishell : fork", 2);
-		print_error(errno);
-		return (EXIT_FAILURE);
-	}
+		return (fork_failure(lst), EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);

@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error_nofiledir.c                            :+:      :+:    :+:   */
+/*   fork_failure.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 06:16:15 by takra             #+#    #+#             */
-/*   Updated: 2023/09/14 06:16:17 by takra            ###   ########.fr       */
+/*   Created: 2023/09/14 06:24:52 by takra             #+#    #+#             */
+/*   Updated: 2023/09/14 06:24:53 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./liberror.h"
+#include "./../libminishell.h"
 
-void	print_error_nofiledir(char *cmd)
+void	fork_failure(t_list *lst)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	print_strerror_set_status(": No such file or directory\n", 127);
+	close_pipe(lst->pipe);
+	if (lst->previous != NULL)
+		close(lst->previous->pipe[0]);
+	ft_putstr_fd("minishell : fork", 2);
+	print_error(errno);
 }

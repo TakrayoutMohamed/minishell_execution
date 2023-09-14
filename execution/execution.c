@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/14 05:41:25 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 06:28:36 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@ static char	**convert_env_lst_to_env_matrix(t_list *env)
 	}
 	matrix[i] = NULL;
 	return (matrix);
-}
-
-bool	is_dir(char *str)
-{
-	struct stat	detail;
-
-	if (stat(str, &detail) != -1)
-	{
-		if (S_ISDIR(detail.st_mode))
-			return (true);
-	}
-	return (false);
 }
 
 int	get_position(t_list *lst, t_list *tmp)
