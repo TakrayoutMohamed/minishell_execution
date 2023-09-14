@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:14 by takra             #+#    #+#             */
-/*   Updated: 2023/09/14 06:28:36 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 17:14:40 by mohtakra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	execution(t_list *lst, t_list *env, t_list **p_ids)
 		t_stats.status = -2;
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(matrix[0], 2);
-		ft_putstr_fd(": Is a directory\n", 2);
+		ft_putstr_fd(": is a directory\n", 2);
 	}
 	else if (execute_pipes(lst, matrix, matrixp, p_ids) == EXIT_FAILURE)
 		return (ft_freematrix(matrix), ft_freematrix(matrixp), EXIT_FAILURE);
