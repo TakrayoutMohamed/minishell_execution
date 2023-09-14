@@ -6,7 +6,7 @@
 /*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:33 by takra             #+#    #+#             */
-/*   Updated: 2023/09/13 23:28:10 by takra            ###   ########.fr       */
+/*   Updated: 2023/09/14 06:13:44 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	pipe_beginning_infile(t_list *lst)
 {
-	// if (lst->infile == -1)
-	// 	close(0);
 	if (lst->infile > 0)
 	{
 		dup2(lst->infile, 0);
@@ -23,7 +21,8 @@ static void	pipe_beginning_infile(t_list *lst)
 	}
 	else
 	{
-		dup2(lst->pipe[0], 0);
+		if (lst->infile == -1)
+			dup2(lst->pipe[0], 0);
 	}
 	close(lst->pipe[0]);
 }
@@ -64,7 +63,7 @@ int	pipe_beginning(t_list *lst, char **argv, char **envp, t_list **p_ids)
 		pipe_beginning_infile(lst);
 		pipe_beginning_outfile(lst);
 		execve(argv[0], argv, envp);
-		exit(127);
+		exit(t_stats.status);
 	}
 	ft_lstadd_back(p_ids, ft_lstnew(NULL, ft_itoa((int)pid)));
 	close(lst->pipe[1]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_middle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:50 by takra             #+#    #+#             */
-/*   Updated: 2023/09/13 21:32:45 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/14 05:42:18 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	pipe_middle(t_list *lst, char **argv, char **envp, t_list **p_ids)
 		pipe_middle_infile(lst);
 		pipe_middle_outfile(lst);
 		execve(argv[0], argv, envp);
-		exit(127);
+		exit(t_stats.status);
 	}
 	close(lst->pipe[1]);
 	if (lst->previous != NULL)
