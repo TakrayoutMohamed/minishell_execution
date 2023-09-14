@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_end.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohtakra <mohtakra@student.42.fr>          +#+  +:+       +#+        */
+/*   By: takra <takra@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 18:49:44 by takra             #+#    #+#             */
-/*   Updated: 2023/09/12 23:03:08 by mohtakra         ###   ########.fr       */
+/*   Updated: 2023/09/14 02:54:06 by takra            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ static void	pipe_end_outfile(t_list *lst)
 	{
 		dup2(lst->outfile, 1);
 		close(lst->outfile);
+	}
+	else
+	{
+		if (lst->outfile == -1)
+		{
+			dup2(lst->pipe[1], 1);
+		}
 	}
 	close(lst->pipe[1]);
 }
